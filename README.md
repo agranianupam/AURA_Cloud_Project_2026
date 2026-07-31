@@ -1,17 +1,24 @@
 # AURA — Autonomous University Resource Allocator
 
-**Green Cloud Resource Optimization for Smart University Data Centers**
+> **Course:** BCSE355L — Cloud Architecture Design
+> **Instructor:** Dr. Priya V
+> **Academic Year:** 2026–2027
 
-BCSE355L — Cloud Architecture Design
-Course Instructor: Dr. Priya V
+---
+
+## Project Title
+
+**AURA — Autonomous University Resource Allocator: Green Cloud Resource Optimization for Smart University Data Centers**
 
 ---
 
 ## Team Members
 
-24BIT0539 Agrani Anupam  
-24BIT0548 Prakul Jain  
-24BIT0537 Pranav Hasban
+| Reg. No. | Name | Role | Primary Responsibilities |
+|---|---|---|---|
+| 24BIT0537 | **Pranav Hasban** | Student 1 — [TODO: confirm role] | [TODO: confirm — e.g. Frontend Development] |
+| 24BIT0548 | **Prakul Jain** | Student 2 — [TODO: confirm role] | [TODO: confirm — e.g. Backend / Database] |
+| 24BIT0539 | **Agrani Anupam** | Student 3 — Dataset & ML | Dataset collection/preprocessing, demand-forecasting model, AWS ML integration |
 
 ---
 
@@ -32,19 +39,61 @@ University data centers handle highly variable workloads (LMS traffic, research 
 
 ---
 
+## Proposed Architecture / Framework
+
+![AWS Architecture Diagram](architecture/AWS_Architecture.png)
+![System Architecture Diagram](architecture/System_Architecture.png)
+
+### Architecture Overview
+
+The AURA framework is organized into **four layers**:
+
+#### 1. Data Ingestion Layer
+- **IoT & Utility Sensors:** Captures real-time telemetry from campus buildings and data-center hardware.
+- **Usage Logs & Historical Traces:** LMS traffic, research computing workloads, and historical resource-utilization data.
+- **Data Ingestion Layer (AWS):** Normalizes and routes incoming data via Amazon API Gateway.
+
+#### 2. Authentication & API Layer
+- **Amazon Cognito:** Authenticates dashboard users (students, faculty, facility staff).
+- **AWS IAM:** Enforces least-privilege access control across all AWS services.
+- **Amazon API Gateway:** Exposes REST APIs connecting the frontend, backend, and ML services.
+
+#### 3. Processing & AI/ML Core
+- **AWS Lambda:** Runs serverless scaling/scheduling logic in response to demand predictions.
+- **Amazon EC2:** Hosts the AURA web application/backend.
+- **Amazon SageMaker:** Trains and deploys the demand-forecasting model (predicting VM/resource utilization patterns from historical data).
+- **Carbon-Intensity-Aware Scheduling Logic:** Combines forecasted demand with real-time carbon-intensity data to decide when/where to run energy-intensive tasks.
+
+#### 4. Storage, Monitoring & Presentation Layer
+- **Amazon S3:** Stores datasets and trained model artifacts.
+- **Amazon DynamoDB:** Stores application and usage data.
+- **Amazon CloudWatch:** Monitors resource usage and system health in real time.
+- **Amazon SNS:** Sends alerts/notifications (e.g. scaling events, anomalies) to facility managers.
+- **Dashboard (React):** Visualizes energy/cost savings and utilization metrics for administrators.
+
+### Workflow Summary
+
+```
+[Campus Sensors / Usage Logs] → [Data Ingestion] → [Demand Forecasting Model]
+        → [Resource Allocation & Scheduling Engine] → [Carbon-Aware Scheduling Logic]
+                → [Auto-Scaling Action] + [Alerts] → [Dashboard / Facility Manager]
+```
+
+If forecasted demand shifts significantly, the scheduling engine re-evaluates the allocation plan, ensuring the system stays responsive to real academic-calendar-driven demand changes rather than relying on static provisioning.
+
+---
+
 ## Technology Stack
 
-**Cloud Services (AWS):** EC2, S3, Lambda, SageMaker, CloudWatch, SNS, API Gateway
-
-**Backend:** Node.js, Express
-
-**Frontend:** React
-
-**Database:** Amazon DynamoDB
-
-**ML / AI:** Python, TensorFlow
-
-**Other tools:** Git, GitHub, Docker, Jupyter Notebook, Postman
+| Layer | Technology | Purpose |
+|---|---|---|
+| **Cloud Services (AWS)** | EC2, S3, Lambda, SageMaker, CloudWatch, SNS, API Gateway | Hosting, storage, compute, ML training/deployment, monitoring, notifications, API exposure |
+| **Authentication** | Amazon Cognito, AWS IAM | User authentication and least-privilege access control |
+| **Backend** | Node.js, Express | REST API and application logic |
+| **Frontend** | React | Admin/facility dashboard for energy and cost visualization |
+| **Database** | Amazon DynamoDB | Application and usage data storage |
+| **ML / AI** | Python, TensorFlow | Demand-forecasting model training and evaluation |
+| **Other Tools** | Git, GitHub, Docker, Jupyter Notebook, Postman | Version control, containerization, model experimentation, API testing |
 
 ---
 
@@ -53,13 +102,13 @@ University data centers handle highly variable workloads (LMS traffic, research 
 - **Dataset Name:** Azure Public Dataset V2 (VM CPU Utilization Traces, 2019)
 - **Source:** Microsoft Azure (official research release)
 - **URL:** https://github.com/Azure/AzurePublicDataset/blob/master/AzurePublicDatasetV2.md
-- **Size:** 235GB
-- **Number of Records:** Approx 2.6 million VMs and about 1.9 billion utilization readings
-- **Number of Features:** Core fields include 5-minute VM CPU utilization readings, plus a VM information table and a subscription table (with some fields encrypted/anonymized), roughly 6-8 usable columns once the CSV (timestamp, VM ID, CPU avg/max, VM category, core count, memory) is inspected.
+- **Size:** ~235GB (per source repository)
+- **Number of Records:** ~2.6 million VMs and ~1.9 billion utilization readings
+- **Number of Features:** 5-minute VM CPU utilization readings, plus VM information and subscription tables (~6-8 usable columns once inspected)
 - **Data Type:** Time-series, tabular (CSV)
-- **License:** Released by Microsoft specifically for the benefit of the research and academic community.
-- **Purpose of use:** Training the demand-forecasting component of AURA to learn VM resource utilization patterns to predict future demand and enable proactive, energy-aware scheduling decisions.
-- **Preprocessing required:** Downsampling to a manageable subset, resampling to consistent time intervals, normalizing CPU utilization values, handling anonymized/encrypted metadata fields, filtering to relevant columns only.
+- **License:** Released by Microsoft for the benefit of the research and academic community
+- **Purpose of Use:** Trains AURA's demand-forecasting model to learn VM resource utilization patterns, enabling proactive, energy-aware scheduling
+- **Preprocessing Required:** Downsampling to a manageable subset, resampling to consistent time intervals, normalizing CPU utilization values, handling anonymized/encrypted metadata fields, filtering to relevant columns only
 
 ---
 
@@ -71,13 +120,58 @@ AURA_Cloud_Project_2026/
 ├── LICENSE
 ├── .gitignore
 ├── docs/
+│   └── README.md
 ├── architecture/
+│   ├── AWS_Architecture.png
+│   ├── System_Architecture.png
+│   └── README.md
 ├── dataset/
+│   ├── raw/
+│   │   └── README.md
+│   ├── processed/
+│   │   └── README.md
+│   └── README.md
 ├── src/
 │   ├── frontend/
+│   │   └── README.md
 │   ├── backend/
+│   │   └── README.md
 │   ├── ml_model/
+│   │   └── README.md
 │   └── aws/
+│       └── README.md
 ├── results/
+│   └── README.md
 └── presentation/
+    └── README.md
 ```
+
+---
+
+## Getting Started
+
+> **Note:** This repository is currently in the **planning and documentation phase** (Phase I). Code implementation will follow in a later phase, based on the approved architecture.
+
+### Prerequisites (planned)
+- Python 3.10+
+- Node.js 18+
+- AWS Account (EC2, S3, Lambda, SageMaker, DynamoDB access)
+- Docker
+
+### Setup (Coming Soon)
+```bash
+git clone https://github.com/<your-username>/AURA_Cloud_Project_2026.git
+cd AURA_Cloud_Project_2026
+```
+
+---
+
+## License
+
+This project is developed for academic purposes as part of the **BCSE355L — Cloud Architecture Design** course at VIT Vellore.
+
+---
+
+## Contact
+
+For queries regarding this project, please reach out to any of the team members listed above.
