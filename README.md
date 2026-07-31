@@ -2,7 +2,7 @@
 
 > **Course:** BCSE355L — Cloud Architecture Design  
 > **Instructor:** Dr. Priya V  
-> **Academic Year:** 2025–2026  
+> **Academic Year:** 2026–2027
 
 ---
 
