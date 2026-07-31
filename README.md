@@ -2,7 +2,7 @@
 
 > **Course:** BCSE355L — Cloud Architecture Design
 > **Instructor:** Dr. Priya V
-> **Academic Year:** 2026–2027
+> **Academic Year:** 2025–2026
 
 ---
 
@@ -16,9 +16,9 @@
 
 | Reg. No. | Name | Role | Primary Responsibilities |
 |---|---|---|---|
-| 24BIT0537 | **Pranav Hasban** | Student 1 — [TODO: confirm role] | [TODO: confirm — e.g. Frontend Development] |
-| 24BIT0548 | **Prakul Jain** | Student 2 — [TODO: confirm role] | [TODO: confirm — e.g. Backend / Database] |
-| 24BIT0539 | **Agrani Anupam** | Student 3 — Dataset & ML | Dataset collection/preprocessing, demand-forecasting model, AWS ML integration |
+| 24BIT0537 | **Pranav Hasban** | Frontend | Frontend development |
+| 24BIT0548 | **Prakul Jain** | Backend & Database | Backend development, database integration |
+| 24BIT0539 | **Agrani Anupam** | AI / Machine Learning | Dataset collection/preprocessing, demand-forecasting model |
 
 ---
 
@@ -144,24 +144,6 @@ AURA_Cloud_Project_2026/
 │   └── README.md
 └── presentation/
     └── README.md
-```
-
----
-
-## Getting Started
-
-> **Note:** This repository is currently in the **planning and documentation phase** (Phase I). Code implementation will follow in a later phase, based on the approved architecture.
-
-### Prerequisites (planned)
-- Python 3.10+
-- Node.js 18+
-- AWS Account (EC2, S3, Lambda, SageMaker, DynamoDB access)
-- Docker
-
-### Setup (Coming Soon)
-```bash
-git clone https://github.com/<your-username>/AURA_Cloud_Project_2026.git
-cd AURA_Cloud_Project_2026
 ```
 
 ---
