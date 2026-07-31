@@ -1,8 +1,8 @@
 # AURA — Autonomous University Resource Allocator
 
-> **Course:** BCSE355L — Cloud Architecture Design
-> **Instructor:** Dr. Priya V
-> **Academic Year:** 2025–2026
+> **Course:** BCSE355L — Cloud Architecture Design  
+> **Instructor:** Dr. Priya V  
+> **Academic Year:** 2025–2026  
 
 ---
 
@@ -151,9 +151,3 @@ AURA_Cloud_Project_2026/
 ## License
 
 This project is developed for academic purposes as part of the **BCSE355L — Cloud Architecture Design** course at VIT Vellore.
-
----
-
-## Contact
-
-For queries regarding this project, please reach out to any of the team members listed above.
