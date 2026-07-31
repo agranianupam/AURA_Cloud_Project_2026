@@ -9,8 +9,8 @@ Course Instructor: Dr. Priya V
 
 ## Team Members
 
-24BIT0539 Agrani Anupam
-24BIT0548 Prakul Jain
+24BIT0539 Agrani Anupam  
+24BIT0548 Prakul Jain  
 24BIT0537 Pranav Hasban
 
 ---
@@ -29,11 +29,6 @@ University data centers handle highly variable workloads (LMS traffic, research 
 4. Implement carbon-intensity-aware task scheduling for sustainable resource use.
 5. Provide real-time monitoring and visualization of energy/cost savings via dashboards.
 6. Ensure scalability and SLA compliance while optimizing for sustainability.
-
----
-
-## Proposed Architecture / Framework
-
 
 ---
 
