@@ -1,24 +1,3 @@
-"""
-AURA — FastAPI Prediction Service
-===================================
-Local ML microservice that exposes the LSTM prediction interface over HTTP.
-The backend (Prakul) calls this service at ML_SERVICE_URL (default: http://localhost:8000).
-
-Start:
-  uvicorn src.ml_model.deploy.fastapi_app:app --reload --port 8000
-
-  OR from inside src/ml_model/deploy/:
-  uvicorn fastapi_app:app --reload --port 8000
-
-Endpoints:
-  GET  /                       — health check
-  GET  /predict?n_steps=12     — run LSTM forecast
-  GET  /health                 — detailed health (model loaded?)
-  POST /predict                — same as GET but accepts JSON body
-
-CORS: configured to allow the frontend origin (VITE_API_BASE_URL).
-"""
-
 from __future__ import annotations
 
 import os
@@ -26,7 +5,6 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-# Allow running from any working directory
 _ml_dir = Path(__file__).resolve().parents[1]
 if str(_ml_dir) not in sys.path:
     sys.path.insert(0, str(_ml_dir))
@@ -35,9 +13,7 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from predict import predict   # noqa: E402  (after sys.path patch)
-
-# ── App ───────────────────────────────────────────────────────────────────────
+from predict import predict
 
 app = FastAPI(
     title="AURA ML Prediction Service",
@@ -45,12 +21,11 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# CORS — allow frontend + backend origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",   # Vite dev server (Pranav)
-        "http://localhost:3000",   # Express backend (Prakul)
+        "http://localhost:5173",
+        "http://localhost:3000",
         os.getenv("FRONTEND_ORIGIN", "*"),
     ],
     allow_credentials=True,
@@ -58,10 +33,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Schemas ───────────────────────────────────────────────────────────────────
 
 class PredictionRequest(BaseModel):
-    n_steps: int = Field(default=12, ge=1, le=288, description="Number of 5-min steps to forecast")
+    n_steps: int = Field(default=12, ge=1, le=288)
 
 
 class PredictionEntry(BaseModel):
@@ -81,8 +55,6 @@ class HealthResponse(BaseModel):
     model_loaded: bool
     message: str
 
-
-# ── Routes ────────────────────────────────────────────────────────────────────
 
 @app.get("/", tags=["Meta"])
 def root():
@@ -106,12 +78,8 @@ def health():
 
 @app.get("/predict", response_model=PredictionResponse, tags=["Prediction"])
 def get_predictions(
-    n_steps: int = Query(default=12, ge=1, le=288, description="Number of 5-min steps to forecast")
+    n_steps: int = Query(default=12, ge=1, le=288)
 ):
-    """
-    Run the LSTM rolling forecast and return n_steps predictions.
-    Each step represents 5 minutes into the future.
-    """
     try:
         results = predict(n_steps=n_steps)
         return PredictionResponse(
@@ -127,11 +95,8 @@ def get_predictions(
 
 @app.post("/predict", response_model=PredictionResponse, tags=["Prediction"])
 def post_predictions(body: PredictionRequest):
-    """Same as GET /predict but accepts a JSON body (useful for Prakul's backend)."""
     return get_predictions(n_steps=body.n_steps)
 
-
-# ── Dev entry point ───────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     import uvicorn
