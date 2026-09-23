@@ -19,7 +19,7 @@ def model_fn(model_dir: str) -> dict:
     import tensorflow as tf
 
     model_dir_path = Path(model_dir)
-    weights_path = model_dir_path / "model_weights.h5"
+    weights_path = model_dir_path / "model_weights.keras"
 
     if not weights_path.exists():
         raise FileNotFoundError(f"model_weights.h5 not found in {model_dir}")
