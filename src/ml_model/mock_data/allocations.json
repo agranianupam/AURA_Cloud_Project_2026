@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "resourceId": "ec2-01",
+      "service": "EC2",
+      "status": "active",
+      "capacity": 80
+    },
+    {
+      "resourceId": "ec2-02",
+      "service": "EC2",
+      "status": "active",
+      "capacity": 65
+    },
+    {
+      "resourceId": "lambda-03",
+      "service": "Lambda",
+      "status": "active",
+      "capacity": 90
+    },
+    {
+      "resourceId": "rds-04",
+      "service": "RDS",
+      "status": "idle",
+      "capacity": 40
+    },
+    {
+      "resourceId": "elasticache-05",
+      "service": "ElastiCache",
+      "status": "stopped",
+      "capacity": 0
+    }
+  ]
+}

@@ -1,0 +1,724 @@
+{
+  "data": [
+    {
+      "timestamp": "2026-08-01T00:00:00Z",
+      "utilization": 19.07,
+      "cost": 1.03,
+      "predicted": 19.24
+    },
+    {
+      "timestamp": "2026-08-01T01:00:00Z",
+      "utilization": 22.71,
+      "cost": 0.95,
+      "predicted": 20.42
+    },
+    {
+      "timestamp": "2026-08-01T02:00:00Z",
+      "utilization": 24.85,
+      "cost": 1.32,
+      "predicted": 23.45
+    },
+    {
+      "timestamp": "2026-08-01T03:00:00Z",
+      "utilization": 29.37,
+      "cost": 1.85,
+      "predicted": 29.37
+    },
+    {
+      "timestamp": "2026-08-01T04:00:00Z",
+      "utilization": 37.72,
+      "cost": 1.93,
+      "predicted": 35.92
+    },
+    {
+      "timestamp": "2026-08-01T05:00:00Z",
+      "utilization": 40.54,
+      "cost": 2.49,
+      "predicted": 43.96
+    },
+    {
+      "timestamp": "2026-08-01T06:00:00Z",
+      "utilization": 52.12,
+      "cost": 2.97,
+      "predicted": 51.84
+    },
+    {
+      "timestamp": "2026-08-01T07:00:00Z",
+      "utilization": 56.05,
+      "cost": 3.18,
+      "predicted": 59.94
+    },
+    {
+      "timestamp": "2026-08-01T08:00:00Z",
+      "utilization": 70.87,
+      "cost": 3.97,
+      "predicted": 67.89
+    },
+    {
+      "timestamp": "2026-08-01T09:00:00Z",
+      "utilization": 75.73,
+      "cost": 3.94,
+      "predicted": 76.15
+    },
+    {
+      "timestamp": "2026-08-01T10:00:00Z",
+      "utilization": 81.85,
+      "cost": 3.98,
+      "predicted": 77.87
+    },
+    {
+      "timestamp": "2026-08-01T11:00:00Z",
+      "utilization": 81.57,
+      "cost": 4.66,
+      "predicted": 82.02
+    },
+    {
+      "timestamp": "2026-08-01T12:00:00Z",
+      "utilization": 86.49,
+      "cost": 4.93,
+      "predicted": 82.67
+    },
+    {
+      "timestamp": "2026-08-01T13:00:00Z",
+      "utilization": 80.39,
+      "cost": 4.36,
+      "predicted": 83.26
+    },
+    {
+      "timestamp": "2026-08-01T14:00:00Z",
+      "utilization": 80.49,
+      "cost": 4.55,
+      "predicted": 81.37
+    },
+    {
+      "timestamp": "2026-08-01T15:00:00Z",
+      "utilization": 76.03,
+      "cost": 4.28,
+      "predicted": 75.96
+    },
+    {
+      "timestamp": "2026-08-01T16:00:00Z",
+      "utilization": 66.37,
+      "cost": 3.56,
+      "predicted": 67.17
+    },
+    {
+      "timestamp": "2026-08-01T17:00:00Z",
+      "utilization": 61.91,
+      "cost": 3.87,
+      "predicted": 60.04
+    },
+    {
+      "timestamp": "2026-08-01T18:00:00Z",
+      "utilization": 49.54,
+      "cost": 2.88,
+      "predicted": 50.35
+    },
+    {
+      "timestamp": "2026-08-01T19:00:00Z",
+      "utilization": 47.85,
+      "cost": 2.8,
+      "predicted": 44.35
+    },
+    {
+      "timestamp": "2026-08-01T20:00:00Z",
+      "utilization": 40.03,
+      "cost": 1.92,
+      "predicted": 35.61
+    },
+    {
+      "timestamp": "2026-08-01T21:00:00Z",
+      "utilization": 27.42,
+      "cost": 1.22,
+      "predicted": 30.45
+    },
+    {
+      "timestamp": "2026-08-01T22:00:00Z",
+      "utilization": 23.95,
+      "cost": 1.25,
+      "predicted": 24.23
+    },
+    {
+      "timestamp": "2026-08-01T23:00:00Z",
+      "utilization": 22.78,
+      "cost": 1.72,
+      "predicted": 21.48
+    },
+    {
+      "timestamp": "2026-08-02T00:00:00Z",
+      "utilization": 21.36,
+      "cost": 1.06,
+      "predicted": 18.59
+    },
+    {
+      "timestamp": "2026-08-02T01:00:00Z",
+      "utilization": 18.11,
+      "cost": 0.88,
+      "predicted": 22.04
+    },
+    {
+      "timestamp": "2026-08-02T02:00:00Z",
+      "utilization": 23.64,
+      "cost": 1.16,
+      "predicted": 24.98
+    },
+    {
+      "timestamp": "2026-08-02T03:00:00Z",
+      "utilization": 28.14,
+      "cost": 1.33,
+      "predicted": 26.26
+    },
+    {
+      "timestamp": "2026-08-02T04:00:00Z",
+      "utilization": 34.05,
+      "cost": 2.11,
+      "predicted": 36.37
+    },
+    {
+      "timestamp": "2026-08-02T05:00:00Z",
+      "utilization": 43.53,
+      "cost": 2.43,
+      "predicted": 43.98
+    },
+    {
+      "timestamp": "2026-08-02T06:00:00Z",
+      "utilization": 55.25,
+      "cost": 3.09,
+      "predicted": 53.34
+    },
+    {
+      "timestamp": "2026-08-02T07:00:00Z",
+      "utilization": 57.38,
+      "cost": 3.23,
+      "predicted": 61.77
+    },
+    {
+      "timestamp": "2026-08-02T08:00:00Z",
+      "utilization": 71.93,
+      "cost": 4.35,
+      "predicted": 68.21
+    },
+    {
+      "timestamp": "2026-08-02T09:00:00Z",
+      "utilization": 73.9,
+      "cost": 4.09,
+      "predicted": 77.37
+    },
+    {
+      "timestamp": "2026-08-02T10:00:00Z",
+      "utilization": 78.6,
+      "cost": 4.29,
+      "predicted": 78.45
+    },
+    {
+      "timestamp": "2026-08-02T11:00:00Z",
+      "utilization": 87.66,
+      "cost": 4.96,
+      "predicted": 84.62
+    },
+    {
+      "timestamp": "2026-08-02T12:00:00Z",
+      "utilization": 77.37,
+      "cost": 4.37,
+      "predicted": 85.57
+    },
+    {
+      "timestamp": "2026-08-02T13:00:00Z",
+      "utilization": 81.74,
+      "cost": 4.5,
+      "predicted": 82.45
+    },
+    {
+      "timestamp": "2026-08-02T14:00:00Z",
+      "utilization": 85.32,
+      "cost": 4.61,
+      "predicted": 78.56
+    },
+    {
+      "timestamp": "2026-08-02T15:00:00Z",
+      "utilization": 79.07,
+      "cost": 4.28,
+      "predicted": 74.31
+    },
+    {
+      "timestamp": "2026-08-02T16:00:00Z",
+      "utilization": 68.54,
+      "cost": 3.81,
+      "predicted": 66.39
+    },
+    {
+      "timestamp": "2026-08-02T17:00:00Z",
+      "utilization": 56.78,
+      "cost": 3.12,
+      "predicted": 61.74
+    },
+    {
+      "timestamp": "2026-08-02T18:00:00Z",
+      "utilization": 58.85,
+      "cost": 3.51,
+      "predicted": 52.42
+    },
+    {
+      "timestamp": "2026-08-02T19:00:00Z",
+      "utilization": 39.68,
+      "cost": 2.25,
+      "predicted": 43.41
+    },
+    {
+      "timestamp": "2026-08-02T20:00:00Z",
+      "utilization": 40.99,
+      "cost": 2.45,
+      "predicted": 33.23
+    },
+    {
+      "timestamp": "2026-08-02T21:00:00Z",
+      "utilization": 30.79,
+      "cost": 1.84,
+      "predicted": 31.32
+    },
+    {
+      "timestamp": "2026-08-02T22:00:00Z",
+      "utilization": 24.01,
+      "cost": 1.07,
+      "predicted": 23.07
+    },
+    {
+      "timestamp": "2026-08-02T23:00:00Z",
+      "utilization": 21.19,
+      "cost": 1.57,
+      "predicted": 20.32
+    },
+    {
+      "timestamp": "2026-08-03T00:00:00Z",
+      "utilization": 17.67,
+      "cost": 0.66,
+      "predicted": 19.98
+    },
+    {
+      "timestamp": "2026-08-03T01:00:00Z",
+      "utilization": 19.42,
+      "cost": 1.23,
+      "predicted": 21.0
+    },
+    {
+      "timestamp": "2026-08-03T02:00:00Z",
+      "utilization": 28.2,
+      "cost": 1.33,
+      "predicted": 23.79
+    },
+    {
+      "timestamp": "2026-08-03T03:00:00Z",
+      "utilization": 30.39,
+      "cost": 1.77,
+      "predicted": 29.79
+    },
+    {
+      "timestamp": "2026-08-03T04:00:00Z",
+      "utilization": 33.65,
+      "cost": 1.87,
+      "predicted": 37.45
+    },
+    {
+      "timestamp": "2026-08-03T05:00:00Z",
+      "utilization": 45.69,
+      "cost": 2.63,
+      "predicted": 45.5
+    },
+    {
+      "timestamp": "2026-08-03T06:00:00Z",
+      "utilization": 52.86,
+      "cost": 2.96,
+      "predicted": 55.23
+    },
+    {
+      "timestamp": "2026-08-03T07:00:00Z",
+      "utilization": 59.52,
+      "cost": 3.57,
+      "predicted": 60.58
+    },
+    {
+      "timestamp": "2026-08-03T08:00:00Z",
+      "utilization": 68.61,
+      "cost": 4.01,
+      "predicted": 69.03
+    },
+    {
+      "timestamp": "2026-08-03T09:00:00Z",
+      "utilization": 73.44,
+      "cost": 4.1,
+      "predicted": 72.39
+    },
+    {
+      "timestamp": "2026-08-03T10:00:00Z",
+      "utilization": 80.84,
+      "cost": 4.62,
+      "predicted": 79.23
+    },
+    {
+      "timestamp": "2026-08-03T11:00:00Z",
+      "utilization": 85.22,
+      "cost": 4.79,
+      "predicted": 81.9
+    },
+    {
+      "timestamp": "2026-08-03T12:00:00Z",
+      "utilization": 83.91,
+      "cost": 4.71,
+      "predicted": 82.28
+    },
+    {
+      "timestamp": "2026-08-03T13:00:00Z",
+      "utilization": 83.26,
+      "cost": 4.68,
+      "predicted": 82.27
+    },
+    {
+      "timestamp": "2026-08-03T14:00:00Z",
+      "utilization": 81.61,
+      "cost": 4.57,
+      "predicted": 79.28
+    },
+    {
+      "timestamp": "2026-08-03T15:00:00Z",
+      "utilization": 78.03,
+      "cost": 4.37,
+      "predicted": 73.91
+    },
+    {
+      "timestamp": "2026-08-03T16:00:00Z",
+      "utilization": 68.26,
+      "cost": 3.38,
+      "predicted": 71.65
+    },
+    {
+      "timestamp": "2026-08-03T17:00:00Z",
+      "utilization": 62.5,
+      "cost": 3.42,
+      "predicted": 59.95
+    },
+    {
+      "timestamp": "2026-08-03T18:00:00Z",
+      "utilization": 57.7,
+      "cost": 3.62,
+      "predicted": 51.99
+    },
+    {
+      "timestamp": "2026-08-03T19:00:00Z",
+      "utilization": 42.26,
+      "cost": 2.23,
+      "predicted": 44.11
+    },
+    {
+      "timestamp": "2026-08-03T20:00:00Z",
+      "utilization": 33.68,
+      "cost": 1.8,
+      "predicted": 35.84
+    },
+    {
+      "timestamp": "2026-08-03T21:00:00Z",
+      "utilization": 29.63,
+      "cost": 2.03,
+      "predicted": 25.86
+    },
+    {
+      "timestamp": "2026-08-03T22:00:00Z",
+      "utilization": 23.35,
+      "cost": 1.08,
+      "predicted": 26.47
+    },
+    {
+      "timestamp": "2026-08-03T23:00:00Z",
+      "utilization": 21.49,
+      "cost": 1.01,
+      "predicted": 25.35
+    },
+    {
+      "timestamp": "2026-08-04T00:00:00Z",
+      "utilization": 15.01,
+      "cost": 0.92,
+      "predicted": 18.68
+    },
+    {
+      "timestamp": "2026-08-04T01:00:00Z",
+      "utilization": 22.69,
+      "cost": 1.2,
+      "predicted": 22.54
+    },
+    {
+      "timestamp": "2026-08-04T02:00:00Z",
+      "utilization": 19.05,
+      "cost": 1.3,
+      "predicted": 23.2
+    },
+    {
+      "timestamp": "2026-08-04T03:00:00Z",
+      "utilization": 30.42,
+      "cost": 1.67,
+      "predicted": 26.08
+    },
+    {
+      "timestamp": "2026-08-04T04:00:00Z",
+      "utilization": 39.94,
+      "cost": 2.31,
+      "predicted": 38.94
+    },
+    {
+      "timestamp": "2026-08-04T05:00:00Z",
+      "utilization": 44.52,
+      "cost": 2.28,
+      "predicted": 41.73
+    },
+    {
+      "timestamp": "2026-08-04T06:00:00Z",
+      "utilization": 52.14,
+      "cost": 2.98,
+      "predicted": 52.75
+    },
+    {
+      "timestamp": "2026-08-04T07:00:00Z",
+      "utilization": 58.98,
+      "cost": 3.09,
+      "predicted": 58.68
+    },
+    {
+      "timestamp": "2026-08-04T08:00:00Z",
+      "utilization": 64.78,
+      "cost": 3.1,
+      "predicted": 69.22
+    },
+    {
+      "timestamp": "2026-08-04T09:00:00Z",
+      "utilization": 73.98,
+      "cost": 4.37,
+      "predicted": 75.66
+    },
+    {
+      "timestamp": "2026-08-04T10:00:00Z",
+      "utilization": 80.36,
+      "cost": 4.34,
+      "predicted": 81.65
+    },
+    {
+      "timestamp": "2026-08-04T11:00:00Z",
+      "utilization": 81.16,
+      "cost": 4.77,
+      "predicted": 82.38
+    },
+    {
+      "timestamp": "2026-08-04T12:00:00Z",
+      "utilization": 87.48,
+      "cost": 5.48,
+      "predicted": 85.23
+    },
+    {
+      "timestamp": "2026-08-04T13:00:00Z",
+      "utilization": 83.3,
+      "cost": 4.64,
+      "predicted": 84.32
+    },
+    {
+      "timestamp": "2026-08-04T14:00:00Z",
+      "utilization": 79.48,
+      "cost": 4.67,
+      "predicted": 83.62
+    },
+    {
+      "timestamp": "2026-08-04T15:00:00Z",
+      "utilization": 70.78,
+      "cost": 3.98,
+      "predicted": 74.38
+    },
+    {
+      "timestamp": "2026-08-04T16:00:00Z",
+      "utilization": 70.6,
+      "cost": 3.43,
+      "predicted": 66.23
+    },
+    {
+      "timestamp": "2026-08-04T17:00:00Z",
+      "utilization": 54.69,
+      "cost": 2.99,
+      "predicted": 60.3
+    },
+    {
+      "timestamp": "2026-08-04T18:00:00Z",
+      "utilization": 53.04,
+      "cost": 2.67,
+      "predicted": 50.85
+    },
+    {
+      "timestamp": "2026-08-04T19:00:00Z",
+      "utilization": 37.52,
+      "cost": 2.14,
+      "predicted": 44.08
+    },
+    {
+      "timestamp": "2026-08-04T20:00:00Z",
+      "utilization": 38.73,
+      "cost": 2.09,
+      "predicted": 36.94
+    },
+    {
+      "timestamp": "2026-08-04T21:00:00Z",
+      "utilization": 33.07,
+      "cost": 1.69,
+      "predicted": 28.81
+    },
+    {
+      "timestamp": "2026-08-04T22:00:00Z",
+      "utilization": 22.29,
+      "cost": 0.79,
+      "predicted": 22.98
+    },
+    {
+      "timestamp": "2026-08-04T23:00:00Z",
+      "utilization": 21.08,
+      "cost": 1.09,
+      "predicted": 20.98
+    },
+    {
+      "timestamp": "2026-08-05T00:00:00Z",
+      "utilization": 17.36,
+      "cost": 1.3,
+      "predicted": 20.06
+    },
+    {
+      "timestamp": "2026-08-05T01:00:00Z",
+      "utilization": 20.72,
+      "cost": 1.02,
+      "predicted": 19.85
+    },
+    {
+      "timestamp": "2026-08-05T02:00:00Z",
+      "utilization": 23.64,
+      "cost": 1.28,
+      "predicted": 21.96
+    },
+    {
+      "timestamp": "2026-08-05T03:00:00Z",
+      "utilization": 29.2,
+      "cost": 1.79,
+      "predicted": 31.79
+    },
+    {
+      "timestamp": "2026-08-05T04:00:00Z",
+      "utilization": 38.85,
+      "cost": 2.27,
+      "predicted": 34.68
+    },
+    {
+      "timestamp": "2026-08-05T05:00:00Z",
+      "utilization": 40.17,
+      "cost": 2.29,
+      "predicted": 44.06
+    },
+    {
+      "timestamp": "2026-08-05T06:00:00Z",
+      "utilization": 49.7,
+      "cost": 2.85,
+      "predicted": 55.0
+    },
+    {
+      "timestamp": "2026-08-05T07:00:00Z",
+      "utilization": 54.7,
+      "cost": 2.93,
+      "predicted": 61.24
+    },
+    {
+      "timestamp": "2026-08-05T08:00:00Z",
+      "utilization": 68.25,
+      "cost": 3.83,
+      "predicted": 68.95
+    },
+    {
+      "timestamp": "2026-08-05T09:00:00Z",
+      "utilization": 68.86,
+      "cost": 3.94,
+      "predicted": 73.24
+    },
+    {
+      "timestamp": "2026-08-05T10:00:00Z",
+      "utilization": 84.05,
+      "cost": 4.98,
+      "predicted": 83.0
+    },
+    {
+      "timestamp": "2026-08-05T11:00:00Z",
+      "utilization": 77.23,
+      "cost": 3.86,
+      "predicted": 84.55
+    },
+    {
+      "timestamp": "2026-08-05T12:00:00Z",
+      "utilization": 89.34,
+      "cost": 4.69,
+      "predicted": 84.88
+    },
+    {
+      "timestamp": "2026-08-05T13:00:00Z",
+      "utilization": 89.42,
+      "cost": 4.54,
+      "predicted": 84.36
+    },
+    {
+      "timestamp": "2026-08-05T14:00:00Z",
+      "utilization": 81.03,
+      "cost": 4.48,
+      "predicted": 79.05
+    },
+    {
+      "timestamp": "2026-08-05T15:00:00Z",
+      "utilization": 73.59,
+      "cost": 3.76,
+      "predicted": 77.04
+    },
+    {
+      "timestamp": "2026-08-05T16:00:00Z",
+      "utilization": 69.2,
+      "cost": 3.64,
+      "predicted": 70.97
+    },
+    {
+      "timestamp": "2026-08-05T17:00:00Z",
+      "utilization": 61.04,
+      "cost": 3.22,
+      "predicted": 60.71
+    },
+    {
+      "timestamp": "2026-08-05T18:00:00Z",
+      "utilization": 53.94,
+      "cost": 2.78,
+      "predicted": 52.15
+    },
+    {
+      "timestamp": "2026-08-05T19:00:00Z",
+      "utilization": 48.87,
+      "cost": 2.65,
+      "predicted": 44.78
+    },
+    {
+      "timestamp": "2026-08-05T20:00:00Z",
+      "utilization": 33.84,
+      "cost": 2.11,
+      "predicted": 34.57
+    },
+    {
+      "timestamp": "2026-08-05T21:00:00Z",
+      "utilization": 28.58,
+      "cost": 1.54,
+      "predicted": 29.71
+    },
+    {
+      "timestamp": "2026-08-05T22:00:00Z",
+      "utilization": 25.7,
+      "cost": 1.57,
+      "predicted": 23.68
+    },
+    {
+      "timestamp": "2026-08-05T23:00:00Z",
+      "utilization": 20.06,
+      "cost": 1.24,
+      "predicted": 21.85
+    }
+  ]
+}
