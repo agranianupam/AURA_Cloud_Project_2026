@@ -1,0 +1,124 @@
+{
+  "data": [
+    {
+      "timestamp": "2026-08-05T22:00:00Z",
+      "type": "health",
+      "message": "DynamoDB read throttling \u2014 increasing RCU temporarily",
+      "severity": "warning"
+    },
+    {
+      "timestamp": "2026-08-05T19:00:00Z",
+      "type": "health",
+      "message": "RDS connection pool exhausted, cleared idle sessions",
+      "severity": "warning"
+    },
+    {
+      "timestamp": "2026-08-05T07:00:00Z",
+      "type": "scaling",
+      "message": "Semester start: pre-scaling EC2 to 80% capacity",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-05T04:00:00Z",
+      "type": "scaling",
+      "message": "Scaled up EC2 \u2014 predicted exam-week surge",
+      "severity": "warning"
+    },
+    {
+      "timestamp": "2026-08-04T21:00:00Z",
+      "type": "scaling",
+      "message": "Scaled down EC2 during low demand",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-04T18:00:00Z",
+      "type": "health",
+      "message": "CloudWatch alarm: CPU > 85% sustained for 10 minutes",
+      "severity": "warning"
+    },
+    {
+      "timestamp": "2026-08-04T05:00:00Z",
+      "type": "health",
+      "message": "EC2 instance health check failed, replaced automatically",
+      "severity": "critical"
+    },
+    {
+      "timestamp": "2026-08-04T01:00:00Z",
+      "type": "scaling",
+      "message": "Scaled down RDS read replica during weekend break",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-03T20:00:00Z",
+      "type": "health",
+      "message": "All systems nominal",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-03T18:00:00Z",
+      "type": "carbon",
+      "message": "Green scheduling: 3 batch jobs deferred tonight",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-03T17:00:00Z",
+      "type": "scaling",
+      "message": "Lambda concurrency at 80% \u2014 auto-scaling triggered",
+      "severity": "warning"
+    },
+    {
+      "timestamp": "2026-08-03T07:00:00Z",
+      "type": "carbon",
+      "message": "Deferred batch jobs \u2014 off-peak carbon window active",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-03T07:00:00Z",
+      "type": "scaling",
+      "message": "Prediction confidence low \u2014 maintaining current allocation",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-03T01:00:00Z",
+      "type": "carbon",
+      "message": "Carbon footprint reduced 12% vs last week",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-02T16:00:00Z",
+      "type": "cost",
+      "message": "Hourly cost exceeded $5.00 threshold",
+      "severity": "warning"
+    },
+    {
+      "timestamp": "2026-08-02T08:00:00Z",
+      "type": "carbon",
+      "message": "Batch job deferred to 02:00 AM low-carbon window",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-02T00:00:00Z",
+      "type": "cost",
+      "message": "Cost spike detected \u2014 investigating cause",
+      "severity": "critical"
+    },
+    {
+      "timestamp": "2026-08-01T14:00:00Z",
+      "type": "cost",
+      "message": "Daily spend on track: $0.00 (Free Tier)",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-01T05:00:00Z",
+      "type": "scaling",
+      "message": "Scaled EC2 to 40% capacity \u2014 semester recess detected",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-08-01T00:00:00Z",
+      "type": "cost",
+      "message": "SNS alert: monthly budget threshold at 80%",
+      "severity": "warning"
+    }
+  ]
+}
