@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore")
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
 
 ML_DIR       = Path(__file__).resolve().parent
-WEIGHTS_PATH = ML_DIR / "model_weights.h5"
+WEIGHTS_PATH = ML_DIR / "model_weights.keras"
 SCALER_PATH  = ML_DIR / "scaler.pkl"
 PROCESSED    = ML_DIR.parents[1] / "dataset" / "processed"
 
