@@ -33,7 +33,7 @@ ML_DIR      = Path(__file__).resolve().parent
 
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-WEIGHTS_PATH = ML_DIR / "model_weights.h5"
+WEIGHTS_PATH = ML_DIR / "model_weights.keras"
 SCALER_PATH  = ML_DIR / "scaler.pkl"
 
 N_STEPS      = 24

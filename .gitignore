@@ -13,6 +13,7 @@ build/
 # ML artifacts (large binary files — not committed to git)
 *.h5
 *.pkl
+*.keras
 *.pt
 *.pth
 *.onnx
