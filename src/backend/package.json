@@ -1,0 +1,25 @@
+{
+  "name": "aura-backend",
+  "version": "0.1.0",
+  "description": "AURA backend API — Express + DynamoDB + Cognito auth",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node db/seed.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch": "^3.700.0",
+    "@aws-sdk/client-dynamodb": "^3.700.0",
+    "@aws-sdk/client-lambda": "^3.700.0",
+    "@aws-sdk/client-sns": "^3.700.0",
+    "@aws-sdk/lib-dynamodb": "^3.700.0",
+    "aws-jwt-verify": "^4.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "uuid": "^11.0.3"
+  }
+}
