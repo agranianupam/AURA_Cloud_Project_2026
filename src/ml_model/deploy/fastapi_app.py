@@ -67,7 +67,7 @@ def root():
 
 @app.get("/health", response_model=HealthResponse, tags=["Meta"])
 def health():
-    model_path = _ml_dir / "model_weights.h5"
+    model_path = _ml_dir / "model_weights.keras"
     loaded = model_path.exists()
     return HealthResponse(
         status="ok" if loaded else "degraded",
