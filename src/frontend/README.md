@@ -1,16 +1,51 @@
-# React + Vite
+# AURA Frontend Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This directory contains the React (Vite) frontend for AURA — Autonomous University Resource Allocator.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Install dependencies:
+   \\\ash
+   npm install
+   \\\
+2. Set up environment variables:
+   Copy \.env.example\ to \.env\
+   \\\ash
+   cp .env.example .env
+   \\\
+   *(Note: Leave \VITE_USE_MOCK=true\ to use mock API data, or set it to \alse\ and provide \VITE_API_BASE_URL\ and Cognito credentials to consume live services).*
+3. Start the dev server:
+   \\\ash
+   npm run dev
+   \\\
 
-## React Compiler
+## Build & Deploy to Amazon S3
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Build the production bundle:**
+   \\\ash
+   npm run build
+   \\\
+   Outputs to the \dist/\ directory.
 
-## Expanding the Oxlint configuration
+2. **Deploy to an S3 Bucket (Static Website Hosting):**
+   - Create an S3 bucket in your AWS account and enable "Static website hosting".
+   - Set the \Index document\ to \index.html\.
+   - Set the \Error document\ to \index.html\ (critical for React Router client-side routing).
+   - Uncheck "Block all public access" and apply this fallback Bucket Policy (replace \YOUR_BUCKET_NAME\):
+     \\\json
+     {
+       "Version": "2012-10-17",
+       "Statement": [{
+           "Sid": "PublicReadGetObject",
+           "Effect": "Allow",
+           "Principal": "*",
+           "Action": "s3:GetObject",
+           "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME/*"
+       }]
+     }
+     \\\
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+3. **Upload the files:**
+   Upload the exact contents of the \dist/\ directory (not the directory itself) to the root of your bucket.
+
+4. **Navigate to your Bucket Website Endpoint URL!**
