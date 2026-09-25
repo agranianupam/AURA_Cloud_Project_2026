@@ -4,721 +4,1321 @@
       "timestamp": "2026-08-01T00:00:00Z",
       "utilization": 19.07,
       "cost": 1.03,
-      "predicted": 19.24
+      "predicted": 19.24,
+      "energyKwh": 0.016076,
+      "carbonGco2": 6.2514,
+      "carbonIntensity": 388.87,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.1523
     },
     {
       "timestamp": "2026-08-01T01:00:00Z",
       "utilization": 22.71,
       "cost": 0.95,
-      "predicted": 20.42
+      "predicted": 20.42,
+      "energyKwh": 0.016758,
+      "carbonGco2": 6.7032,
+      "carbonIntensity": 400.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.5
     },
     {
       "timestamp": "2026-08-01T02:00:00Z",
       "utilization": 24.85,
       "cost": 1.32,
-      "predicted": 23.45
+      "predicted": 23.45,
+      "energyKwh": 0.017159,
+      "carbonGco2": 7.0547,
+      "carbonIntensity": 411.13,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.8477
     },
     {
       "timestamp": "2026-08-01T03:00:00Z",
       "utilization": 29.37,
       "cost": 1.85,
-      "predicted": 29.37
+      "predicted": 29.37,
+      "energyKwh": 0.018007,
+      "carbonGco2": 7.5934,
+      "carbonIntensity": 421.69,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.1779
     },
     {
       "timestamp": "2026-08-01T04:00:00Z",
       "utilization": 37.72,
       "cost": 1.93,
-      "predicted": 35.92
+      "predicted": 35.92,
+      "energyKwh": 0.019572,
+      "carbonGco2": 8.4392,
+      "carbonIntensity": 431.17,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.4742
     },
     {
       "timestamp": "2026-08-01T05:00:00Z",
       "utilization": 40.54,
       "cost": 2.49,
-      "predicted": 43.96
+      "predicted": 43.96,
+      "energyKwh": 0.020101,
+      "carbonGco2": 8.8263,
+      "carbonIntensity": 439.09,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.7216
     },
     {
       "timestamp": "2026-08-01T06:00:00Z",
       "utilization": 52.12,
       "cost": 2.97,
-      "predicted": 51.84
+      "predicted": 51.84,
+      "energyKwh": 0.022272,
+      "carbonGco2": 9.9123,
+      "carbonIntensity": 445.05,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.9078
     },
     {
       "timestamp": "2026-08-01T07:00:00Z",
       "utilization": 56.05,
       "cost": 3.18,
-      "predicted": 59.94
+      "predicted": 59.94,
+      "energyKwh": 0.023009,
+      "carbonGco2": 10.3254,
+      "carbonIntensity": 448.75,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 14.0233
     },
     {
       "timestamp": "2026-08-01T08:00:00Z",
       "utilization": 70.87,
       "cost": 3.97,
-      "predicted": 67.89
+      "predicted": 67.89,
+      "energyKwh": 0.025788,
+      "carbonGco2": 14.1835,
+      "carbonIntensity": 550.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.1875
     },
     {
       "timestamp": "2026-08-01T09:00:00Z",
       "utilization": 75.73,
       "cost": 3.94,
-      "predicted": 76.15
+      "predicted": 76.15,
+      "energyKwh": 0.026699,
+      "carbonGco2": 15.0972,
+      "carbonIntensity": 565.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.6703
     },
     {
       "timestamp": "2026-08-01T10:00:00Z",
       "utilization": 81.85,
       "cost": 3.98,
-      "predicted": 77.87
+      "predicted": 77.87,
+      "energyKwh": 0.027847,
+      "carbonGco2": 16.1342,
+      "carbonIntensity": 579.39,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.1059
     },
     {
       "timestamp": "2026-08-01T11:00:00Z",
       "utilization": 81.57,
       "cost": 4.66,
-      "predicted": 82.02
+      "predicted": 82.02,
+      "energyKwh": 0.027794,
+      "carbonGco2": 16.4112,
+      "carbonIntensity": 590.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.4516
     },
     {
       "timestamp": "2026-08-01T12:00:00Z",
       "utilization": 86.49,
       "cost": 4.93,
-      "predicted": 82.67
+      "predicted": 82.67,
+      "energyKwh": 0.028717,
+      "carbonGco2": 17.1598,
+      "carbonIntensity": 597.55,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.6735
     },
     {
       "timestamp": "2026-08-01T13:00:00Z",
       "utilization": 80.39,
       "cost": 4.36,
-      "predicted": 83.26
+      "predicted": 83.26,
+      "energyKwh": 0.027573,
+      "carbonGco2": 16.5439,
+      "carbonIntensity": 600.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.75
     },
     {
       "timestamp": "2026-08-01T14:00:00Z",
       "utilization": 80.49,
       "cost": 4.55,
-      "predicted": 81.37
+      "predicted": 81.37,
+      "energyKwh": 0.027592,
+      "carbonGco2": 16.4876,
+      "carbonIntensity": 597.55,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.6735
     },
     {
       "timestamp": "2026-08-01T15:00:00Z",
       "utilization": 76.03,
       "cost": 4.28,
-      "predicted": 75.96
+      "predicted": 75.96,
+      "energyKwh": 0.026756,
+      "carbonGco2": 15.7979,
+      "carbonIntensity": 590.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.4516
     },
     {
       "timestamp": "2026-08-01T16:00:00Z",
       "utilization": 66.37,
       "cost": 3.56,
-      "predicted": 67.17
+      "predicted": 67.17,
+      "energyKwh": 0.024944,
+      "carbonGco2": 14.4525,
+      "carbonIntensity": 579.39,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.1059
     },
     {
       "timestamp": "2026-08-01T17:00:00Z",
       "utilization": 61.91,
       "cost": 3.87,
-      "predicted": 60.04
+      "predicted": 60.04,
+      "energyKwh": 0.024108,
+      "carbonGco2": 13.632,
+      "carbonIntensity": 565.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.6703
     },
     {
       "timestamp": "2026-08-01T18:00:00Z",
       "utilization": 49.54,
       "cost": 2.88,
-      "predicted": 50.35
+      "predicted": 50.35,
+      "energyKwh": 0.021789,
+      "carbonGco2": 11.9838,
+      "carbonIntensity": 550.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.1875
     },
     {
       "timestamp": "2026-08-01T19:00:00Z",
       "utilization": 47.85,
       "cost": 2.8,
-      "predicted": 44.35
+      "predicted": 44.35,
+      "energyKwh": 0.021472,
+      "carbonGco2": 7.5421,
+      "carbonIntensity": 351.25,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 10.9767
     },
     {
       "timestamp": "2026-08-01T20:00:00Z",
       "utilization": 40.03,
       "cost": 1.92,
-      "predicted": 35.61
+      "predicted": 35.61,
+      "energyKwh": 0.020006,
+      "carbonGco2": 7.101,
+      "carbonIntensity": 354.95,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.0922
     },
     {
       "timestamp": "2026-08-01T21:00:00Z",
       "utilization": 27.42,
       "cost": 1.22,
-      "predicted": 30.45
+      "predicted": 30.45,
+      "energyKwh": 0.017641,
+      "carbonGco2": 6.3669,
+      "carbonIntensity": 360.91,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.2784
     },
     {
       "timestamp": "2026-08-01T22:00:00Z",
       "utilization": 23.95,
       "cost": 1.25,
-      "predicted": 24.23
+      "predicted": 24.23,
+      "energyKwh": 0.016991,
+      "carbonGco2": 6.2666,
+      "carbonIntensity": 368.83,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.5258
     },
     {
       "timestamp": "2026-08-01T23:00:00Z",
       "utilization": 22.78,
       "cost": 1.72,
-      "predicted": 21.48
+      "predicted": 21.48,
+      "energyKwh": 0.016771,
+      "carbonGco2": 6.3447,
+      "carbonIntensity": 378.31,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.8221
     },
     {
       "timestamp": "2026-08-02T00:00:00Z",
       "utilization": 21.36,
       "cost": 1.06,
-      "predicted": 18.59
+      "predicted": 18.59,
+      "energyKwh": 0.016505,
+      "carbonGco2": 6.4184,
+      "carbonIntensity": 388.87,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.1523
     },
     {
       "timestamp": "2026-08-02T01:00:00Z",
       "utilization": 18.11,
       "cost": 0.88,
-      "predicted": 22.04
+      "predicted": 22.04,
+      "energyKwh": 0.015896,
+      "carbonGco2": 6.3582,
+      "carbonIntensity": 400.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.5
     },
     {
       "timestamp": "2026-08-02T02:00:00Z",
       "utilization": 23.64,
       "cost": 1.16,
-      "predicted": 24.98
+      "predicted": 24.98,
+      "energyKwh": 0.016932,
+      "carbonGco2": 6.9614,
+      "carbonIntensity": 411.13,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.8477
     },
     {
       "timestamp": "2026-08-02T03:00:00Z",
       "utilization": 28.14,
       "cost": 1.33,
-      "predicted": 26.26
+      "predicted": 26.26,
+      "energyKwh": 0.017776,
+      "carbonGco2": 7.4961,
+      "carbonIntensity": 421.69,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.1779
     },
     {
       "timestamp": "2026-08-02T04:00:00Z",
       "utilization": 34.05,
       "cost": 2.11,
-      "predicted": 36.37
+      "predicted": 36.37,
+      "energyKwh": 0.018884,
+      "carbonGco2": 8.1425,
+      "carbonIntensity": 431.17,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.4742
     },
     {
       "timestamp": "2026-08-02T05:00:00Z",
       "utilization": 43.53,
       "cost": 2.43,
-      "predicted": 43.98
+      "predicted": 43.98,
+      "energyKwh": 0.020662,
+      "carbonGco2": 9.0725,
+      "carbonIntensity": 439.09,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.7216
     },
     {
       "timestamp": "2026-08-02T06:00:00Z",
       "utilization": 55.25,
       "cost": 3.09,
-      "predicted": 53.34
+      "predicted": 53.34,
+      "energyKwh": 0.022859,
+      "carbonGco2": 10.1735,
+      "carbonIntensity": 445.05,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.9078
     },
     {
       "timestamp": "2026-08-02T07:00:00Z",
       "utilization": 57.38,
       "cost": 3.23,
-      "predicted": 61.77
+      "predicted": 61.77,
+      "energyKwh": 0.023259,
+      "carbonGco2": 10.4373,
+      "carbonIntensity": 448.75,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 14.0233
     },
     {
       "timestamp": "2026-08-02T08:00:00Z",
       "utilization": 71.93,
       "cost": 4.35,
-      "predicted": 68.21
+      "predicted": 68.21,
+      "energyKwh": 0.025987,
+      "carbonGco2": 14.2928,
+      "carbonIntensity": 550.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.1875
     },
     {
       "timestamp": "2026-08-02T09:00:00Z",
       "utilization": 73.9,
       "cost": 4.09,
-      "predicted": 77.37
+      "predicted": 77.37,
+      "energyKwh": 0.026356,
+      "carbonGco2": 14.9032,
+      "carbonIntensity": 565.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.6703
     },
     {
       "timestamp": "2026-08-02T10:00:00Z",
       "utilization": 78.6,
       "cost": 4.29,
-      "predicted": 78.45
+      "predicted": 78.45,
+      "energyKwh": 0.027237,
+      "carbonGco2": 15.7811,
+      "carbonIntensity": 579.39,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.1059
     },
     {
       "timestamp": "2026-08-02T11:00:00Z",
       "utilization": 87.66,
       "cost": 4.96,
-      "predicted": 84.62
+      "predicted": 84.62,
+      "energyKwh": 0.028936,
+      "carbonGco2": 17.0854,
+      "carbonIntensity": 590.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.4516
     },
     {
       "timestamp": "2026-08-02T12:00:00Z",
       "utilization": 77.37,
       "cost": 4.37,
-      "predicted": 85.57
+      "predicted": 85.57,
+      "energyKwh": 0.027007,
+      "carbonGco2": 16.138,
+      "carbonIntensity": 597.55,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.6735
     },
     {
       "timestamp": "2026-08-02T13:00:00Z",
       "utilization": 81.74,
       "cost": 4.5,
-      "predicted": 82.45
+      "predicted": 82.45,
+      "energyKwh": 0.027826,
+      "carbonGco2": 16.6957,
+      "carbonIntensity": 600.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.75
     },
     {
       "timestamp": "2026-08-02T14:00:00Z",
       "utilization": 85.32,
       "cost": 4.61,
-      "predicted": 78.56
+      "predicted": 78.56,
+      "energyKwh": 0.028497,
+      "carbonGco2": 17.0288,
+      "carbonIntensity": 597.55,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.6735
     },
     {
       "timestamp": "2026-08-02T15:00:00Z",
       "utilization": 79.07,
       "cost": 4.28,
-      "predicted": 74.31
+      "predicted": 74.31,
+      "energyKwh": 0.027326,
+      "carbonGco2": 16.1344,
+      "carbonIntensity": 590.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.4516
     },
     {
       "timestamp": "2026-08-02T16:00:00Z",
       "utilization": 68.54,
       "cost": 3.81,
-      "predicted": 66.39
+      "predicted": 66.39,
+      "energyKwh": 0.025351,
+      "carbonGco2": 14.6882,
+      "carbonIntensity": 579.39,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.1059
     },
     {
       "timestamp": "2026-08-02T17:00:00Z",
       "utilization": 56.78,
       "cost": 3.12,
-      "predicted": 61.74
+      "predicted": 61.74,
+      "energyKwh": 0.023146,
+      "carbonGco2": 13.0881,
+      "carbonIntensity": 565.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.6703
     },
     {
       "timestamp": "2026-08-02T18:00:00Z",
       "utilization": 58.85,
       "cost": 3.51,
-      "predicted": 52.42
+      "predicted": 52.42,
+      "energyKwh": 0.023534,
+      "carbonGco2": 12.9439,
+      "carbonIntensity": 550.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.1875
     },
     {
       "timestamp": "2026-08-02T19:00:00Z",
       "utilization": 39.68,
       "cost": 2.25,
-      "predicted": 43.41
+      "predicted": 43.41,
+      "energyKwh": 0.01994,
+      "carbonGco2": 7.004,
+      "carbonIntensity": 351.25,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 10.9767
     },
     {
       "timestamp": "2026-08-02T20:00:00Z",
       "utilization": 40.99,
       "cost": 2.45,
-      "predicted": 33.23
+      "predicted": 33.23,
+      "energyKwh": 0.020186,
+      "carbonGco2": 7.1649,
+      "carbonIntensity": 354.95,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.0922
     },
     {
       "timestamp": "2026-08-02T21:00:00Z",
       "utilization": 30.79,
       "cost": 1.84,
-      "predicted": 31.32
+      "predicted": 31.32,
+      "energyKwh": 0.018273,
+      "carbonGco2": 6.5949,
+      "carbonIntensity": 360.91,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.2784
     },
     {
       "timestamp": "2026-08-02T22:00:00Z",
       "utilization": 24.01,
       "cost": 1.07,
-      "predicted": 23.07
+      "predicted": 23.07,
+      "energyKwh": 0.017002,
+      "carbonGco2": 6.2707,
+      "carbonIntensity": 368.83,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.5258
     },
     {
       "timestamp": "2026-08-02T23:00:00Z",
       "utilization": 21.19,
       "cost": 1.57,
-      "predicted": 20.32
+      "predicted": 20.32,
+      "energyKwh": 0.016473,
+      "carbonGco2": 6.2319,
+      "carbonIntensity": 378.31,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.8221
     },
     {
       "timestamp": "2026-08-03T00:00:00Z",
       "utilization": 17.67,
       "cost": 0.66,
-      "predicted": 19.98
+      "predicted": 19.98,
+      "energyKwh": 0.015813,
+      "carbonGco2": 6.1493,
+      "carbonIntensity": 388.87,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.1523
     },
     {
       "timestamp": "2026-08-03T01:00:00Z",
       "utilization": 19.42,
       "cost": 1.23,
-      "predicted": 21.0
+      "predicted": 21.0,
+      "energyKwh": 0.016141,
+      "carbonGco2": 6.4565,
+      "carbonIntensity": 400.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.5
     },
     {
       "timestamp": "2026-08-03T02:00:00Z",
       "utilization": 28.2,
       "cost": 1.33,
-      "predicted": 23.79
+      "predicted": 23.79,
+      "energyKwh": 0.017788,
+      "carbonGco2": 7.3129,
+      "carbonIntensity": 411.13,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.8477
     },
     {
       "timestamp": "2026-08-03T03:00:00Z",
       "utilization": 30.39,
       "cost": 1.77,
-      "predicted": 29.79
+      "predicted": 29.79,
+      "energyKwh": 0.018198,
+      "carbonGco2": 7.674,
+      "carbonIntensity": 421.69,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.1779
     },
     {
       "timestamp": "2026-08-03T04:00:00Z",
       "utilization": 33.65,
       "cost": 1.87,
-      "predicted": 37.45
+      "predicted": 37.45,
+      "energyKwh": 0.018809,
+      "carbonGco2": 8.1101,
+      "carbonIntensity": 431.17,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.4742
     },
     {
       "timestamp": "2026-08-03T05:00:00Z",
       "utilization": 45.69,
       "cost": 2.63,
-      "predicted": 45.5
+      "predicted": 45.5,
+      "energyKwh": 0.021067,
+      "carbonGco2": 9.2503,
+      "carbonIntensity": 439.09,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.7216
     },
     {
       "timestamp": "2026-08-03T06:00:00Z",
       "utilization": 52.86,
       "cost": 2.96,
-      "predicted": 55.23
+      "predicted": 55.23,
+      "energyKwh": 0.022411,
+      "carbonGco2": 9.9741,
+      "carbonIntensity": 445.05,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.9078
     },
     {
       "timestamp": "2026-08-03T07:00:00Z",
       "utilization": 59.52,
       "cost": 3.57,
-      "predicted": 60.58
+      "predicted": 60.58,
+      "energyKwh": 0.02366,
+      "carbonGco2": 10.6173,
+      "carbonIntensity": 448.75,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 14.0233
     },
     {
       "timestamp": "2026-08-03T08:00:00Z",
       "utilization": 68.61,
       "cost": 4.01,
-      "predicted": 69.03
+      "predicted": 69.03,
+      "energyKwh": 0.025364,
+      "carbonGco2": 13.9504,
+      "carbonIntensity": 550.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.1875
     },
     {
       "timestamp": "2026-08-03T09:00:00Z",
       "utilization": 73.44,
       "cost": 4.1,
-      "predicted": 72.39
+      "predicted": 72.39,
+      "energyKwh": 0.02627,
+      "carbonGco2": 14.8544,
+      "carbonIntensity": 565.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.6703
     },
     {
       "timestamp": "2026-08-03T10:00:00Z",
       "utilization": 80.84,
       "cost": 4.62,
-      "predicted": 79.23
+      "predicted": 79.23,
+      "energyKwh": 0.027657,
+      "carbonGco2": 16.0245,
+      "carbonIntensity": 579.39,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.1059
     },
     {
       "timestamp": "2026-08-03T11:00:00Z",
       "utilization": 85.22,
       "cost": 4.79,
-      "predicted": 81.9
+      "predicted": 81.9,
+      "energyKwh": 0.028479,
+      "carbonGco2": 16.8153,
+      "carbonIntensity": 590.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.4516
     },
     {
       "timestamp": "2026-08-03T12:00:00Z",
       "utilization": 83.91,
       "cost": 4.71,
-      "predicted": 82.28
+      "predicted": 82.28,
+      "energyKwh": 0.028233,
+      "carbonGco2": 16.8708,
+      "carbonIntensity": 597.55,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.6735
     },
     {
       "timestamp": "2026-08-03T13:00:00Z",
       "utilization": 83.26,
       "cost": 4.68,
-      "predicted": 82.27
+      "predicted": 82.27,
+      "energyKwh": 0.028111,
+      "carbonGco2": 16.8667,
+      "carbonIntensity": 600.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.75
     },
     {
       "timestamp": "2026-08-03T14:00:00Z",
       "utilization": 81.61,
       "cost": 4.57,
-      "predicted": 79.28
+      "predicted": 79.28,
+      "energyKwh": 0.027802,
+      "carbonGco2": 16.6131,
+      "carbonIntensity": 597.55,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.6735
     },
     {
       "timestamp": "2026-08-03T15:00:00Z",
       "utilization": 78.03,
       "cost": 4.37,
-      "predicted": 73.91
+      "predicted": 73.91,
+      "energyKwh": 0.027131,
+      "carbonGco2": 16.0193,
+      "carbonIntensity": 590.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.4516
     },
     {
       "timestamp": "2026-08-03T16:00:00Z",
       "utilization": 68.26,
       "cost": 3.38,
-      "predicted": 71.65
+      "predicted": 71.65,
+      "energyKwh": 0.025299,
+      "carbonGco2": 14.6578,
+      "carbonIntensity": 579.39,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.1059
     },
     {
       "timestamp": "2026-08-03T17:00:00Z",
       "utilization": 62.5,
       "cost": 3.42,
-      "predicted": 59.95
+      "predicted": 59.95,
+      "energyKwh": 0.024219,
+      "carbonGco2": 13.6945,
+      "carbonIntensity": 565.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.6703
     },
     {
       "timestamp": "2026-08-03T18:00:00Z",
       "utilization": 57.7,
       "cost": 3.62,
-      "predicted": 51.99
+      "predicted": 51.99,
+      "energyKwh": 0.023319,
+      "carbonGco2": 12.8253,
+      "carbonIntensity": 550.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.1875
     },
     {
       "timestamp": "2026-08-03T19:00:00Z",
       "utilization": 42.26,
       "cost": 2.23,
-      "predicted": 44.11
+      "predicted": 44.11,
+      "energyKwh": 0.020424,
+      "carbonGco2": 7.1739,
+      "carbonIntensity": 351.25,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 10.9767
     },
     {
       "timestamp": "2026-08-03T20:00:00Z",
       "utilization": 33.68,
       "cost": 1.8,
-      "predicted": 35.84
+      "predicted": 35.84,
+      "energyKwh": 0.018815,
+      "carbonGco2": 6.6784,
+      "carbonIntensity": 354.95,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.0922
     },
     {
       "timestamp": "2026-08-03T21:00:00Z",
       "utilization": 29.63,
       "cost": 2.03,
-      "predicted": 25.86
+      "predicted": 25.86,
+      "energyKwh": 0.018056,
+      "carbonGco2": 6.5164,
+      "carbonIntensity": 360.91,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.2784
     },
     {
       "timestamp": "2026-08-03T22:00:00Z",
       "utilization": 23.35,
       "cost": 1.08,
-      "predicted": 26.47
+      "predicted": 26.47,
+      "energyKwh": 0.016878,
+      "carbonGco2": 6.2251,
+      "carbonIntensity": 368.83,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.5258
     },
     {
       "timestamp": "2026-08-03T23:00:00Z",
       "utilization": 21.49,
       "cost": 1.01,
-      "predicted": 25.35
+      "predicted": 25.35,
+      "energyKwh": 0.016529,
+      "carbonGco2": 6.2532,
+      "carbonIntensity": 378.31,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.8221
     },
     {
       "timestamp": "2026-08-04T00:00:00Z",
       "utilization": 15.01,
       "cost": 0.92,
-      "predicted": 18.68
+      "predicted": 18.68,
+      "energyKwh": 0.015314,
+      "carbonGco2": 5.9554,
+      "carbonIntensity": 388.87,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.1523
     },
     {
       "timestamp": "2026-08-04T01:00:00Z",
       "utilization": 22.69,
       "cost": 1.2,
-      "predicted": 22.54
+      "predicted": 22.54,
+      "energyKwh": 0.016754,
+      "carbonGco2": 6.7017,
+      "carbonIntensity": 400.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.5
     },
     {
       "timestamp": "2026-08-04T02:00:00Z",
       "utilization": 19.05,
       "cost": 1.3,
-      "predicted": 23.2
+      "predicted": 23.2,
+      "energyKwh": 0.016072,
+      "carbonGco2": 6.6076,
+      "carbonIntensity": 411.13,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.8477
     },
     {
       "timestamp": "2026-08-04T03:00:00Z",
       "utilization": 30.42,
       "cost": 1.67,
-      "predicted": 26.08
+      "predicted": 26.08,
+      "energyKwh": 0.018204,
+      "carbonGco2": 7.6764,
+      "carbonIntensity": 421.69,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.1779
     },
     {
       "timestamp": "2026-08-04T04:00:00Z",
       "utilization": 39.94,
       "cost": 2.31,
-      "predicted": 38.94
+      "predicted": 38.94,
+      "energyKwh": 0.019989,
+      "carbonGco2": 8.6186,
+      "carbonIntensity": 431.17,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.4742
     },
     {
       "timestamp": "2026-08-04T05:00:00Z",
       "utilization": 44.52,
       "cost": 2.28,
-      "predicted": 41.73
+      "predicted": 41.73,
+      "energyKwh": 0.020848,
+      "carbonGco2": 9.154,
+      "carbonIntensity": 439.09,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.7216
     },
     {
       "timestamp": "2026-08-04T06:00:00Z",
       "utilization": 52.14,
       "cost": 2.98,
-      "predicted": 52.75
+      "predicted": 52.75,
+      "energyKwh": 0.022276,
+      "carbonGco2": 9.914,
+      "carbonIntensity": 445.05,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.9078
     },
     {
       "timestamp": "2026-08-04T07:00:00Z",
       "utilization": 58.98,
       "cost": 3.09,
-      "predicted": 58.68
+      "predicted": 58.68,
+      "energyKwh": 0.023559,
+      "carbonGco2": 10.5719,
+      "carbonIntensity": 448.75,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 14.0233
     },
     {
       "timestamp": "2026-08-04T08:00:00Z",
       "utilization": 64.78,
       "cost": 3.1,
-      "predicted": 69.22
+      "predicted": 69.22,
+      "energyKwh": 0.024646,
+      "carbonGco2": 13.5554,
+      "carbonIntensity": 550.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.1875
     },
     {
       "timestamp": "2026-08-04T09:00:00Z",
       "utilization": 73.98,
       "cost": 4.37,
-      "predicted": 75.66
+      "predicted": 75.66,
+      "energyKwh": 0.026371,
+      "carbonGco2": 14.9116,
+      "carbonIntensity": 565.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.6703
     },
     {
       "timestamp": "2026-08-04T10:00:00Z",
       "utilization": 80.36,
       "cost": 4.34,
-      "predicted": 81.65
+      "predicted": 81.65,
+      "energyKwh": 0.027567,
+      "carbonGco2": 15.9723,
+      "carbonIntensity": 579.39,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.1059
     },
     {
       "timestamp": "2026-08-04T11:00:00Z",
       "utilization": 81.16,
       "cost": 4.77,
-      "predicted": 82.38
+      "predicted": 82.38,
+      "energyKwh": 0.027718,
+      "carbonGco2": 16.3658,
+      "carbonIntensity": 590.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.4516
     },
     {
       "timestamp": "2026-08-04T12:00:00Z",
       "utilization": 87.48,
       "cost": 5.48,
-      "predicted": 85.23
+      "predicted": 85.23,
+      "energyKwh": 0.028902,
+      "carbonGco2": 17.2708,
+      "carbonIntensity": 597.55,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.6735
     },
     {
       "timestamp": "2026-08-04T13:00:00Z",
       "utilization": 83.3,
       "cost": 4.64,
-      "predicted": 84.32
+      "predicted": 84.32,
+      "energyKwh": 0.028119,
+      "carbonGco2": 16.8712,
+      "carbonIntensity": 600.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.75
     },
     {
       "timestamp": "2026-08-04T14:00:00Z",
       "utilization": 79.48,
       "cost": 4.67,
-      "predicted": 83.62
+      "predicted": 83.62,
+      "energyKwh": 0.027403,
+      "carbonGco2": 16.3744,
+      "carbonIntensity": 597.55,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.6735
     },
     {
       "timestamp": "2026-08-04T15:00:00Z",
       "utilization": 70.78,
       "cost": 3.98,
-      "predicted": 74.38
+      "predicted": 74.38,
+      "energyKwh": 0.025771,
+      "carbonGco2": 15.2167,
+      "carbonIntensity": 590.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.4516
     },
     {
       "timestamp": "2026-08-04T16:00:00Z",
       "utilization": 70.6,
       "cost": 3.43,
-      "predicted": 66.23
+      "predicted": 66.23,
+      "energyKwh": 0.025737,
+      "carbonGco2": 14.912,
+      "carbonIntensity": 579.39,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.1059
     },
     {
       "timestamp": "2026-08-04T17:00:00Z",
       "utilization": 54.69,
       "cost": 2.99,
-      "predicted": 60.3
+      "predicted": 60.3,
+      "energyKwh": 0.022754,
+      "carbonGco2": 12.8665,
+      "carbonIntensity": 565.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.6703
     },
     {
       "timestamp": "2026-08-04T18:00:00Z",
       "utilization": 53.04,
       "cost": 2.67,
-      "predicted": 50.85
+      "predicted": 50.85,
+      "energyKwh": 0.022445,
+      "carbonGco2": 12.3447,
+      "carbonIntensity": 550.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.1875
     },
     {
       "timestamp": "2026-08-04T19:00:00Z",
       "utilization": 37.52,
       "cost": 2.14,
-      "predicted": 44.08
+      "predicted": 44.08,
+      "energyKwh": 0.019535,
+      "carbonGco2": 6.8617,
+      "carbonIntensity": 351.25,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 10.9767
     },
     {
       "timestamp": "2026-08-04T20:00:00Z",
       "utilization": 38.73,
       "cost": 2.09,
-      "predicted": 36.94
+      "predicted": 36.94,
+      "energyKwh": 0.019762,
+      "carbonGco2": 7.0145,
+      "carbonIntensity": 354.95,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.0922
     },
     {
       "timestamp": "2026-08-04T21:00:00Z",
       "utilization": 33.07,
       "cost": 1.69,
-      "predicted": 28.81
+      "predicted": 28.81,
+      "energyKwh": 0.018701,
+      "carbonGco2": 6.7492,
+      "carbonIntensity": 360.91,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.2784
     },
     {
       "timestamp": "2026-08-04T22:00:00Z",
       "utilization": 22.29,
       "cost": 0.79,
-      "predicted": 22.98
+      "predicted": 22.98,
+      "energyKwh": 0.016679,
+      "carbonGco2": 6.1518,
+      "carbonIntensity": 368.83,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.5258
     },
     {
       "timestamp": "2026-08-04T23:00:00Z",
       "utilization": 21.08,
       "cost": 1.09,
-      "predicted": 20.98
+      "predicted": 20.98,
+      "energyKwh": 0.016453,
+      "carbonGco2": 6.2241,
+      "carbonIntensity": 378.31,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.8221
     },
     {
       "timestamp": "2026-08-05T00:00:00Z",
       "utilization": 17.36,
       "cost": 1.3,
-      "predicted": 20.06
+      "predicted": 20.06,
+      "energyKwh": 0.015755,
+      "carbonGco2": 6.1267,
+      "carbonIntensity": 388.87,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.1523
     },
     {
       "timestamp": "2026-08-05T01:00:00Z",
       "utilization": 20.72,
       "cost": 1.02,
-      "predicted": 19.85
+      "predicted": 19.85,
+      "energyKwh": 0.016385,
+      "carbonGco2": 6.554,
+      "carbonIntensity": 400.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.5
     },
     {
       "timestamp": "2026-08-05T02:00:00Z",
       "utilization": 23.64,
       "cost": 1.28,
-      "predicted": 21.96
+      "predicted": 21.96,
+      "energyKwh": 0.016932,
+      "carbonGco2": 6.9614,
+      "carbonIntensity": 411.13,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 12.8477
     },
     {
       "timestamp": "2026-08-05T03:00:00Z",
       "utilization": 29.2,
       "cost": 1.79,
-      "predicted": 31.79
+      "predicted": 31.79,
+      "energyKwh": 0.017975,
+      "carbonGco2": 7.58,
+      "carbonIntensity": 421.69,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.1779
     },
     {
       "timestamp": "2026-08-05T04:00:00Z",
       "utilization": 38.85,
       "cost": 2.27,
-      "predicted": 34.68
+      "predicted": 34.68,
+      "energyKwh": 0.019784,
+      "carbonGco2": 8.5305,
+      "carbonIntensity": 431.17,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.4742
     },
     {
       "timestamp": "2026-08-05T05:00:00Z",
       "utilization": 40.17,
       "cost": 2.29,
-      "predicted": 44.06
+      "predicted": 44.06,
+      "energyKwh": 0.020032,
+      "carbonGco2": 8.7958,
+      "carbonIntensity": 439.09,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.7216
     },
     {
       "timestamp": "2026-08-05T06:00:00Z",
       "utilization": 49.7,
       "cost": 2.85,
-      "predicted": 55.0
+      "predicted": 55.0,
+      "energyKwh": 0.021819,
+      "carbonGco2": 9.7104,
+      "carbonIntensity": 445.05,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 13.9078
     },
     {
       "timestamp": "2026-08-05T07:00:00Z",
       "utilization": 54.7,
       "cost": 2.93,
-      "predicted": 61.24
+      "predicted": 61.24,
+      "energyKwh": 0.022756,
+      "carbonGco2": 10.2118,
+      "carbonIntensity": 448.75,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 14.0233
     },
     {
       "timestamp": "2026-08-05T08:00:00Z",
       "utilization": 68.25,
       "cost": 3.83,
-      "predicted": 68.95
+      "predicted": 68.95,
+      "energyKwh": 0.025297,
+      "carbonGco2": 13.9133,
+      "carbonIntensity": 550.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.1875
     },
     {
       "timestamp": "2026-08-05T09:00:00Z",
       "utilization": 68.86,
       "cost": 3.94,
-      "predicted": 73.24
+      "predicted": 73.24,
+      "energyKwh": 0.025411,
+      "carbonGco2": 14.3688,
+      "carbonIntensity": 565.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.6703
     },
     {
       "timestamp": "2026-08-05T10:00:00Z",
       "utilization": 84.05,
       "cost": 4.98,
-      "predicted": 83.0
+      "predicted": 83.0,
+      "energyKwh": 0.028259,
+      "carbonGco2": 16.3732,
+      "carbonIntensity": 579.39,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.1059
     },
     {
       "timestamp": "2026-08-05T11:00:00Z",
       "utilization": 77.23,
       "cost": 3.86,
-      "predicted": 84.55
+      "predicted": 84.55,
+      "energyKwh": 0.026981,
+      "carbonGco2": 15.9307,
+      "carbonIntensity": 590.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.4516
     },
     {
       "timestamp": "2026-08-05T12:00:00Z",
       "utilization": 89.34,
       "cost": 4.69,
-      "predicted": 84.88
+      "predicted": 84.88,
+      "energyKwh": 0.029251,
+      "carbonGco2": 17.4792,
+      "carbonIntensity": 597.55,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.6735
     },
     {
       "timestamp": "2026-08-05T13:00:00Z",
       "utilization": 89.42,
       "cost": 4.54,
-      "predicted": 84.36
+      "predicted": 84.36,
+      "energyKwh": 0.029266,
+      "carbonGco2": 17.5598,
+      "carbonIntensity": 600.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.75
     },
     {
       "timestamp": "2026-08-05T14:00:00Z",
       "utilization": 81.03,
       "cost": 4.48,
-      "predicted": 79.05
+      "predicted": 79.05,
+      "energyKwh": 0.027693,
+      "carbonGco2": 16.5481,
+      "carbonIntensity": 597.55,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.6735
     },
     {
       "timestamp": "2026-08-05T15:00:00Z",
       "utilization": 73.59,
       "cost": 3.76,
-      "predicted": 77.04
+      "predicted": 77.04,
+      "energyKwh": 0.026298,
+      "carbonGco2": 15.5278,
+      "carbonIntensity": 590.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.4516
     },
     {
       "timestamp": "2026-08-05T16:00:00Z",
       "utilization": 69.2,
       "cost": 3.64,
-      "predicted": 70.97
+      "predicted": 70.97,
+      "energyKwh": 0.025475,
+      "carbonGco2": 14.7599,
+      "carbonIntensity": 579.39,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 18.1059
     },
     {
       "timestamp": "2026-08-05T17:00:00Z",
       "utilization": 61.04,
       "cost": 3.22,
-      "predicted": 60.71
+      "predicted": 60.71,
+      "energyKwh": 0.023945,
+      "carbonGco2": 13.5397,
+      "carbonIntensity": 565.45,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.6703
     },
     {
       "timestamp": "2026-08-05T18:00:00Z",
       "utilization": 53.94,
       "cost": 2.78,
-      "predicted": 52.15
+      "predicted": 52.15,
+      "energyKwh": 0.022614,
+      "carbonGco2": 12.4376,
+      "carbonIntensity": 550.0,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 17.1875
     },
     {
       "timestamp": "2026-08-05T19:00:00Z",
       "utilization": 48.87,
       "cost": 2.65,
-      "predicted": 44.78
+      "predicted": 44.78,
+      "energyKwh": 0.021663,
+      "carbonGco2": 7.6093,
+      "carbonIntensity": 351.25,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 10.9767
     },
     {
       "timestamp": "2026-08-05T20:00:00Z",
       "utilization": 33.84,
       "cost": 2.11,
-      "predicted": 34.57
+      "predicted": 34.57,
+      "energyKwh": 0.018845,
+      "carbonGco2": 6.6891,
+      "carbonIntensity": 354.95,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.0922
     },
     {
       "timestamp": "2026-08-05T21:00:00Z",
       "utilization": 28.58,
       "cost": 1.54,
-      "predicted": 29.71
+      "predicted": 29.71,
+      "energyKwh": 0.017859,
+      "carbonGco2": 6.4454,
+      "carbonIntensity": 360.91,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.2784
     },
     {
       "timestamp": "2026-08-05T22:00:00Z",
       "utilization": 25.7,
       "cost": 1.57,
-      "predicted": 23.68
+      "predicted": 23.68,
+      "energyKwh": 0.017319,
+      "carbonGco2": 6.3876,
+      "carbonIntensity": 368.83,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.5258
     },
     {
       "timestamp": "2026-08-05T23:00:00Z",
       "utilization": 20.06,
       "cost": 1.24,
-      "predicted": 21.85
+      "predicted": 21.85,
+      "energyKwh": 0.016261,
+      "carbonGco2": 6.1517,
+      "carbonIntensity": 378.31,
+      "baselineEnergyKwh": 0.03125,
+      "baselineCarbonGco2": 11.8221
     }
   ]
 }

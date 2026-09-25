@@ -4,6 +4,7 @@ import os
 import random
 import uuid
 from datetime import datetime, timedelta, timezone
+from scheduler.carbon_model import get_aura_metrics, get_baseline_metrics
 
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
@@ -46,12 +47,20 @@ def generate_energy_metrics(n: int = 120) -> list[dict]:
         predicted = round(min(100, max(5, base_util * mult + random.gauss(0, 1.5))), 2)
         cost = round(actual * 0.055 + random.gauss(0, 0.2), 2)
 
+        aura_metrics = get_aura_metrics(actual, ts)
+        baseline_metrics = get_baseline_metrics(ts)
+
         records.append(
             {
                 "timestamp": ts.strftime("%Y-%m-%dT%H:%M:%SZ"),
                 "utilization": actual,
                 "cost": max(0.01, cost),
                 "predicted": predicted,
+                "energyKwh": aura_metrics["energyKwh"],
+                "carbonGco2": aura_metrics["carbonGco2"],
+                "carbonIntensity": aura_metrics["carbonIntensity"],
+                "baselineEnergyKwh": baseline_metrics["baselineEnergyKwh"],
+                "baselineCarbonGco2": baseline_metrics["baselineCarbonGco2"]
             }
         )
     return records
