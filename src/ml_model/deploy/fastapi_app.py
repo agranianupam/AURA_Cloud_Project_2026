@@ -14,6 +14,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from predict import predict
+from scheduler import schedule_workload, Workload
+from datetime import datetime, timezone, timedelta
 
 app = FastAPI(
     title="AURA ML Prediction Service",
@@ -41,7 +43,13 @@ class PredictionRequest(BaseModel):
 class PredictionEntry(BaseModel):
     timestamp: str
     predicted_utilization: float
+    provisioned_capacity_pct: float
     scaling_recommendation: str
+    carbon_intensity: float
+    energy_kwh: float
+    carbon_gco2: float
+    baseline_energy_kwh: float
+    baseline_carbon_gco2: float
 
 
 class PredictionResponse(BaseModel):
@@ -96,6 +104,54 @@ def get_predictions(
 @app.post("/predict", response_model=PredictionResponse, tags=["Prediction"])
 def post_predictions(body: PredictionRequest):
     return get_predictions(n_steps=body.n_steps)
+
+
+class ScheduleDecisionResponse(BaseModel):
+    workload_id: str
+    decision: str
+    scheduled_at: str
+    reason: str
+    deferredUntil: Optional[str] = None
+
+
+@app.get("/schedule", response_model=ScheduleDecisionResponse, tags=["Scheduler"])
+def get_schedule(
+    resourceId: str = Query(..., description="ID of the workload/resource"),
+    action: str = Query(..., description="Requested scaling action (e.g., scale_up, run_batch)"),
+    targetCapacity: str = Query(..., description="Target capacity %"),
+):
+    """
+    Carbon-aware scheduling endpoint. Called by the backend scaling-handler Lambda.
+    """
+    now = datetime.now(tz=timezone.utc)
+    
+    # Simple mapping of action to workload type for demo purposes
+    # In a real system, the workload type would be passed explicitly
+    workload_type = "batch" if "batch" in action.lower() or "defer" in action.lower() else "lms"
+    
+    try:
+        util_pct = float(targetCapacity)
+    except ValueError:
+        util_pct = 50.0
+
+    # Create a workload (assumes 1 hour duration and a deadline 12 hours from now)
+    wl = Workload(
+        workload_id=resourceId,
+        workload_type=workload_type,
+        deadline=now + timedelta(hours=12),
+        duration_hours=1.0,
+        avg_utilization_pct=util_pct,
+    )
+    
+    decision = schedule_workload(wl, now=now)
+    
+    return ScheduleDecisionResponse(
+        workload_id=decision.workload_id,
+        decision=decision.decision,
+        scheduled_at=decision.scheduled_at.isoformat() if decision.scheduled_at else now.isoformat(),
+        reason=decision.reason,
+        deferredUntil=decision.scheduled_at.isoformat() if decision.decision == "defer" and decision.scheduled_at else None,
+    )
 
 
 if __name__ == "__main__":
