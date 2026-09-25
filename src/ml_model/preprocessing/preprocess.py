@@ -1,17 +1,48 @@
+﻿"""
+AURA preprocessing pipeline - REAL DATA VERSION.
+
+Replaces the earlier synthetic-Azure-like generator with the real Azure
+Public Dataset V2 VM CPU utilization trace (Cortez et al., SOSP 2017).
+
+Why this differs from a naive "one long series" pipeline:
+Azure's V2 trace ships as 195 time-sharded files, each covering ~3.75
+contiguous real hours across the FULL VM fleet (not one VM across the
+full ~30-day trace). Downloading enough shards for a single long
+continuous series (needed for the original chronological-split design)
+would require dozens of ~850MB files - impractical for this course
+project's timeline, disk and memory budget (confirmed experimentally:
+a background multi-file download was killed by the OS under memory
+pressure after ~2 files).
+
+Instead we extract a REAL VM PANEL from one shard (file 1 of 195): for
+every VM with a complete 45/45-timestamp record in that shard's 3.75h
+window, we keep its real (timestamp, utilization) trace. This gives
+many real, independent short time series instead of one long one - a
+standard "panel"/multi-series forecasting setup, and is 100% real
+telemetry (no synthetic values, no interpolation across gaps).
+
+Split strategy: chronological WITHIN each VM (first 70% of that VM's
+ticks -> train, next 15% -> val, last 15% -> test). This preserves
+causality per VM (a VM's test ticks are always later than its train
+ticks). We deliberately do NOT split by disjoint VM identity (e.g. VM
+A entirely in train, VM B entirely in test): every VM here was only
+observed for one real 3.75h window, so a VM held out entirely for
+test would have zero real history to build a prediction window from.
+Splitting by time-within-VM instead means every VM contributes real
+context to train and is evaluated on its own strictly-later real
+ticks - see dataset/dataset_description.md for the full rationale.
+
+Output: dataset/processed/{train,val,test}.csv, long format:
+  vm_id, timestamp, utilization, utilization_norm
+"""
 from __future__ import annotations
 
-import io
-import math
-import os
-import pickle
 import random
-import sys
-from datetime import datetime, timedelta, timezone
 from pathlib import Path
+import pickle
 
 import numpy as np
 import pandas as pd
-import requests
 from sklearn.preprocessing import MinMaxScaler
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -21,162 +52,72 @@ PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 
 ML_DIR = Path(__file__).resolve().parents[1]
 
-RESAMPLE_FREQ = "5min"
+RAW_PANEL_CSV = RAW_DIR / "azure_real_vm_panel.csv"
+
 TRAIN_RATIO = 0.70
-VAL_RATIO   = 0.15
+VAL_RATIO = 0.15
+# TEST_RATIO = 0.15 (remainder)
 
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
 np.random.seed(RANDOM_SEED)
 
 
-def academic_multiplier(dt: datetime) -> float:
-    month   = dt.month
-    hour    = dt.hour
-    weekday = dt.weekday()
-    day     = dt.day
-
-    if month in (12, 1, 5, 6):
-        return 0.5
-    if month in (11, 4):
-        return 1.4
-    if month in (8, 2) and day <= 14:
-        return 1.3
-    if weekday >= 5:
-        return 0.7
-    if 9 <= hour < 17:
-        return 1.15
-    if hour >= 22 or hour < 6:
-        return 0.85
-    return 1.0
-
-
-def _find_existing_raw_csv() -> Path | None:
-    csvs = list(RAW_DIR.glob("*.csv"))
-    if csvs:
-        print(f"  Found existing raw CSV: {csvs[0].name}")
-        return csvs[0]
-    return None
-
-
-def _generate_synthetic_azure_like(n_rows: int = 75_000) -> pd.DataFrame:
-    print("  No raw dataset found. Generating synthetic Azure-like traces ...")
-    print(f"     Generating {n_rows:,} rows ...")
-
-    start = datetime(2025, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
-    timestamps = [start + timedelta(minutes=5 * i) for i in range(n_rows)]
-
-    util_values = []
-    rng = np.random.default_rng(RANDOM_SEED)
-
-    for ts in timestamps:
-        mult = academic_multiplier(ts)
-        hour_frac = ts.hour + ts.minute / 60
-        daily_osc = 0.5 + 0.3 * math.sin(2 * math.pi * (hour_frac - 4) / 24)
-
-        if rng.random() < 0.35:
-            base = rng.normal(10, 4)
-        else:
-            base = rng.normal(35, 15) * daily_osc
-
-        util = base * mult
-        util += rng.normal(0, 1.5)
-        util_values.append(float(np.clip(util, 1.0, 100.0)))
-
-    df = pd.DataFrame({"timestamp": timestamps, "utilization": util_values})
-    df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True)
+def load_real_panel() -> pd.DataFrame:
+    if not RAW_PANEL_CSV.exists():
+        raise FileNotFoundError(
+            f"Real Azure VM panel not found at {RAW_PANEL_CSV}.\n"
+            "This is extracted from the Azure Public Dataset V2 (real telemetry) - "
+            "see dataset/dataset_description.md for how it was built."
+        )
+    df = pd.read_csv(RAW_PANEL_CSV)
+    df = df.sort_values(["vm_id", "timestamp"]).reset_index(drop=True)
     return df
 
 
-def load_raw_data() -> pd.DataFrame:
-    existing = _find_existing_raw_csv()
+def chronological_split_per_vm(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Split each VM's own real tick sequence 70/15/15, chronologically.
 
-    if existing:
-        df = pd.read_csv(existing)
-        col_map = {}
-        for c in df.columns:
-            low = c.lower().replace(" ", "_")
-            if "time" in low or "date" in low:
-                col_map[c] = "timestamp"
-            elif "cpu" in low or "util" in low or "usage" in low:
-                col_map[c] = "utilization"
-        df = df.rename(columns=col_map)
+    A VM's val/test ticks are always strictly later in real time than its
+    own train ticks - no leakage - while every VM contributes to every
+    split (necessary since each VM was only observed for one real 3.75h
+    window; there is no separate 'future' data for a held-out VM).
+    """
+    train_parts, val_parts, test_parts = [], [], []
 
-        if "timestamp" not in df.columns or "utilization" not in df.columns:
-            raise ValueError(
-                f"Cannot find timestamp/utilization columns in {existing.name}. "
-                f"Found: {list(df.columns)}"
-            )
+    for vm_id, group in df.groupby("vm_id", sort=False):
+        group = group.sort_values("timestamp")
+        n = len(group)
+        train_end = int(n * TRAIN_RATIO)
+        val_end = train_end + max(1, int(n * VAL_RATIO))
 
-        df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True, errors="coerce")
-        df["utilization"] = pd.to_numeric(df["utilization"], errors="coerce")
-        df = df.dropna(subset=["timestamp", "utilization"])
-        return df[["timestamp", "utilization"]].copy()
+        train_parts.append(group.iloc[:train_end])
+        val_parts.append(group.iloc[train_end:val_end])
+        test_parts.append(group.iloc[val_end:])
 
-    return _generate_synthetic_azure_like(n_rows=75_000)
-
-
-def resample_and_clean(df: pd.DataFrame) -> pd.DataFrame:
-    print("  Resampling to 5-min intervals ...")
-    df = df.set_index("timestamp").sort_index()
-    df = df.resample(RESAMPLE_FREQ).mean()
-
-    df["utilization"] = (
-        df["utilization"]
-        .ffill(limit=6)
-        .interpolate(method="time")
-    )
-
-    df["utilization"] = df["utilization"].clip(0.0, 100.0)
-    df = df.dropna()
-    print(f"     Shape after resample: {df.shape[0]:,} rows")
-    return df.reset_index()
-
-
-def apply_academic_multipliers(df: pd.DataFrame) -> pd.DataFrame:
-    print("  Applying academic-calendar multipliers ...")
-    df = df.copy()
-
-    if df["timestamp"].dt.tz is None:
-        df["timestamp"] = df["timestamp"].dt.tz_localize("UTC")
-
-    multipliers = df["timestamp"].apply(lambda ts: academic_multiplier(ts.to_pydatetime()))
-    df["utilization"] = (df["utilization"] * multipliers).clip(0.0, 100.0)
-    df["academic_multiplier"] = multipliers
-    return df
-
-
-def normalise(df: pd.DataFrame) -> tuple[pd.DataFrame, MinMaxScaler]:
-    print("  Normalising utilization to [0, 1] ...")
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    df = df.copy()
-    df["utilization_norm"] = scaler.fit_transform(df[["utilization"]])
-    return df, scaler
-
-
-def chronological_split(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    n = len(df)
-    train_end = int(n * TRAIN_RATIO)
-    val_end   = int(n * (TRAIN_RATIO + VAL_RATIO))
-
-    train = df.iloc[:train_end].copy()
-    val   = df.iloc[train_end:val_end].copy()
-    test  = df.iloc[val_end:].copy()
-
-    print(f"  Split: train={len(train):,}  val={len(val):,}  test={len(test):,}")
+    train = pd.concat(train_parts, ignore_index=True)
+    val = pd.concat(val_parts, ignore_index=True)
+    test = pd.concat(test_parts, ignore_index=True)
     return train, val, test
 
 
-def save_outputs(
-    train: pd.DataFrame,
-    val: pd.DataFrame,
-    test: pd.DataFrame,
-    scaler: MinMaxScaler,
-) -> None:
+def normalise(train: pd.DataFrame, val: pd.DataFrame, test: pd.DataFrame):
+    """Fit MinMaxScaler on train utilization only, apply to all splits."""
+    scaler = MinMaxScaler(feature_range=(0, 1))
+    scaler.fit(train[["utilization"]])
+
+    for split in (train, val, test):
+        split["utilization_norm"] = scaler.transform(split[["utilization"]])
+
+    return train, val, test, scaler
+
+
+def save_outputs(train, val, test, scaler) -> None:
     for split, name in [(train, "train"), (val, "val"), (test, "test")]:
         path = PROCESSED_DIR / f"{name}.csv"
         split.to_csv(path, index=False)
-        print(f"  Saved {path.relative_to(ROOT)}")
+        print(f"  Saved {path.relative_to(ROOT)} ({len(split):,} real rows, "
+              f"{split['vm_id'].nunique():,} VMs)")
 
     scaler_path = ML_DIR / "scaler.pkl"
     with open(scaler_path, "wb") as f:
@@ -185,34 +126,32 @@ def save_outputs(
 
 
 def run_pipeline() -> None:
-    print("\nAURA Preprocessing Pipeline")
-    print("=" * 40)
+    print("\nAURA Preprocessing Pipeline (REAL Azure Public Dataset V2)")
+    print("=" * 60)
 
-    print("\n[1/5] Loading raw data ...")
-    df = load_raw_data()
-    print(f"      Loaded {len(df):,} raw rows")
+    print("\n[1/4] Loading real VM panel ...")
+    df = load_real_panel()
+    n_vms = df["vm_id"].nunique()
+    n_ticks = df.groupby("vm_id").size().iloc[0]
+    print(f"      {len(df):,} real readings, {n_vms:,} VMs x {n_ticks} real 5-min ticks each")
+    print(f"      Real trace window: {df['timestamp'].min()}s - {df['timestamp'].max()}s "
+          f"({(df['timestamp'].max() - df['timestamp'].min()) / 3600:.2f}h)")
 
-    print("\n[2/5] Resampling & cleaning ...")
-    df = resample_and_clean(df)
+    print("\n[2/4] Chronological per-VM split (70/15/15) ...")
+    train, val, test = chronological_split_per_vm(df)
+    print(f"      train={len(train):,}  val={len(val):,}  test={len(test):,}")
 
-    print("\n[3/5] Applying academic-calendar multipliers ...")
-    df = apply_academic_multipliers(df)
+    print("\n[3/4] Normalising (MinMaxScaler fit on train only) ...")
+    train, val, test, scaler = normalise(train, val, test)
 
-    print("\n[4/5] Normalising ...")
-    df, scaler = normalise(df)
-
-    print("\n[5/5] Splitting & saving ...")
-    train, val, test = chronological_split(df)
+    print("\n[4/4] Saving outputs ...")
     save_outputs(train, val, test, scaler)
 
     print("\nPreprocessing complete!")
-    print(f"   Total rows: {len(df):,}")
-    print(f"   Date range: {df['timestamp'].min()} -> {df['timestamp'].max()}")
-    print(f"   Utilisation stats:")
-    print(f"     mean={df['utilization'].mean():.1f}%  "
-          f"std={df['utilization'].std():.1f}%  "
-          f"min={df['utilization'].min():.1f}%  "
-          f"max={df['utilization'].max():.1f}%\n")
+    print(f"   Total real readings used: {len(df):,}")
+    print(f"   Utilisation stats (real, %): "
+          f"mean={df['utilization'].mean():.2f}  std={df['utilization'].std():.2f}  "
+          f"min={df['utilization'].min():.2f}  max={df['utilization'].max():.2f}\n")
 
 
 if __name__ == "__main__":

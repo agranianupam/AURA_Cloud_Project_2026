@@ -1,46 +1,8 @@
-# Python
-__pycache__/
+﻿__pycache__/
 *.pyc
-*.pyo
-*.pyd
-.venv/
-venv/
-env/
-*.egg-info/
-dist/
-build/
-
-# ML artifacts (large binary files — not committed to git)
-*.h5
-*.pkl
-*.keras
-*.pt
-*.pth
-*.onnx
-
-# Dataset — raw files can be large; only processed CSVs if small
-dataset/raw/*.csv
-dataset/raw/*.tsv
-dataset/raw/*.parquet
-
-# Node.js
 node_modules/
-npm-debug.log*
-
-# Environment secrets
 .env
-.env.*
-!.env.example
-
-# AWS
-*.pem
-lambda_pkg/
-*.zip
-
-# OS
 .DS_Store
-Thumbs.db
-
-# Logs
 *.log
-logs/
+.venv/
+dataset/raw/_azure_download/
