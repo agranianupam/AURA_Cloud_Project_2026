@@ -32,7 +32,7 @@ export default function AllocationTable() {
               <tr key={idx} className="bg-white border-b hover:bg-gray-50">
                 <td className="px-6 py-4 font-medium text-gray-900">{item.resourceId}</td><td className="px-6 py-4">{item.service}</td><td className="px-6 py-4">{item.capacity}</td>
                 <td className="px-6 py-4">
-                  <span className={\px-2 py-1 rounded-full text-xs font-semibold \\}>{item.status}</span>
+                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${['Running','Active'].includes(item.status) ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'}`}>{item.status}</span>
                 </td>
               </tr>
             ))}

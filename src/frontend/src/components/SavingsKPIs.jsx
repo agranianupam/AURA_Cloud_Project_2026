@@ -35,8 +35,8 @@ export default function SavingsKPIs() {
         const Icon = kpi.icon;
         return (
           <div key={idx} className="bg-white p-5 rounded-xl shadow-sm flex items-center space-x-4 border border-gray-100">
-            <div className={p-3 rounded-full \}>
-              <Icon className={w-6 h-6 \} />
+            <div className={`p-3 rounded-full ${kpi.bg}`}>
+              <Icon className={`w-6 h-6 ${kpi.color}`} />
             </div>
             <div>
               <p className="text-sm text-gray-500 font-medium">{kpi.title}</p>

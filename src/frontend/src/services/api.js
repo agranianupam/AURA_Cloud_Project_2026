@@ -16,8 +16,8 @@ const handleRequest = async (mockData, endpoint) => {
     } else {
       const session = await fetchAuthSession();
       const token = session.tokens?.idToken?.toString();
-      const response = await axios.get(\\\\, {
-        headers: { Authorization: \Bearer \\ }
+      const response = await axios.get(`${API_BASE}${endpoint}`, {
+        headers: { Authorization: `Bearer ${token}` }
       });
       return { data: response.data, loading: false, error: null };
     }
