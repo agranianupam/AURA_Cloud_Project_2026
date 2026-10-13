@@ -1,0 +1,8 @@
+floor 1: 2018-07-01 00:00:00 -> 2019-12-31 23:45:00, 52704 steps, 54 empty before interpolation, 30 still empty (long gaps)
+floor 2: 2018-07-01 00:00:00 -> 2019-12-31 23:45:00, 52704 steps, 41 empty before interpolation, 29 still empty (long gaps)
+floor 3: 2018-07-01 00:00:00 -> 2019-12-31 23:45:00, 52704 steps, 3922 empty before interpolation, 3889 still empty (long gaps)
+floor 4: 2018-07-01 00:00:00 -> 2019-12-31 23:45:00, 52704 steps, 2235 empty before interpolation, 2215 still empty (long gaps)
+floor 5: 2018-07-01 00:00:00 -> 2019-12-31 23:45:00, 52704 steps, 368 empty before interpolation, 300 still empty (long gaps)
+floor 6: 2018-07-01 00:00:00 -> 2019-10-22 13:15:00, 45942 steps, 41 empty before interpolation, 29 still empty (long gaps)
+floor 7: 2018-07-01 00:00:00 -> 2019-12-31 23:45:00, 52704 steps, 41 empty before interpolation, 29 still empty (long gaps)
+building: 41766 complete steps of 52704 (10938 dropped because a floor was missing)

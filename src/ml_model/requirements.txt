@@ -1,0 +1,7 @@
+tensorflow>=2.16
+pandas>=2.2
+numpy
+scikit-learn
+matplotlib
+joblib
+holidays
