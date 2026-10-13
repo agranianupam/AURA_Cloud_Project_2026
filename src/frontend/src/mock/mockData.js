@@ -51,5 +51,30 @@ export const generateMockData = () => {
     { timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 26).toISOString(), type: 'carbon', message: 'Region carbon intensity above SLA threshold. Alerting grid manager.', severity: 'warning' }
   ];
 
-  return { energyMetrics, savings, allocations, alerts };
+  const forecastStart = new Date(Math.ceil(now.getTime() / 3600000) * 3600000);
+  const forecastRows = Array.from({ length: 24 }, (_, h) => {
+    const t = new Date(forecastStart.getTime() + h * 3600000);
+    const isDay = t.getHours() >= 8 && t.getHours() <= 18;
+    const kw = isDay ? 450 + Math.random() * 150 : 130 + Math.random() * 30;
+    return {
+      timestamp: t.toISOString(),
+      total_kw: kw,
+      same_hour_last_week_kw: kw * (0.9 + Math.random() * 0.2),
+      is_holiday: false
+    };
+  });
+  const peak = forecastRows.reduce((a, b) => (b.total_kw > a.total_kw ? b : a));
+  const forecast = {
+    forecast_start: forecastStart.toISOString(),
+    freq: '1h',
+    unit: 'kW',
+    summary: {
+      peak_kw: peak.total_kw,
+      peak_time: peak.timestamp,
+      energy_kwh: forecastRows.reduce((s, r) => s + r.total_kw, 0)
+    },
+    forecast: forecastRows
+  };
+
+  return { energyMetrics, savings, allocations, alerts, forecast };
 }

@@ -30,7 +30,7 @@ function App() {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<Login onLogin={(email) => setUser(email)} />} />
         <Route path="/dashboard" element={
-          user || import.meta.env.VITE_USE_MOCK === "true" ? 
+          user || import.meta.env.VITE_USE_MOCK === "true" || import.meta.env.VITE_AUTH_DISABLED === "true" ?
             <Dashboard userEmail={user || 'admin@aura.demo'} onLogout={handleLogout} /> 
             : <Navigate to="/login" replace />
         } />

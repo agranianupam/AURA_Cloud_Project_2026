@@ -4,6 +4,8 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 
 const mocks = generateMockData();
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
+// Local development against a backend started with AUTH_DISABLED=true: no Cognito session needed
+const AUTH_DISABLED = import.meta.env.VITE_AUTH_DISABLED === "true";
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 const simulateNetwork = (data) => new Promise((res) => setTimeout(() => res({ data }), 300));
@@ -14,10 +16,9 @@ const handleRequest = async (mockData, endpoint) => {
       const response = await simulateNetwork(mockData);
       return { data: response.data, loading: false, error: null };
     } else {
-      const session = await fetchAuthSession();
-      const token = session.tokens?.idToken?.toString();
+      const token = AUTH_DISABLED ? null : (await fetchAuthSession()).tokens?.idToken?.toString();
       const response = await axios.get(`${API_BASE}${endpoint}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: token ? { Authorization: `Bearer ${token}` } : {}
       });
       return { data: response.data, loading: false, error: null };
     }
@@ -30,3 +31,4 @@ export const getEnergyMetrics = () => handleRequest(mocks.energyMetrics, '/api/m
 export const getSavings = () => handleRequest(mocks.savings, '/api/metrics/savings');
 export const getAllocations = () => handleRequest(mocks.allocations, '/api/allocations');
 export const getAlerts = () => handleRequest(mocks.alerts, '/api/alerts');
+export const getForecast = () => handleRequest(mocks.forecast, '/api/forecast');

@@ -4,6 +4,7 @@ import EnergyChart from '../components/EnergyChart';
 import AlertFeed from '../components/AlertFeed';
 import AllocationTable from '../components/AllocationTable';
 import ComparisonChart from '../components/ComparisonChart';
+import ForecastChart from '../components/ForecastChart';
 
 export default function Dashboard({ userEmail = "admin@aura.edu", onLogout }) {
   return (
@@ -25,6 +26,7 @@ export default function Dashboard({ userEmail = "admin@aura.edu", onLogout }) {
 
         <SavingsKPIs />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6"><ComparisonChart /></div>
+        <ForecastChart />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2"><EnergyChart /></div>
           <div className="lg:col-span-1"><AlertFeed /></div>
