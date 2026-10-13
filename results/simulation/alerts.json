@@ -1,0 +1,2714 @@
+[
+ {
+  "timestamp": "2019-10-21T23:00:00",
+  "type": "forecast",
+  "severity": "warning",
+  "message": "Forecast error 91 kW today, over twice the model's usual 36 kW; check for unscheduled campus events"
+ },
+ {
+  "timestamp": "2019-10-21T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 31 nodes (forecast 493 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-21T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 30 to 48 nodes (forecast 538 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-21T08:00:00",
+  "type": "scaling",
+  "severity": "critical",
+  "message": "Interactive demand exceeded forecast capacity (32.2 vs 30 nodes); reactively scaled to 33 nodes"
+ },
+ {
+  "timestamp": "2019-10-21T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 22 to 30 nodes (forecast 464 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-21T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 22 nodes (forecast 321 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-21T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 41 nodes (forecast 189 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-21T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 84 node-hours of batch work into the cleanest hours (06:00, 09:00, 10:00, 138-138 gCO2/kWh vs peak 285)"
+ },
+ {
+  "timestamp": "2019-10-20T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 47 to 12 nodes (forecast 132 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-20T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 11 to 47 nodes (forecast 130 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-20T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 35 node-hours of batch work into the cleanest hours (06:00, 07:00, 08:00, 118-124 gCO2/kWh vs peak 208)"
+ },
+ {
+  "timestamp": "2019-10-19T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 47 to 12 nodes (forecast 136 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-19T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 47 nodes (forecast 135 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-19T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 36 node-hours of batch work into the cleanest hours (08:00, 09:00, 10:00, 135-140 gCO2/kWh vs peak 248)"
+ },
+ {
+  "timestamp": "2019-10-18T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 239 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-18T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 33 nodes (forecast 522 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-18T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 20 nodes (forecast 277 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-18T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 25 to 34 nodes (forecast 542 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-18T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 25 nodes (forecast 252 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-18T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 161 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-18T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 77 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 189-198 gCO2/kWh vs peak 262)"
+ },
+ {
+  "timestamp": "2019-10-17T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 15 nodes (forecast 196 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-17T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 48 nodes (forecast 196 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-17T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 18 nodes (forecast 246 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-17T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 35 nodes (forecast 558 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-17T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 20 nodes (forecast 291 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-17T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 30 nodes (forecast 468 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-17T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 48 nodes (forecast 579 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-17T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 26 nodes (forecast 166 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-17T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 81 node-hours of batch work into the cleanest hours (09:00, 10:00, 20:00, 248-250 gCO2/kWh vs peak 284)"
+ },
+ {
+  "timestamp": "2019-10-16T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 31 to 20 nodes (forecast 292 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-16T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 24 to 36 nodes (forecast 585 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-16T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 24 nodes (forecast 352 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-16T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 26 to 48 nodes (forecast 282 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-16T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 14 to 26 nodes (forecast 191 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-16T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 86 node-hours of batch work into the cleanest hours (09:00, 10:00, 11:00, 140-156 gCO2/kWh vs peak 289)"
+ },
+ {
+  "timestamp": "2019-10-15T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 33 to 20 nodes (forecast 276 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-15T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 24 to 39 nodes (forecast 632 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-15T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 34 to 24 nodes (forecast 357 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-15T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 43 to 34 nodes (forecast 540 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-15T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 25 to 48 nodes (forecast 671 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-15T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 25 nodes (forecast 305 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-15T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 156 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-15T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 88 node-hours of batch work into the cleanest hours (05:00, 06:00, 08:00, 204-212 gCO2/kWh vs peak 297)"
+ },
+ {
+  "timestamp": "2019-10-14T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 13 nodes (forecast 139 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-14T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 141 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-14T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 37 node-hours of batch work into the cleanest hours (00:00, 05:00, 06:00, 194-208 gCO2/kWh vs peak 286)"
+ },
+ {
+  "timestamp": "2019-10-14T00:00:00",
+  "type": "forecast",
+  "severity": "info",
+  "message": "Public holiday detected: forecast peak 146 kW, holding fleet near minimum"
+ },
+ {
+  "timestamp": "2019-10-13T22:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 38 to 10 nodes (forecast 108 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-13T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 10 to 38 nodes (forecast 108 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-13T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 28 node-hours of batch work into the cleanest hours (20:00, 21:00, 22:00, 207-208 gCO2/kWh vs peak 249)"
+ },
+ {
+  "timestamp": "2019-10-13T00:00:00",
+  "type": "forecast",
+  "severity": "info",
+  "message": "Public holiday detected: forecast peak 122 kW, holding fleet near minimum"
+ },
+ {
+  "timestamp": "2019-10-12T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 46 to 12 nodes (forecast 128 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-12T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 11 to 46 nodes (forecast 127 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-12T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 35 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 90-105 gCO2/kWh vs peak 246)"
+ },
+ {
+  "timestamp": "2019-10-11T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 17 nodes (forecast 234 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-11T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 32 nodes (forecast 508 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-11T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 19 nodes (forecast 267 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-11T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 35 nodes (forecast 553 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-11T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 34 to 48 nodes (forecast 554 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-11T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 34 nodes (forecast 537 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-11T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 18 nodes (forecast 244 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-11T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 39 to 48 nodes (forecast 145 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-11T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 39 nodes (forecast 153 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-11T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 76 node-hours of batch work into the cleanest hours (06:00, 08:00, 09:00, 102-103 gCO2/kWh vs peak 174)"
+ },
+ {
+  "timestamp": "2019-10-10T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 17 nodes (forecast 230 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-10T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 35 nodes (forecast 562 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-10T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 19 nodes (forecast 273 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-10T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 36 nodes (forecast 585 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-10T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 40 to 48 nodes (forecast 594 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-10T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 40 nodes (forecast 260 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-10T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 159 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-10T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 80 node-hours of batch work into the cleanest hours (06:00, 08:00, 09:00, 75-79 gCO2/kWh vs peak 178)"
+ },
+ {
+  "timestamp": "2019-10-09T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 18 nodes (forecast 244 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-09T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 35 nodes (forecast 565 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-09T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 21 nodes (forecast 301 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-09T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 47 to 36 nodes (forecast 571 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-09T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 47 nodes (forecast 577 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-09T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 20 nodes (forecast 277 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-09T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 167 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-09T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 80 node-hours of batch work into the cleanest hours (05:00, 06:00, 08:00, 90-96 gCO2/kWh vs peak 178)"
+ },
+ {
+  "timestamp": "2019-10-08T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 246 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-08T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 35 nodes (forecast 553 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-08T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 21 nodes (forecast 305 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-08T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 39 nodes (forecast 570 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-08T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 180 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-08T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 79 node-hours of batch work into the cleanest hours (06:00, 07:00, 08:00, 88-92 gCO2/kWh vs peak 204)"
+ },
+ {
+  "timestamp": "2019-10-07T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 31 to 18 nodes (forecast 245 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-07T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 37 nodes (forecast 590 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-07T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 31 to 21 nodes (forecast 295 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-07T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 38 nodes (forecast 614 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-07T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 167 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-07T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 83 node-hours of batch work into the cleanest hours (06:00, 07:00, 08:00, 116-118 gCO2/kWh vs peak 240)"
+ },
+ {
+  "timestamp": "2019-10-06T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 44 to 11 nodes (forecast 126 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-06T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 11 to 44 nodes (forecast 126 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-06T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 32 node-hours of batch work into the cleanest hours (15:00, 16:00, 18:00, 104-108 gCO2/kWh vs peak 180)"
+ },
+ {
+  "timestamp": "2019-10-05T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 47 to 12 nodes (forecast 133 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-05T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 47 nodes (forecast 134 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-05T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 35 node-hours of batch work into the cleanest hours (18:00, 19:00, 20:00, 170-175 gCO2/kWh vs peak 250)"
+ },
+ {
+  "timestamp": "2019-10-04T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 17 nodes (forecast 236 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-04T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 34 nodes (forecast 545 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-04T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 19 nodes (forecast 274 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-04T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 35 nodes (forecast 566 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-04T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 37 to 48 nodes (forecast 578 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-04T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 37 nodes (forecast 575 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-04T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 157 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-04T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 79 node-hours of batch work into the cleanest hours (06:00, 07:00, 09:00, 85-90 gCO2/kWh vs peak 244)"
+ },
+ {
+  "timestamp": "2019-10-03T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 241 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-03T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 35 nodes (forecast 563 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-03T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 20 nodes (forecast 285 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-03T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 37 to 29 nodes (forecast 457 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-03T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 30 nodes (forecast 265 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-03T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 169 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-03T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 81 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 207-218 gCO2/kWh vs peak 287)"
+ },
+ {
+  "timestamp": "2019-10-02T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 247 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-02T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 34 nodes (forecast 539 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-02T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 21 nodes (forecast 298 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-02T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 46 to 37 nodes (forecast 596 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-02T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 35 to 46 nodes (forecast 571 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-02T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 35 nodes (forecast 556 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-02T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 19 nodes (forecast 259 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-02T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 171 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-02T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 79 node-hours of batch work into the cleanest hours (05:00, 06:00, 09:00, 118-125 gCO2/kWh vs peak 255)"
+ },
+ {
+  "timestamp": "2019-10-01T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 20 nodes (forecast 279 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-01T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 24 to 35 nodes (forecast 565 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-01T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 33 nodes (forecast 287 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-01T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 165 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-10-01T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 82 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 96-110 gCO2/kWh vs peak 258)"
+ },
+ {
+  "timestamp": "2019-09-30T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 252 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-30T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 22 to 35 nodes (forecast 553 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-30T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 22 nodes (forecast 328 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-30T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 38 to 30 nodes (forecast 471 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-30T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 29 to 37 nodes (forecast 586 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-30T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 29 nodes (forecast 275 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-30T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 151 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-30T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 80 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 131-144 gCO2/kWh vs peak 286)"
+ },
+ {
+  "timestamp": "2019-09-29T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 43 to 11 nodes (forecast 125 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-29T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 11 to 43 nodes (forecast 124 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-29T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 32 node-hours of batch work into the cleanest hours (10:00, 11:00, 12:00, 99-104 gCO2/kWh vs peak 202)"
+ },
+ {
+  "timestamp": "2019-09-28T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 46 to 12 nodes (forecast 129 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-28T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 46 nodes (forecast 128 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-28T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 35 node-hours of batch work into the cleanest hours (05:00, 06:00, 18:00, 101-107 gCO2/kWh vs peak 194)"
+ },
+ {
+  "timestamp": "2019-09-27T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 246 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-27T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 33 nodes (forecast 514 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-27T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 20 nodes (forecast 288 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-27T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 34 nodes (forecast 545 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-27T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 48 nodes (forecast 532 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-27T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 39 to 18 nodes (forecast 256 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-27T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 39 nodes (forecast 156 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-27T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 158 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-27T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 77 node-hours of batch work into the cleanest hours (05:00, 06:00, 08:00, 100-102 gCO2/kWh vs peak 194)"
+ },
+ {
+  "timestamp": "2019-09-26T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 18 nodes (forecast 239 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-26T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 35 nodes (forecast 558 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-26T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 20 nodes (forecast 286 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-26T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 30 nodes (forecast 462 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-26T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 27 to 48 nodes (forecast 261 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-26T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 14 to 27 nodes (forecast 155 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-26T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 80 node-hours of batch work into the cleanest hours (08:00, 09:00, 10:00, 111-113 gCO2/kWh vs peak 248)"
+ },
+ {
+  "timestamp": "2019-09-25T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 241 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-25T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 34 nodes (forecast 539 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-25T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 20 nodes (forecast 288 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-25T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 28 nodes (forecast 259 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-25T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 174 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-25T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 78 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 175-182 gCO2/kWh vs peak 260)"
+ },
+ {
+  "timestamp": "2019-09-24T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 17 nodes (forecast 235 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-24T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 33 nodes (forecast 523 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-24T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 40 nodes (forecast 542 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-24T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 19 nodes (forecast 265 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-24T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 159 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-24T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 76 node-hours of batch work into the cleanest hours (05:00, 06:00, 08:00, 116-130 gCO2/kWh vs peak 244)"
+ },
+ {
+  "timestamp": "2019-09-23T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 19 nodes (forecast 264 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-23T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 34 nodes (forecast 540 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-23T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 21 nodes (forecast 304 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-23T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 29 nodes (forecast 457 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-23T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 31 to 48 nodes (forecast 257 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-23T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 31 nodes (forecast 154 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-23T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 81 node-hours of batch work into the cleanest hours (07:00, 08:00, 10:00, 152-156 gCO2/kWh vs peak 254)"
+ },
+ {
+  "timestamp": "2019-09-22T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 44 to 11 nodes (forecast 120 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-22T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 11 to 44 nodes (forecast 119 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-22T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 32 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 96-100 gCO2/kWh vs peak 218)"
+ },
+ {
+  "timestamp": "2019-09-21T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 46 to 12 nodes (forecast 133 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-21T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 46 nodes (forecast 134 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-21T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 35 node-hours of batch work into the cleanest hours (17:00, 18:00, 19:00, 72-76 gCO2/kWh vs peak 207)"
+ },
+ {
+  "timestamp": "2019-09-20T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 15 nodes (forecast 192 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-20T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 29 to 48 nodes (forecast 229 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-20T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 17 to 29 nodes (forecast 255 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-20T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 17 nodes (forecast 223 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-20T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 33 nodes (forecast 524 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-20T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 18 nodes (forecast 256 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-20T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 34 nodes (forecast 546 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-20T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 76 node-hours of batch work into the cleanest hours (18:00, 19:00, 20:00, 186-198 gCO2/kWh vs peak 282)"
+ },
+ {
+  "timestamp": "2019-09-19T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 37 to 15 nodes (forecast 196 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-19T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 37 nodes (forecast 199 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-19T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 48 nodes (forecast 283 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-19T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 243 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-19T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 35 nodes (forecast 564 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-19T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 20 nodes (forecast 292 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-19T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 37 to 29 nodes (forecast 454 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-19T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 35 nodes (forecast 565 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-19T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 80 node-hours of batch work into the cleanest hours (18:00, 19:00, 20:00, 234-242 gCO2/kWh vs peak 294)"
+ },
+ {
+  "timestamp": "2019-09-18T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 34 to 15 nodes (forecast 186 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-18T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 34 nodes (forecast 188 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-18T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 48 nodes (forecast 277 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-18T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 243 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-18T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 34 nodes (forecast 544 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-18T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 21 nodes (forecast 294 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-18T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 35 nodes (forecast 553 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-18T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 79 node-hours of batch work into the cleanest hours (18:00, 19:00, 20:00, 218-221 gCO2/kWh vs peak 269)"
+ },
+ {
+  "timestamp": "2019-09-17T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 27 to 17 nodes (forecast 228 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-17T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 33 nodes (forecast 520 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-17T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 27 nodes (forecast 419 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-17T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 44 nodes (forecast 539 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-17T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 19 nodes (forecast 261 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-17T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 170 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-17T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 75 node-hours of batch work into the cleanest hours (06:00, 09:00, 10:00, 156-160 gCO2/kWh vs peak 256)"
+ },
+ {
+  "timestamp": "2019-09-16T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 18 nodes (forecast 250 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-16T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 36 nodes (forecast 581 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-16T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 21 nodes (forecast 311 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-16T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 30 nodes (forecast 463 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-16T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 33 to 48 nodes (forecast 620 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-16T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 14 to 33 nodes (forecast 282 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-16T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 14 nodes (forecast 175 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-16T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 143 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-16T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 82 node-hours of batch work into the cleanest hours (08:00, 09:00, 10:00, 206-212 gCO2/kWh vs peak 270)"
+ },
+ {
+  "timestamp": "2019-09-15T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 45 to 11 nodes (forecast 124 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-15T04:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 11 to 45 nodes (forecast 126 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-15T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 34 node-hours of batch work into the cleanest hours (03:00, 04:00, 05:00, 121-131 gCO2/kWh vs peak 230)"
+ },
+ {
+  "timestamp": "2019-09-14T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 12 nodes (forecast 137 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-14T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 137 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-14T10:00:00",
+  "type": "scaling",
+  "severity": "critical",
+  "message": "Interactive demand exceeded forecast capacity (12.1 vs 12 nodes); reactively scaled to 13 nodes"
+ },
+ {
+  "timestamp": "2019-09-14T09:00:00",
+  "type": "scaling",
+  "severity": "critical",
+  "message": "Interactive demand exceeded forecast capacity (12.8 vs 12 nodes); reactively scaled to 13 nodes"
+ },
+ {
+  "timestamp": "2019-09-14T08:00:00",
+  "type": "scaling",
+  "severity": "critical",
+  "message": "Interactive demand exceeded forecast capacity (15.0 vs 12 nodes); reactively scaled to 16 nodes"
+ },
+ {
+  "timestamp": "2019-09-14T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 36 node-hours of batch work into the cleanest hours (17:00, 18:00, 19:00, 93-99 gCO2/kWh vs peak 256)"
+ },
+ {
+  "timestamp": "2019-09-13T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 17 nodes (forecast 238 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-13T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 32 nodes (forecast 497 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-13T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 20 nodes (forecast 275 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-13T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 23 to 32 nodes (forecast 509 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-13T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 23 nodes (forecast 249 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-13T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 164 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-13T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 75 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 114-126 gCO2/kWh vs peak 237)"
+ },
+ {
+  "timestamp": "2019-09-12T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 19 nodes (forecast 257 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-12T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 22 to 35 nodes (forecast 562 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-12T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 22 nodes (forecast 321 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-12T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 14 to 48 nodes (forecast 171 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-12T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 81 node-hours of batch work into the cleanest hours (06:00, 07:00, 08:00, 112-113 gCO2/kWh vs peak 200)"
+ },
+ {
+  "timestamp": "2019-09-11T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 16 nodes (forecast 193 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-11T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 48 nodes (forecast 283 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-11T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 254 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-11T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 22 to 34 nodes (forecast 546 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-11T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 22 nodes (forecast 321 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-11T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 37 to 48 nodes (forecast 454 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-11T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 34 nodes (forecast 548 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-11T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 80 node-hours of batch work into the cleanest hours (11:00, 18:00, 19:00, 97-106 gCO2/kWh vs peak 211)"
+ },
+ {
+  "timestamp": "2019-09-10T22:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 25 to 12 nodes (forecast 138 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-10T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 15 to 25 nodes (forecast 186 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-10T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 256 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-10T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 22 to 34 nodes (forecast 547 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-10T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 35 nodes (forecast 554 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-10T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 19 nodes (forecast 274 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-10T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 167 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-10T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 79 node-hours of batch work into the cleanest hours (05:00, 06:00, 21:00, 205-207 gCO2/kWh vs peak 280)"
+ },
+ {
+  "timestamp": "2019-09-09T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 18 nodes (forecast 246 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-09T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 35 nodes (forecast 564 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-09T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 21 nodes (forecast 303 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-09T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 36 nodes (forecast 581 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-09T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 36 to 48 nodes (forecast 573 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-09T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 36 nodes (forecast 584 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-09T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 17 to 48 nodes (forecast 179 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-09T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 80 node-hours of batch work into the cleanest hours (06:00, 07:00, 09:00, 197-200 gCO2/kWh vs peak 284)"
+ },
+ {
+  "timestamp": "2019-09-08T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 46 to 12 nodes (forecast 133 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-08T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 46 nodes (forecast 130 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-08T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 34 node-hours of batch work into the cleanest hours (08:00, 09:00, 10:00, 150-159 gCO2/kWh vs peak 222)"
+ },
+ {
+  "timestamp": "2019-09-07T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 47 to 12 nodes (forecast 132 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-07T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 47 nodes (forecast 132 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-07T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 36 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 110-112 gCO2/kWh vs peak 187)"
+ },
+ {
+  "timestamp": "2019-09-06T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 15 nodes (forecast 194 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-06T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 48 nodes (forecast 232 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-06T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 17 nodes (forecast 231 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-06T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 33 nodes (forecast 514 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-06T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 19 nodes (forecast 270 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-06T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 33 nodes (forecast 523 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-06T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 24 to 13 nodes (forecast 149 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-06T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 24 nodes (forecast 157 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-06T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 75 node-hours of batch work into the cleanest hours (05:00, 19:00, 20:00, 96-106 gCO2/kWh vs peak 186)"
+ },
+ {
+  "timestamp": "2019-09-05T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 18 nodes (forecast 240 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-05T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 34 nodes (forecast 545 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-05T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 20 nodes (forecast 286 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-05T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 28 nodes (forecast 260 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-05T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 163 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-05T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 79 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 80-82 gCO2/kWh vs peak 178)"
+ },
+ {
+  "timestamp": "2019-09-04T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 243 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-04T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 35 nodes (forecast 565 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-04T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 21 nodes (forecast 294 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-04T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 38 to 48 nodes (forecast 587 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-04T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 38 nodes (forecast 576 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-04T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 48 nodes (forecast 574 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-04T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 14 nodes (forecast 175 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-04T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 169 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-04T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 81 node-hours of batch work into the cleanest hours (05:00, 10:00, 11:00, 103-104 gCO2/kWh vs peak 204)"
+ },
+ {
+  "timestamp": "2019-09-03T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 249 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-03T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 36 nodes (forecast 573 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-03T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 21 nodes (forecast 309 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-03T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 36 nodes (forecast 574 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-03T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 20 nodes (forecast 280 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-03T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 24 to 48 nodes (forecast 165 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-03T04:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 24 nodes (forecast 147 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-03T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 80 node-hours of batch work into the cleanest hours (04:00, 05:00, 06:00, 90-98 gCO2/kWh vs peak 194)"
+ },
+ {
+  "timestamp": "2019-09-02T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 18 nodes (forecast 241 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-02T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 37 nodes (forecast 590 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-02T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 20 nodes (forecast 287 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-02T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 38 nodes (forecast 615 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-02T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 31 to 48 nodes (forecast 178 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-02T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 31 nodes (forecast 149 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-02T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 82 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 132-148 gCO2/kWh vs peak 200)"
+ },
+ {
+  "timestamp": "2019-09-01T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 47 to 12 nodes (forecast 136 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-01T16:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 47 nodes (forecast 138 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-09-01T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 35 node-hours of batch work into the cleanest hours (15:00, 16:00, 17:00, 96-100 gCO2/kWh vs peak 161)"
+ },
+ {
+  "timestamp": "2019-08-31T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 12 nodes (forecast 138 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-31T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 137 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-31T10:00:00",
+  "type": "scaling",
+  "severity": "critical",
+  "message": "Interactive demand exceeded forecast capacity (12.9 vs 12 nodes); reactively scaled to 13 nodes"
+ },
+ {
+  "timestamp": "2019-08-31T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 36 node-hours of batch work into the cleanest hours (16:00, 17:00, 18:00, 87-94 gCO2/kWh vs peak 192)"
+ },
+ {
+  "timestamp": "2019-08-30T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 17 nodes (forecast 232 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-30T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 33 nodes (forecast 521 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-30T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 19 nodes (forecast 265 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-30T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 39 nodes (forecast 545 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-30T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 19 nodes (forecast 258 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-30T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 159 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-30T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 76 node-hours of batch work into the cleanest hours (05:00, 06:00, 10:00, 90-98 gCO2/kWh vs peak 186)"
+ },
+ {
+  "timestamp": "2019-08-29T22:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 12 nodes (forecast 145 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-29T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 32 to 48 nodes (forecast 192 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-29T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 32 nodes (forecast 201 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-29T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 48 nodes (forecast 243 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-29T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 242 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-29T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 36 nodes (forecast 573 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-29T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 20 nodes (forecast 286 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-29T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 37 nodes (forecast 588 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-29T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 81 node-hours of batch work into the cleanest hours (19:00, 20:00, 21:00, 154-155 gCO2/kWh vs peak 285)"
+ },
+ {
+  "timestamp": "2019-08-28T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 32 to 18 nodes (forecast 252 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-28T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 32 nodes (forecast 302 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-28T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 29 to 48 nodes (forecast 260 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-28T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 35 nodes (forecast 558 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-28T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 21 nodes (forecast 310 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-28T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 29 nodes (forecast 455 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-28T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 48 nodes (forecast 554 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-28T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 81 node-hours of batch work into the cleanest hours (08:00, 09:00, 10:00, 206-217 gCO2/kWh vs peak 288)"
+ },
+ {
+  "timestamp": "2019-08-27T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 33 to 18 nodes (forecast 255 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-27T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 33 nodes (forecast 307 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-27T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 31 to 19 nodes (forecast 264 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-27T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 22 to 36 nodes (forecast 581 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-27T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 31 to 22 nodes (forecast 324 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-27T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 37 nodes (forecast 596 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-27T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 14 nodes (forecast 182 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-27T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 158 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-27T01:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 11 nodes (forecast 117 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-27T00:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 133 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-27T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 84 node-hours of batch work into the cleanest hours (00:00, 05:00, 18:00, 234-241 gCO2/kWh vs peak 282)"
+ },
+ {
+  "timestamp": "2019-08-26T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 15 nodes (forecast 199 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-26T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 32 to 45 nodes (forecast 252 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-26T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 37 nodes (forecast 604 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-26T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 31 to 21 nodes (forecast 299 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-26T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 39 to 31 nodes (forecast 484 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-26T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 39 nodes (forecast 639 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-26T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 84 node-hours of batch work into the cleanest hours (17:00, 18:00, 19:00, 192-197 gCO2/kWh vs peak 264)"
+ },
+ {
+  "timestamp": "2019-08-25T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 13 nodes (forecast 144 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-25T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 142 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-25T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 37 node-hours of batch work into the cleanest hours (19:00, 20:00, 21:00, 176-180 gCO2/kWh vs peak 256)"
+ },
+ {
+  "timestamp": "2019-08-24T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 12 nodes (forecast 139 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-24T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 140 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-24T14:00:00",
+  "type": "scaling",
+  "severity": "critical",
+  "message": "Interactive demand exceeded forecast capacity (12.1 vs 12 nodes); reactively scaled to 13 nodes"
+ },
+ {
+  "timestamp": "2019-08-24T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 36 node-hours of batch work into the cleanest hours (06:00, 18:00, 19:00, 156-160 gCO2/kWh vs peak 226)"
+ },
+ {
+  "timestamp": "2019-08-23T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 17 nodes (forecast 238 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-23T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 35 nodes (forecast 551 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-23T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 19 nodes (forecast 269 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-23T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 27 to 36 nodes (forecast 570 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-23T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 27 nodes (forecast 259 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-23T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 48 nodes (forecast 159 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-23T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 80 node-hours of batch work into the cleanest hours (05:00, 06:00, 07:00, 116-125 gCO2/kWh vs peak 194)"
+ },
+ {
+  "timestamp": "2019-08-22T23:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 13 nodes (forecast 148 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-22T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 15 to 48 nodes (forecast 197 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-22T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 18 nodes (forecast 244 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-22T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 37 nodes (forecast 588 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-22T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 21 nodes (forecast 299 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-22T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 38 to 30 nodes (forecast 471 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-22T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 37 nodes (forecast 600 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-22T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 27 to 14 nodes (forecast 169 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-22T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 27 nodes (forecast 171 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-22T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 83 node-hours of batch work into the cleanest hours (05:00, 21:00, 22:00, 94-122 gCO2/kWh vs peak 170)"
+ },
+ {
+  "timestamp": "2019-08-21T22:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 39 to 13 nodes (forecast 147 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-21T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 39 nodes (forecast 211 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-21T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 48 nodes (forecast 260 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-21T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 32 to 19 nodes (forecast 267 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-21T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 37 nodes (forecast 591 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-21T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 31 to 21 nodes (forecast 301 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-21T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 39 to 31 nodes (forecast 491 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-21T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 38 nodes (forecast 606 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-21T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 85 node-hours of batch work into the cleanest hours (19:00, 20:00, 21:00, 139-144 gCO2/kWh vs peak 268)"
+ },
+ {
+  "timestamp": "2019-08-20T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 33 to 20 nodes (forecast 286 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-20T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 22 to 38 nodes (forecast 617 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-20T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 32 to 22 nodes (forecast 321 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-20T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 39 nodes (forecast 637 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-20T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 28 to 48 nodes (forecast 178 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-20T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 13 to 28 nodes (forecast 153 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-20T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 88 node-hours of batch work into the cleanest hours (06:00, 07:00, 08:00, 134-142 gCO2/kWh vs peak 238)"
+ },
+ {
+  "timestamp": "2019-08-19T23:00:00",
+  "type": "forecast",
+  "severity": "warning",
+  "message": "Forecast error 91 kW today, over twice the model's usual 36 kW; check for unscheduled campus events"
+ },
+ {
+  "timestamp": "2019-08-19T13:00:00",
+  "type": "scaling",
+  "severity": "critical",
+  "message": "Interactive demand exceeded forecast capacity (31.0 vs 31 nodes); reactively scaled to 32 nodes"
+ },
+ {
+  "timestamp": "2019-08-19T08:00:00",
+  "type": "scaling",
+  "severity": "critical",
+  "message": "Interactive demand exceeded forecast capacity (31.8 vs 27 nodes); reactively scaled to 32 nodes"
+ },
+ {
+  "timestamp": "2019-08-19T02:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 11 nodes (forecast 117 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-19T00:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 146 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-19T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 78 node-hours of batch work into the cleanest hours (00:00, 01:00, 06:00, 96-116 gCO2/kWh vs peak 170)"
+ },
+ {
+  "timestamp": "2019-08-18T22:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 43 to 11 nodes (forecast 123 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-18T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 11 to 43 nodes (forecast 124 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-18T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 32 node-hours of batch work into the cleanest hours (20:00, 21:00, 22:00, 88-89 gCO2/kWh vs peak 146)"
+ },
+ {
+  "timestamp": "2019-08-17T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 47 to 12 nodes (forecast 135 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-17T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 47 nodes (forecast 135 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-17T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 35 node-hours of batch work into the cleanest hours (20:00, 21:00, 22:00, 88-90 gCO2/kWh vs peak 176)"
+ },
+ {
+  "timestamp": "2019-08-16T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 28 to 17 nodes (forecast 228 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-16T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 32 nodes (forecast 501 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-16T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 34 to 48 nodes (forecast 551 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-16T09:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 44 to 34 nodes (forecast 538 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-16T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 44 nodes (forecast 526 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-16T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 75 node-hours of batch work into the cleanest hours (10:00, 11:00, 12:00, 126-131 gCO2/kWh vs peak 228)"
+ },
+ {
+  "timestamp": "2019-08-15T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 41 to 17 nodes (forecast 237 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-15T18:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 41 nodes (forecast 274 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-15T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 29 to 18 nodes (forecast 246 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-15T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 34 nodes (forecast 546 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-15T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 21 nodes (forecast 294 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-15T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 19 to 48 nodes (forecast 564 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-15T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 79 node-hours of batch work into the cleanest hours (09:00, 10:00, 11:00, 98-106 gCO2/kWh vs peak 236)"
+ },
+ {
+  "timestamp": "2019-08-14T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 18 nodes (forecast 180 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-14T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 18 to 48 nodes (forecast 192 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-14T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 30 to 19 nodes (forecast 268 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-14T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 22 to 36 nodes (forecast 575 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-14T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 31 to 22 nodes (forecast 322 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-14T11:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 31 nodes (forecast 483 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-14T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 37 to 48 nodes (forecast 615 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-14T08:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 20 to 36 nodes (forecast 584 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-14T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 14 nodes (forecast 173 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-14T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 166 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-14T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 82 node-hours of batch work into the cleanest hours (05:00, 10:00, 20:00, 222-226 gCO2/kWh vs peak 274)"
+ },
+ {
+  "timestamp": "2019-08-13T21:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 14 nodes (forecast 181 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-13T20:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 29 to 48 nodes (forecast 202 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-13T19:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 21 to 29 nodes (forecast 257 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-13T17:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 32 to 20 nodes (forecast 282 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-13T13:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 25 to 40 nodes (forecast 641 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-13T12:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 33 to 25 nodes (forecast 366 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-13T10:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 40 nodes (forecast 657 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-13T07:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 15 to 48 nodes (forecast 329 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-13T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 88 node-hours of batch work into the cleanest hours (08:00, 09:00, 20:00, 206-209 gCO2/kWh vs peak 280)"
+ },
+ {
+  "timestamp": "2019-08-12T06:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled down from 48 to 13 nodes (forecast 136 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-12T05:00:00",
+  "type": "scaling",
+  "severity": "info",
+  "message": "Scaled up from 12 to 48 nodes (forecast 137 kW campus demand)"
+ },
+ {
+  "timestamp": "2019-08-12T00:00:00",
+  "type": "carbon",
+  "severity": "info",
+  "message": "Scheduled 37 node-hours of batch work into the cleanest hours (00:00, 05:00, 06:00, 132-135 gCO2/kWh vs peak 258)"
+ },
+ {
+  "timestamp": "2019-08-12T00:00:00",
+  "type": "forecast",
+  "severity": "info",
+  "message": "Public holiday detected: forecast peak 151 kW, holding fleet near minimum"
+ }
+]
