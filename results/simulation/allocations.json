@@ -1,0 +1,302 @@
+[
+ {
+  "resourceId": "aura-node-01",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-02",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-03",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-04",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-05",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-06",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-07",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-08",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-09",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-10",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-11",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-12",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-13",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-14",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Running"
+ },
+ {
+  "resourceId": "aura-node-15",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-16",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-17",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-18",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-19",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-20",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-21",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-22",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-23",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-24",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-25",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-26",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-27",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-28",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-29",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-30",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-31",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-32",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-33",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-34",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-35",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-36",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-37",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-38",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-39",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-40",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-41",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-42",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-43",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-44",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-45",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-46",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-47",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-node-48",
+  "service": "Amazon EC2",
+  "capacity": "c5.xlarge",
+  "status": "Stopped"
+ },
+ {
+  "resourceId": "aura-forecast-scheduler",
+  "service": "AWS Lambda",
+  "status": "Active",
+  "capacity": "1024 MB"
+ },
+ {
+  "resourceId": "aura-lstm-endpoint",
+  "service": "Amazon SageMaker",
+  "status": "Running",
+  "capacity": "ml.t2.medium"
+ }
+]
