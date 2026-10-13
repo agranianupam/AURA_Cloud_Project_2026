@@ -1,0 +1,24 @@
+{
+  "name": "aura-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AURA REST API: serves forecasts, allocations, savings and alerts to the dashboard",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test",
+    "seed:dynamodb": "node scripts/seed-dynamodb.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.700.0",
+    "@aws-sdk/lib-dynamodb": "^3.700.0",
+    "aws-jwt-verify": "^4.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
