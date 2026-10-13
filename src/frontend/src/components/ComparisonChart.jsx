@@ -30,8 +30,8 @@ export default function ComparisonChart() {
           <p className="text-xs text-gray-500">Estimates based on machine learning forecasting (Not measured values).</p>
         </div>
         <div className="mt-2 sm:mt-0 flex gap-2">
-          <button onClick={() => setViewMode('energy')} className={\px-3 py-1 text-sm rounded-full \\}>Energy (kWh)</button>
-          <button onClick={() => setViewMode('carbon')} className={\px-3 py-1 text-sm rounded-full \\}>Carbon (gCO2)</button>
+          <button onClick={() => setViewMode('energy')} className={`px-3 py-1 text-sm rounded-full ${isEnergy ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600'}`}>Energy (kWh)</button>
+          <button onClick={() => setViewMode('carbon')} className={`px-3 py-1 text-sm rounded-full ${!isEnergy ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600'}`}>Carbon (gCO2)</button>
         </div>
       </div>
       

@@ -32,10 +32,10 @@ export default function AlertFeed() {
 
           return (
             <div key={idx} className="flex gap-4 p-3 rounded-lg border border-gray-50 bg-gray-50">
-              <div className={\mt-0.5 p-2 rounded-full \\}><Icon className="w-5 h-5" /></div>
+              <div className={`mt-0.5 p-2 rounded-full ${bc}`}><Icon className="w-5 h-5" /></div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className={\	ext-[10px] uppercase font-bold px-2 py-0.5 rounded-full \\}>{alert.severity}</span>
+                  <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${bc}`}>{alert.severity}</span>
                   <span className="text-xs text-gray-400">{new Date(alert.timestamp).toLocaleString()}</span>
                 </div>
                 <p className="text-sm text-gray-700">{alert.message}</p>
