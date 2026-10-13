@@ -1,0 +1,292 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AURA - DynamoDB, Cognito, SNS alerts (Lambda), CloudWatch alarm, S3 dashboard hosting, EC2 API host
+
+Parameters:
+  AlertEmail:
+    Type: String
+    Description: Facility manager email that receives AURA alerts (must confirm the SNS subscription)
+  DashboardBucketName:
+    Type: String
+    Description: Globally unique S3 bucket name for the dashboard
+  BackendRepoUrl:
+    Type: String
+    Description: HTTPS git URL that contains src/backend (the API is cloned and started on the EC2 instance)
+  BackendRepoBranch:
+    Type: String
+    Default: main
+    Description: Branch to check out on the API instance
+  BackendRepoDir:
+    Type: String
+    Default: src/backend
+  KeyName:
+    Type: String
+    Default: ''
+    Description: Optional EC2 key pair for SSH (leave empty to use SSM Session Manager only)
+  InstanceType:
+    Type: String
+    Default: t3.micro
+  LatestAmi:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64
+
+Conditions:
+  HasKey: !Not [!Equals [!Ref KeyName, '']]
+
+Resources:
+  AuraTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: AURA
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - { AttributeName: type, AttributeType: S }
+        - { AttributeName: id, AttributeType: S }
+      KeySchema:
+        - { AttributeName: type, KeyType: HASH }
+        - { AttributeName: id, KeyType: RANGE }
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: aura-users
+      AutoVerifiedAttributes: [email]
+      UsernameAttributes: [email]
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: true
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 10
+          RequireLowercase: true
+          RequireUppercase: true
+          RequireNumbers: true
+          RequireSymbols: false
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: aura-dashboard
+      UserPoolId: !Ref UserPool
+      GenerateSecret: false
+      ExplicitAuthFlows: [ALLOW_USER_SRP_AUTH, ALLOW_REFRESH_TOKEN_AUTH]
+      PreventUserExistenceErrors: ENABLED
+
+  AlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: aura-alerts
+
+  AlertSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref AlertTopic
+      Protocol: email
+      Endpoint: !Ref AlertEmail
+
+  AlertFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: { Service: lambda.amazonaws.com }
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: aura-alert-publisher
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: sns:Publish
+                Resource: !Ref AlertTopic
+              - Effect: Allow
+                Action:
+                  - dynamodb:DescribeStream
+                  - dynamodb:GetRecords
+                  - dynamodb:GetShardIterator
+                  - dynamodb:ListStreams
+                Resource: !GetAtt AuraTable.StreamArn
+
+  AlertFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: aura-alert-publisher
+      Runtime: nodejs24.x
+      Handler: index.handler
+      Role: !GetAtt AlertFunctionRole.Arn
+      Timeout: 30
+      Environment:
+        Variables:
+          TOPIC_ARN: !Ref AlertTopic
+      Code:
+        ZipFile: |
+          const { SNSClient, PublishCommand } = require('@aws-sdk/client-sns');
+          const sns = new SNSClient({});
+          // Publishes new warning/critical alert rows from the AURA table to SNS.
+          exports.handler = async (event) => {
+            let sent = 0;
+            for (const r of event.Records || []) {
+              if (r.eventName !== 'INSERT') continue;
+              const img = r.dynamodb.NewImage || {};
+              if (img.type?.S !== 'alert') continue;
+              const severity = img.severity?.S;
+              if (severity !== 'critical' && severity !== 'warning') continue;
+              await sns.send(new PublishCommand({
+                TopicArn: process.env.TOPIC_ARN,
+                Subject: `AURA ${severity}: ${img.type?.S}`.slice(0, 100),
+                Message: `${img.timestamp?.S || ''}\n${img.message?.S || ''}`,
+              }));
+              sent++;
+            }
+            return { sent };
+          };
+
+  AlertStreamMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      FunctionName: !Ref AlertFunction
+      EventSourceArn: !GetAtt AuraTable.StreamArn
+      StartingPosition: LATEST
+      BatchSize: 25
+      FilterCriteria:
+        Filters:
+          - Pattern: '{"eventName":["INSERT"],"dynamodb":{"NewImage":{"type":{"S":["alert"]}}}}'
+
+  AlertFunctionErrors:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: aura-alert-publisher-errors
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions:
+        - { Name: FunctionName, Value: !Ref AlertFunction }
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref AlertTopic]
+
+  DashboardBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref DashboardBucketName
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+
+  DashboardBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DashboardBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: PublicReadDashboard
+            Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub '${DashboardBucket.Arn}/*'
+
+  ApiRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: { Service: ec2.amazonaws.com }
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+      Policies:
+        - PolicyName: aura-table-access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:Query
+                  - dynamodb:BatchWriteItem
+                Resource: !GetAtt AuraTable.Arn
+
+  ApiProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles: [!Ref ApiRole]
+
+  ApiSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: AURA API (port 3000)
+      SecurityGroupIngress:
+        - { IpProtocol: tcp, FromPort: 3000, ToPort: 3000, CidrIp: 0.0.0.0/0 }
+        - !If
+          - HasKey
+          - { IpProtocol: tcp, FromPort: 22, ToPort: 22, CidrIp: 0.0.0.0/0 }
+          - !Ref AWS::NoValue
+
+  ApiInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref LatestAmi
+      InstanceType: !Ref InstanceType
+      KeyName: !If [HasKey, !Ref KeyName, !Ref AWS::NoValue]
+      IamInstanceProfile: !Ref ApiProfile
+      SecurityGroupIds: [!GetAtt ApiSecurityGroup.GroupId]
+      Tags:
+        - { Key: Name, Value: aura-api }
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          set -euxo pipefail
+          dnf install -y git nodejs npm
+          git clone --branch ${BackendRepoBranch} ${BackendRepoUrl} /opt/aura
+          cd /opt/aura/${BackendRepoDir}
+          npm ci --omit=dev || npm install --omit=dev
+          # Read by systemd (EnvironmentFile) and passed to src/server.js; DYNAMODB_TABLE selects the DynamoDB store
+          cat > .env <<ENV
+          PORT=3000
+          DYNAMODB_TABLE=${AuraTable}
+          AWS_REGION=${AWS::Region}
+          COGNITO_USER_POOL_ID=${UserPool}
+          COGNITO_CLIENT_ID=${UserPoolClient}
+          CORS_ORIGIN=http://${DashboardBucketName}.s3-website-${AWS::Region}.amazonaws.com
+          ENV
+          cat > /etc/systemd/system/aura-api.service <<UNIT
+          [Unit]
+          Description=AURA API
+          After=network.target
+          [Service]
+          WorkingDirectory=/opt/aura/${BackendRepoDir}
+          EnvironmentFile=/opt/aura/${BackendRepoDir}/.env
+          ExecStart=/usr/bin/node src/server.js
+          Restart=always
+          [Install]
+          WantedBy=multi-user.target
+          UNIT
+          systemctl daemon-reload
+          systemctl enable --now aura-api
+
+Outputs:
+  UserPoolId: { Value: !Ref UserPool }
+  UserPoolClientId: { Value: !Ref UserPoolClient }
+  AlertTopicArn: { Value: !Ref AlertTopic }
+  DashboardUrl: { Value: !GetAtt DashboardBucket.WebsiteURL }
+  ApiUrl: { Value: !Sub 'http://${ApiInstance.PublicDnsName}:3000' }
+  TableName: { Value: !Ref AuraTable }
