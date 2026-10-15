@@ -178,3 +178,12 @@ def test_upload_cleans_bad_rows_and_negatives(eng):
 def test_unknown_upload_id(eng):
     with pytest.raises(ValidationError):
         eng.preview("2019-09-10", "abcdef123456")
+
+
+def test_workload_servers_fixes_demand_while_capacity_varies(eng):
+    big = eng.simulate({**WEEK, "servers": 100, "workloadServers": 50})
+    same = eng.simulate({**WEEK, "servers": 50})
+    small = eng.simulate({**WEEK, "servers": 20, "workloadServers": 50})
+    assert [h["demandKw"] for h in big["hourly"]] == [h["demandKw"] for h in same["hourly"]]
+    assert small["summary"]["slaPct"] < big["summary"]["slaPct"]
+    assert big["summary"]["baselineKwh"] > same["summary"]["baselineKwh"]
