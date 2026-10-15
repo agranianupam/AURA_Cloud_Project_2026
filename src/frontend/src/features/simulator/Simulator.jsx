@@ -7,6 +7,7 @@ import CsvUpload from './CsvUpload';
 import Explainer from './Explainer';
 import Optimizer from '../optimizer/Optimizer';
 import TalkToAura from '../agent/TalkToAura';
+import ExportMenu from '../report/ExportMenu';
 import { DEFAULTS, simulate, toMessage } from './simulatorApi';
 
 export default function Simulator() {
@@ -72,6 +73,7 @@ export default function Simulator() {
             result={run.result}
             onSave={save}
             canSave={scenarios.length < MAX_SCENARIOS}
+            actions={<ExportMenu result={run.result} inputs={run.inputs} />}
           />
           <Explainer result={run.result} autoStart={!!run.auto} />
           {scenarios.length >= MAX_SCENARIOS && <p className="text-xs text-gray-500">You have {MAX_SCENARIOS} saved scenarios. Remove one to save another.</p>}
