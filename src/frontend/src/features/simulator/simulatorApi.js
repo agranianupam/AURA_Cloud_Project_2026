@@ -50,3 +50,8 @@ export async function uploadCsv(file, params) {
   const res = await axios.post(`${API_BASE}/api/upload`, form, { headers: await headers() });
   return res.data;
 }
+
+export async function explainResult(result, question, history = []) {
+  const res = await axios.post(`${API_BASE}/api/explain`, { result, question, history }, { headers: await headers() });
+  return res.data;
+}

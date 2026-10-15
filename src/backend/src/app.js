@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import multer from 'multer';
 import { EngineError } from './engine.js';
+import { explain } from './explain.js';
 
 // Positive integer query parameter, clamped to [1, max]; falls back to `def` when absent or invalid.
 function intParam(value, def, max) {
@@ -113,6 +114,15 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
     if (!req.file) throw new EngineError('validation', "attach a CSV in the multipart field 'file'", 'file');
     return engine.upload(req.file.buffer.toString('utf8'), req.file.originalname, coerceForm(req.body ?? {}));
   }));
+
+  // AURA Explainer: plain-language explanation of a simulation result (Claude if ANTHROPIC_API_KEY is set, else rules)
+  api.post('/explain', express.json({ limit: '500kb' }), async (req, res, next) => {
+    try {
+      const { result, question, history } = req.body ?? {};
+      if (!result || typeof result !== 'object') return apiError(res, 400, 'VALIDATION_ERROR', 'result (a simulation result) is required', 'result');
+      res.json(await explain({ result, question: typeof question === 'string' ? question : undefined, history: Array.isArray(history) ? history : [] }));
+    } catch (err) { next(err); }
+  });
 
   app.use('/api', api);
   app.use((req, res) => apiError(res, 404, 'NOT_FOUND', 'not found'));
