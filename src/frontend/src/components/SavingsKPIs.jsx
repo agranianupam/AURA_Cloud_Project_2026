@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import useApi from '../hooks/useApi';
+import { Skeleton, ErrorBox, Empty } from './State';
 import { getSavings } from '../services/api';
 import { Zap, Leaf, DollarSign, Activity } from 'lucide-react';
 
 export default function SavingsKPIs() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data, loading, error, reload } = useApi(getSavings);
 
-  useEffect(() => { fetchData(); }, []);
-  const fetchData = async () => {
-    setLoading(true);
-    const res = await getSavings();
-    if (res.error) setError(res.error); else setData(res.data);
-    setLoading(false);
-  };
-
-  if (loading) return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {[1,2,3,4].map(i => <div key={i} className="h-28 bg-gray-200 animate-pulse rounded-xl"></div>)}
-    </div>
-  );
-  if (error) return <div className="text-red-500">Error loading KPIs <button onClick={fetchData}>Retry</button></div>;
+  if (loading) return <Skeleton className="h-28" />;
+  if (error) return <ErrorBox error={error} onRetry={reload} />;
+  if (!data) return <Empty message="No savings data available yet." />;
 
   const kpis = [
     { title: 'Energy Saved', value: data.energySavedKwh.toLocaleString() + ' kWh', icon: Zap, color: 'text-yellow-500', bg: 'bg-yellow-50' },
