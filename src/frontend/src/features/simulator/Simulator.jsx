@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import InputForm, { validate, toPayload } from './InputForm';
 import Results from './Results';
+import ForecastPreview from './ForecastPreview';
+import ScenarioCompare, { loadScenarios, storeScenarios, MAX_SCENARIOS } from './ScenarioCompare';
+import CsvUpload from './CsvUpload';
 import { DEFAULTS, simulate, toMessage } from './simulatorApi';
 
 export default function Simulator() {
@@ -8,16 +11,23 @@ export default function Simulator() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
-  const [result, setResult] = useState(null);
+  const [run, setRun] = useState(null); // { result, inputs, source }
+  const [scenarios, setScenarios] = useState(loadScenarios);
 
-  const run = async () => {
+  const update = (list) => {
+    setScenarios(list);
+    storeScenarios(list);
+  };
+
+  const runSim = async () => {
     const e = validate(values);
     setErrors(e);
     if (Object.keys(e).length) return;
     setLoading(true);
     setApiError(null);
     try {
-      setResult(await simulate(toPayload(values)));
+      const inputs = toPayload(values);
+      setRun({ result: await simulate(inputs), inputs, source: 'model' });
     } catch (x) {
       const m = toMessage(x);
       setApiError(m.message);
@@ -25,6 +35,11 @@ export default function Simulator() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const save = () => {
+    if (!run || scenarios.length >= MAX_SCENARIOS) return;
+    update([...scenarios, { id: Date.now(), inputs: run.inputs, summary: run.result.summary }]);
   };
 
   return (
@@ -36,13 +51,32 @@ export default function Simulator() {
           carbon-aware scheduling would save.
         </p>
       </div>
-      <InputForm values={values} onChange={setValues} onRun={run} loading={loading} errors={errors} />
+      <InputForm values={values} onChange={setValues} onRun={runSim} loading={loading} errors={errors} />
       {apiError && (
         <div role="alert" className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-3 text-sm">
           {apiError}
         </div>
       )}
-      {result && <Results result={result} />}
+      {run && (
+        <>
+          {run.source === 'upload' && <p className="text-sm text-yellow-800">Showing results for your uploaded CSV (experimental).</p>}
+          <Results
+            result={run.result}
+            onSave={save}
+            canSave={scenarios.length < MAX_SCENARIOS}
+          />
+          {scenarios.length >= MAX_SCENARIOS && <p className="text-xs text-gray-500">You have {MAX_SCENARIOS} saved scenarios. Remove one to save another.</p>}
+        </>
+      )}
+      <ScenarioCompare scenarios={scenarios} onRemove={(id) => update(scenarios.filter((s) => s.id !== id))} onClear={() => update([])} />
+      <ForecastPreview initialDate={values.startDate || DEFAULTS.startDate} />
+      <CsvUpload
+        values={values}
+        onResult={(result) => {
+          setApiError(null);
+          setRun({ result, inputs: { ...toPayload(values), startDate: result.hourly[0]?.ts.slice(0, 10), endDate: result.hourly.at(-1)?.ts.slice(0, 10) }, source: 'upload' });
+        }}
+      />
     </div>
   );
 }
