@@ -103,30 +103,57 @@ export function ruleBased(c, question) {
   return "I can't answer that one in built-in mode. I only understand questions about this page: whether the result is good, SLA, carbon, the baseline, the model, servers, cost, peak and cleanest hours, best and worst days, alerts, warnings, and what each input means (deferrable share, idle/peak watts, headroom, PUE, events). For open-ended questions, add an ANTHROPIC_API_KEY to the backend and I will answer anything about your results.";
 }
 
+async function askClaude(key, messages) {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+    body: JSON.stringify({ model: MODEL, max_tokens: 700, system: SYSTEM, messages }),
+    signal: AbortSignal.timeout(30000),
+  });
+  if (!res.ok) throw new Error(`Claude API ${res.status}`);
+  const data = await res.json();
+  return data.content?.filter((b) => b.type === 'text').map((b) => b.text).join('\n');
+}
+
+// Google Gemini (has a free tier). Key from https://aistudio.google.com/apikey
+async function askGemini(key, messages) {
+  const model = process.env.AURA_GEMINI_MODEL || 'gemini-2.5-flash';
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+    method: 'POST',
+    headers: { 'x-goog-api-key': key, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: SYSTEM }] },
+      contents: messages.map((m) => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] })),
+      generationConfig: { maxOutputTokens: 900, temperature: 0.3 },
+    }),
+    signal: AbortSignal.timeout(30000),
+  });
+  if (!res.ok) throw new Error(`Gemini API ${res.status}`);
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.map((p) => p.text).filter(Boolean).join('\n');
+}
+
 export async function explain({ result, question, history = [] }) {
   const c = compact(result);
   if (!c.summary) return { answer: 'Run a simulation first, then I can explain the results.', source: 'rules' };
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) return { answer: ruleBased(c, question), source: 'rules' };
+  const claudeKey = process.env.ANTHROPIC_API_KEY;
+  const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+  if (!claudeKey && !geminiKey) return { answer: ruleBased(c, question), source: 'rules' };
   const prior = history
     .slice(-8)
     .filter((m) => ['user', 'assistant'].includes(m?.role) && typeof m.content === 'string')
     .map((m) => ({ role: m.role, content: m.content.slice(0, 2000) }));
   const ask = question ? `Question: ${String(question).slice(0, 1000)}` : 'Explain this result: what the outputs mean and whether it is good.';
-  const messages = [...prior, { role: 'user', content: `Simulation result:\n${JSON.stringify(c)}\n\n${ask}` }];
+  const messages = [...prior, { role: 'user', content: `Simulation result:
+${JSON.stringify(c)}
+
+${ask}` }];
+  const source = claudeKey ? 'claude' : 'gemini';
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model: MODEL, max_tokens: 700, system: SYSTEM, messages }),
-      signal: AbortSignal.timeout(30000),
-    });
-    if (!res.ok) throw new Error(`Claude API ${res.status}`);
-    const data = await res.json();
-    const answer = data.content?.filter((b) => b.type === 'text').map((b) => b.text).join('\n');
+    const answer = claudeKey ? await askClaude(claudeKey, messages) : await askGemini(geminiKey, messages);
     if (!answer) throw new Error('empty reply');
-    return { answer, source: 'claude' };
+    return { answer, source };
   } catch (e) {
-    return { answer: ruleBased(c, question), source: 'rules', note: `AI unavailable (${e.message}); showing the built-in explanation.` };
+    return { answer: ruleBased(c, question), source: 'rules', note: `AI unavailable (${e.message}); showing the built-in answer.` };
   }
 }
