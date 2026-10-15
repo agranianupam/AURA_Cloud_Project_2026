@@ -49,6 +49,14 @@ function overview(c) {
 }
 
 const TOPICS = [
+  [/good|bad|worth|success|result ok|well|verdict|summar|overall|conclusion/i, (c) => {
+    const s = c.summary;
+    const ok = s.slaPct >= 99 && s.percentReduction >= 20;
+    const why = `AURA cut energy by ${n(s.percentReduction, 1)}% and CO₂ by ${n(s.co2PercentReduction, 1)}% while ${n(s.slaPct, 2)}% of hours were fully served.`;
+    if (ok) return `Yes, this is a good result. ${why} The key test is that savings did not hurt service. Remember these are simulated estimates${c.warnings?.length ? ', and the caveats above apply' : ''}.`;
+    if (s.slaPct < 99) return `Mixed. ${why} But ${s.slaMissHours} hour(s) lacked capacity, so the savings cost some service quality. Try more servers or avoid unplanned surges.`;
+    return `Modest. ${why} Savings are below 20%, which usually means demand is close to fleet capacity.`;
+  }],
   [/sla|service|miss|capacity/i, (c) => `SLA is the share of hours with enough servers on to meet demand. Here it is ${n(c.summary.slaPct, 2)}% (${c.summary.slaMissHours} missed hour(s)). Higher is better; below about 99% means users could have felt slowdowns.`],
   [/carbon|co2|emission|grid/i, (c) => `Carbon is electricity use times how dirty the grid is each hour (${c.summary.carbonSource}). AURA saved ${n(c.summary.co2SavedKg)} kg CO₂ (${n(c.summary.co2PercentReduction, 1)}%). It beats energy savings alone by moving flexible jobs to the cleanest hour${c.cleanestHour ? ` (around ${c.cleanestHour.ts?.slice(11, 16)}, ${n(c.cleanestHour.carbonIntensity)} gCO₂/kWh)` : ''}.`],
   [/baseline|always|compare/i, (c) => `The baseline is a data center with every server always on. It would use ${n(c.summary.baselineKwh)} kWh; AURA used ${n(c.summary.energyKwh)} kWh. The gap is the saving.`],
@@ -65,7 +73,7 @@ export function ruleBased(c, question) {
   if (!question) return overview(c);
   const hit = TOPICS.find(([re]) => re.test(question));
   if (hit) return hit[1](c);
-  return `${overview(c)}\n\n_(Ask about SLA, carbon, the baseline, the model, servers or cost for a focused answer. Set ANTHROPIC_API_KEY on the backend to enable free-form answers.)_`;
+  return `${overview(c)}\n\n_(Built-in mode answers questions about: whether it is good, SLA, carbon, the baseline, the model, servers, cost and improvements. Add an ANTHROPIC_API_KEY to the backend for free-form questions.)_`;
 }
 
 export async function explain({ result, question, history = [] }) {
