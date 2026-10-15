@@ -5,6 +5,7 @@ import { EngineError } from './engine.js';
 import { explain } from './explain.js';
 import { optimize } from './optimize.js';
 import { parseRequest } from './agent.js';
+import { analyze } from './anomaly.js';
 
 // Positive integer query parameter, clamped to [1, max]; falls back to `def` when absent or invalid.
 function intParam(value, def, max) {
@@ -95,6 +96,9 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
       next(err);
     }
   };
+
+  // Anomaly detection: actual vs forecast residuals over a date range (or an uploaded dataset)
+  api.post('/anomalies', express.json({ limit: '20kb' }), run((req) => analyze(engine, req.body)));
 
   api.post('/simulate', express.json({ limit: '100kb' }), run((req) => {
     if (req.body === null || typeof req.body !== 'object' || Array.isArray(req.body)) {
