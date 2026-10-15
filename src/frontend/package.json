@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "mock": "node mock-server/server.js",
     "test:integration": "node --test tests/simulate.integration.test.mjs",
+    "test:report": "node --test tests/report.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
