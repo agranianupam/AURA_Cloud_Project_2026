@@ -4,6 +4,7 @@ import Results from './Results';
 import ForecastPreview from './ForecastPreview';
 import ScenarioCompare, { loadScenarios, storeScenarios, MAX_SCENARIOS } from './ScenarioCompare';
 import CsvUpload from './CsvUpload';
+import Explainer from './Explainer';
 import { DEFAULTS, simulate, toMessage } from './simulatorApi';
 
 export default function Simulator() {
@@ -65,6 +66,7 @@ export default function Simulator() {
             onSave={save}
             canSave={scenarios.length < MAX_SCENARIOS}
           />
+          <Explainer result={run.result} />
           {scenarios.length >= MAX_SCENARIOS && <p className="text-xs text-gray-500">You have {MAX_SCENARIOS} saved scenarios. Remove one to save another.</p>}
         </>
       )}
