@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import useApi from '../hooks/useApi';
+import { Skeleton, ErrorBox, Empty } from './State';
 import { getEnergyMetrics } from '../services/api';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function EnergyChart() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data, loading, error, reload } = useApi(getEnergyMetrics);
 
-  useEffect(() => { fetchData(); }, []);
-  const fetchData = async () => {
-    setLoading(true);
-    const res = await getEnergyMetrics();
-    if (res.error) setError(res.error); else setData(res.data);
-    setLoading(false);
-  };
-
-  if (loading) return <div className="h-72 animate-pulse bg-gray-200 rounded-lg w-full"></div>;
-  if (error) return <div className="text-red-500 p-4">Error: {error} <button onClick={fetchData} className="underline text-sm ml-2">Retry</button></div>;
+  if (loading) return <Skeleton className="h-72" />;
+  if (error) return <ErrorBox error={error} onRetry={reload} />;
+  if (!data?.length) return <Empty message="No energy metrics available yet." />;
 
   const formattedData = data.map(d => ({ ...d, time: new Date(d.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }));
 
@@ -28,7 +21,7 @@ export default function EnergyChart() {
           <LineChart data={formattedData}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
             <XAxis dataKey="time" tick={{ fontSize: 12, fill: '#6B7280' }} minTickGap={30} />
-            <YAxis tick={{ fontSize: 12, fill: '#6B7280' }} label={{ value: 'Energy (kWh)', angle: -90, position: 'insideLeft', fill: '#6B7280' }} />
+            <YAxis tick={{ fontSize: 12, fill: '#6B7280' }} width={48} />
             <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
             <Line type="monotone" dataKey="energyKwh" name="AURA Energy" stroke="#10B981" strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
           </LineChart>
