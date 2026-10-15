@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import InputForm, { validate, toPayload } from './InputForm';
 import Results from './Results';
 import ForecastPreview from './ForecastPreview';
@@ -10,6 +10,8 @@ import TalkToAura from '../agent/TalkToAura';
 import Anomalies from '../anomaly/Anomalies';
 import ExportMenu from '../report/ExportMenu';
 import Advisor from '../advisor/Advisor';
+import FleetReplay from '../fleet/FleetReplay';
+import { saveLatestRun } from '../fleet/latestRun';
 import { DEFAULTS, simulate, toMessage } from './simulatorApi';
 
 export default function Simulator() {
@@ -19,6 +21,11 @@ export default function Simulator() {
   const [apiError, setApiError] = useState(null);
   const [run, setRun] = useState(null); // { result, inputs, source }
   const [scenarios, setScenarios] = useState(loadScenarios);
+
+  // Share the latest run with the Allocation page's fleet replay.
+  useEffect(() => {
+    if (run) saveLatestRun(run);
+  }, [run]);
 
   const update = (list) => {
     setScenarios(list);
@@ -77,6 +84,12 @@ export default function Simulator() {
             canSave={scenarios.length < MAX_SCENARIOS}
             actions={<ExportMenu result={run.result} inputs={run.inputs} />}
           />
+          <details className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+            <summary className="cursor-pointer text-lg font-semibold">Fleet replay: watch AURA switch servers on and off</summary>
+            <div className="mt-4">
+              <FleetReplay result={run.result} />
+            </div>
+          </details>
           <Explainer result={run.result} autoStart={!!run.auto} />
           {scenarios.length >= MAX_SCENARIOS && <p className="text-xs text-gray-500">You have {MAX_SCENARIOS} saved scenarios. Remove one to save another.</p>}
         </>
