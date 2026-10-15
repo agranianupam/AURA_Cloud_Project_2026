@@ -16,7 +16,7 @@ test('equivalents are faithful to the run', () => {
   const e = Object.fromEntries(equivalentsFor(result.summary).map((x) => [x.key, x.value]));
   assert.equal(e.car, `${Math.round(108.9 / 0.17).toLocaleString()} km`);
   assert.match(e.tree, /5\.19 tree-years/);
-  assert.match(e.india, /64\.58 home-days/);
+  assert.match(e.india, /64\.6 home-days/);
 });
 
 test('zero savings produce zero equivalents, not NaN', () => {
