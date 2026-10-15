@@ -17,12 +17,12 @@ export default function Login({ onLogin }) {
       if (import.meta.env.VITE_USE_MOCK === "true") {
         setTimeout(() => {
           onLogin(email);
-          navigate('/dashboard');
+          navigate('/overview');
         }, 500);
       } else {
         await signIn({ username: email, password });
         onLogin(email);
-        navigate('/dashboard');
+        navigate('/overview');
       }
     } catch (err) {
       setError(err.message || 'Error signing in');
