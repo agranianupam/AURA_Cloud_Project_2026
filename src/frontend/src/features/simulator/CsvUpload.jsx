@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Upload, Loader2, AlertTriangle } from 'lucide-react';
 import { uploadCsv, toMessage } from './simulatorApi';
 import { validate } from './InputForm';
@@ -15,6 +15,7 @@ export function checkCsvFile(file) {
 }
 
 export default function CsvUpload({ values, onResult }) {
+  const inputRef = useRef(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -50,18 +51,23 @@ export default function CsvUpload({ values, onResult }) {
       </div>
       <div className="flex flex-wrap items-center gap-3">
         <input
+          ref={inputRef}
           type="file"
-          accept=".csv,text/csv"
+          accept=".csv,text/csv,.txt"
           aria-label="CSV file"
           onChange={(e) => {
             setFile(e.target.files?.[0] || null);
             setError(null);
           }}
-          className="text-sm"
+          className="hidden"
         />
+        <button type="button" onClick={() => inputRef.current?.click()} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm hover:bg-indigo-700">
+          <Upload className="w-4 h-4" /> 1. Choose CSV file
+        </button>
+        <span className="text-sm text-gray-600">{file ? file.name : 'No file chosen yet'}</span>
         <button onClick={send} disabled={loading} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-sm hover:bg-gray-50 disabled:opacity-60">
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-          {loading ? 'Analysing…' : 'Upload and run'}
+          {loading ? 'Analysing…' : '2. Upload and run'}
         </button>
       </div>
       {error && (
