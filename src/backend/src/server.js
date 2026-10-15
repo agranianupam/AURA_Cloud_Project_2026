@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createApp } from './app.js';
 import { cognitoAuth } from './auth.js';
+import { PythonEngine } from './engine.js';
 import { DynamoStore, FileStore } from './store.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -23,7 +24,11 @@ const auth = AUTH_DISABLED === 'true'
   ? cognitoAuth({})
   : cognitoAuth({ userPoolId: COGNITO_USER_POOL_ID, clientId: COGNITO_CLIENT_ID });
 
-createApp({ store, auth, corsOrigin: CORS_ORIGIN }).listen(Number(PORT), () => {
+const engine = new PythonEngine();
+if (process.env.ENGINE_WARM !== 'false') engine.warm().then(() => console.log('forecast engine ready'), (e) => console.error(e.message));
+process.on('exit', () => engine.close());
+
+createApp({ store, engine, auth, corsOrigin: CORS_ORIGIN }).listen(Number(PORT), () => {
   const source = DYNAMODB_TABLE ? `DynamoDB table ${DYNAMODB_TABLE}` : DATA_DIR;
   console.log(`AURA API on http://localhost:${PORT} (data: ${source})`);
 });

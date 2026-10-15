@@ -1,5 +1,7 @@
 import cors from 'cors';
 import express from 'express';
+import multer from 'multer';
+import { EngineError } from './engine.js';
 
 // Positive integer query parameter, clamped to [1, max]; falls back to `def` when absent or invalid.
 function intParam(value, def, max) {
@@ -7,8 +9,35 @@ function intParam(value, def, max) {
   return Number.isFinite(n) && n > 0 ? Math.min(n, max) : def;
 }
 
-export function createApp({ store, auth = (req, res, next) => next(), corsOrigin = '*' }) {
+const UPLOAD_LIMIT = 5 * 1024 * 1024;
+const STATUS = { validation: 400, csv: 422, too_large: 413, timeout: 504, unavailable: 503, internal: 500 };
+const CODE = { validation: 'VALIDATION_ERROR', csv: 'CSV_INVALID', too_large: 'TOO_LARGE', timeout: 'INTERNAL', unavailable: 'INTERNAL', internal: 'INTERNAL' };
+const SIM_FIELDS = ['startDate', 'endDate', 'servers', 'idleWatts', 'peakWatts', 'deferrableShare', 'carbonGrid', 'events',
+  'headroom', 'pue', 'pricePerKwh', 'carbonShift', 'dataset'];
+
+function apiError(res, status, code, message, field) {
+  return res.status(status).json({ error: { code, message, ...(field ? { field } : {}) } });
+}
+
+// Multipart text fields arrive as strings; coerce the numeric ones and the events list like the JSON API expects.
+function coerceForm(body) {
+  const out = {};
+  for (const k of SIM_FIELDS) {
+    if (body[k] === undefined || body[k] === '') continue;
+    const v = body[k];
+    if (['servers', 'idleWatts', 'peakWatts', 'deferrableShare', 'headroom', 'pue', 'pricePerKwh'].includes(k)) out[k] = Number(v);
+    else if (k === 'events') {
+      try { out[k] = Array.isArray(v) ? v : (String(v).trim().startsWith('[') ? JSON.parse(v) : String(v).split(',').map((s) => s.trim()).filter(Boolean)); }
+      catch { out[k] = v; }
+    } else if (k === 'carbonShift') out[k] = v === 'true' ? true : v === 'false' ? false : v;
+    else out[k] = v;
+  }
+  return out;
+}
+
+export function createApp({ store, engine, auth = (req, res, next) => next(), corsOrigin = '*' }) {
   const app = express();
+  const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: UPLOAD_LIMIT, files: 1 } });
   app.disable('x-powered-by');
   app.use(cors({ origin: corsOrigin }));
 
@@ -55,15 +84,47 @@ export function createApp({ store, auth = (req, res, next) => next(), corsOrigin
     } catch (err) { next(err); }
   });
 
+  // ---- interactive endpoints: run the trained LSTM and the allocation logic on the user's inputs
+  const run = (handler) => async (req, res, next) => {
+    if (!engine) return apiError(res, 503, 'INTERNAL', 'the forecast engine is not configured');
+    try { res.json(await handler(req)); } catch (err) {
+      if (err instanceof EngineError) return apiError(res, STATUS[err.type] ?? 500, CODE[err.type] ?? 'INTERNAL', err.message, err.field);
+      next(err);
+    }
+  };
+
+  api.post('/simulate', express.json({ limit: '100kb' }), run((req) => {
+    if (req.body === null || typeof req.body !== 'object' || Array.isArray(req.body)) {
+      throw new EngineError('validation', 'request body must be a JSON object');
+    }
+    return engine.simulate(req.body);
+  }));
+
+  api.get('/forecast/preview', run((req) => {
+    if (!req.query.date) throw new EngineError('validation', 'date is required (YYYY-MM-DD)', 'date');
+    return engine.preview(String(req.query.date), req.query.dataset ? String(req.query.dataset) : undefined);
+  }));
+
+  api.post('/upload', (req, res, next) => upload.single('file')(req, res, (err) => {
+    if (!err) return next();
+    if (err.code === 'LIMIT_FILE_SIZE') return apiError(res, 413, 'TOO_LARGE', 'the file is larger than 5 MB', 'file');
+    return apiError(res, 400, 'VALIDATION_ERROR', `invalid upload: ${err.message}`, 'file');
+  }), run((req) => {
+    if (!req.file) throw new EngineError('validation', "attach a CSV in the multipart field 'file'", 'file');
+    return engine.upload(req.file.buffer.toString('utf8'), req.file.originalname, coerceForm(req.body ?? {}));
+  }));
+
   app.use('/api', api);
-  app.use((req, res) => res.status(404).json({ error: 'not found' }));
+  app.use((req, res) => apiError(res, 404, 'NOT_FOUND', 'not found'));
   // eslint-disable-next-line no-unused-vars
   app.use((err, req, res, next) => {
+    if (err.type === 'entity.parse.failed') return apiError(res, 400, 'VALIDATION_ERROR', 'request body is not valid JSON');
+    if (err.type === 'entity.too.large') return apiError(res, 413, 'TOO_LARGE', 'request body too large');
     if (err.code === 'ENOENT') {
-      return res.status(503).json({ error: 'data not generated yet; run src/ml_model/simulate.py' });
+      return apiError(res, 503, 'INTERNAL', 'data not generated yet; run src/ml_model/simulate.py');
     }
     console.error(err);
-    res.status(500).json({ error: 'internal error' });
+    apiError(res, 500, 'INTERNAL', 'internal error');
   });
   return app;
 }
