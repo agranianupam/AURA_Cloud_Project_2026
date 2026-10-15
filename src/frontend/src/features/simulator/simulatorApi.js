@@ -15,7 +15,7 @@ export const DEFAULTS = {
   events: [],
 };
 
-async function headers() {
+export async function headers() {
   if (AUTH_DISABLED) return {};
   try {
     const t = (await fetchAuthSession()).tokens?.idToken?.toString();

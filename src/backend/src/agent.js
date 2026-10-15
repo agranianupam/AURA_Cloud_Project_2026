@@ -137,10 +137,10 @@ function parseDates(t, understood, assumptions) {
     const y = guessYear(mon, m[2] ? Number(m[2]) : null);
     const a = iso(utc(y, mon, 1));
     const dur = durationDays(t);
-    const n = Math.min(dur && !/\bmonth\b/.test(t) ? dur : 31, 31);
+    const n = dur && !/\bmonth\b/.test(t) ? Math.min(dur, 31) : new Date(Date.UTC(y, mon + 1, 0)).getUTCDate();
     understood.push(`${m[1]} ${y}`);
     yearNote(y, m[2]);
-    if (n < 31) assumptions.push(`Started on the 1st of the month for ${n} days.`);
+    if (dur && !/\bmonth\b/.test(t)) assumptions.push(`Started on the 1st of the month for ${n} days.`);
     return { startDate: a, endDate: addDays(a, n - 1) };
   }
   return null;
