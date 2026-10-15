@@ -27,7 +27,38 @@ export function compact(result = {}) {
     cleanestHour: cleanest && { ts: cleanest.ts, carbonIntensity: cleanest.carbonIntensity },
     hours: hourly.length,
     upload: result.upload && { name: result.upload.name, similarity: result.upload.similarity },
+    anomalies: result.anomalies && {
+      incident: result.anomalies.incident,
+      incidents: result.anomalies.incidents?.slice(0, 8),
+      summary: result.anomalies.summary,
+      threshold: result.anomalies.threshold,
+      params: result.anomalies.params,
+    },
   };
+}
+
+// Anomaly detection answers (built-in mode). `c.anomalies` is sent by the Anomalies panel.
+const ANOMALY_Q = /anomal|incident|fault|spike|dropout|drop out|unusual|outlier|deviat|abnormal|flagged/i;
+function anomalyAnswer(c) {
+  const a = c.anomalies;
+  const when = (ts) => `${ts?.slice(0, 10)} at ${ts?.slice(11, 16)}`;
+  const inc = a.incident;
+  if (!inc) {
+    const s = a.summary ?? {};
+    if (!s.incidents) return `No unusual hours were found: measured load stayed within the expected band around the forecast (typical error ${n(s.maeKw ?? 0, 1)} kW). _Simulated forecast comparison, not a diagnosis._`;
+    const list = (a.incidents ?? []).slice(0, 3).map((i) => `${i.direction} of ${n(Math.abs(i.peakDeviationKw))} kW on ${when(i.peakTs)} (${i.severity})`).join('; ');
+    return `**${s.incidents} incident(s)** were found, ${s.flaggedHours} hour(s) in total: ${list}. An anomaly is an hour where the real load differs from the forecast by much more than the model's normal error (band about ±${n((a.threshold?.sigmaKw ?? 0) * (a.threshold?.k ?? 3))} kW).`;
+  }
+  const up = inc.direction === 'spike';
+  const out = [];
+  out.push(`**What happened.** On ${when(inc.peakTs)} the real load was ${n(inc.actualKw)} kW against a forecast of ${n(inc.forecastKw)} kW: ${up ? 'higher' : 'lower'} by ${n(Math.abs(inc.peakDeviationKw))} kW (${n(Math.abs(inc.peakDeviationPct ?? 0))}%). The incident lasted ${inc.hours} hour(s), ${inc.start.slice(11, 16)} to ${inc.end.slice(11, 16)}, rated **${inc.severity}**.`);
+  if (inc.synthetic) out.push('**Note.** This fault was injected for testing: the measured series was altered on purpose, so there is no real cause. It shows the detector catching a problem on demand.');
+  else out.push(up
+    ? '**Possible causes.** An unplanned event or extra equipment, a cooling or HVAC fault making the building draw more, or a day the forecast did not know was busier (exam, open day).'
+    : '**Possible causes.** A partial outage or closure, a meter or sensor dropout, or a quiet day (holiday, cancelled classes) that the forecast did not expect.');
+  out.push(`**Why it was flagged.** The deviation is outside the expected band (about ±${n((a.threshold?.sigmaKw ?? 0) * (a.threshold?.k ?? 3))} kW, based on the model's typical error of ${n(a.summary?.maeKw ?? 0, 1)} kW).`);
+  out.push(up ? '**What to do.** Check cooling and lighting schedules for that period and whether an event was booked; AURA should add headroom if this repeats.' : '**What to do.** Check the meter or data feed first; if the readings are right, find out which area went offline.');
+  return out.join('\n\n');
 }
 
 function overview(c) {
@@ -96,8 +127,10 @@ const TOPICS = [
 ];
 
 export function ruleBased(c, question) {
+  if (c.anomalies && (!c.summary || ANOMALY_Q.test(question ?? ''))) return anomalyAnswer(c);
   if (!c.summary) return 'Run a simulation first, then I can explain the results.';
   if (!question) return overview(c);
+  if (ANOMALY_Q.test(question)) return 'An anomaly is an hour where the real load differs from the forecast by much more than the model\'s normal error, for example a cooling fault or an unplanned event. Use the Anomalies panel to scan a week of data (or inject a test fault) and ask me about any incident it lists.';
   const hit = [...TOPICS, ...HELP].find(([re]) => re.test(question));
   if (hit) return hit[1](c);
   return "I can't answer that one in built-in mode. I only understand questions about this page: whether the result is good, SLA, carbon, the baseline, the model, servers, cost, peak and cleanest hours, best and worst days, alerts, warnings, and what each input means (deferrable share, idle/peak watts, headroom, PUE, events). For open-ended questions, add an ANTHROPIC_API_KEY to the backend and I will answer anything about your results.";
@@ -138,7 +171,7 @@ export async function askGemini(key, messages, { system = SYSTEM } = {}) {
 
 export async function explain({ result, question, history = [] }) {
   const c = compact(result);
-  if (!c.summary) return { answer: 'Run a simulation first, then I can explain the results.', source: 'rules' };
+  if (!c.summary && !c.anomalies) return { answer: 'Run a simulation first, then I can explain the results.', source: 'rules' };
   const claudeKey = process.env.ANTHROPIC_API_KEY;
   const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   if (!claudeKey && !geminiKey) return { answer: ruleBased(c, question), source: 'rules' };
