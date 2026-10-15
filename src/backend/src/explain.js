@@ -124,11 +124,14 @@ async function askGemini(key, messages) {
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: SYSTEM }] },
       contents: messages.map((m) => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] })),
-      generationConfig: { maxOutputTokens: 900, temperature: 0.3 },
+      generationConfig: { maxOutputTokens: 2048, temperature: 0.3, thinkingConfig: { thinkingBudget: 0 } },
     }),
     signal: AbortSignal.timeout(30000),
   });
-  if (!res.ok) throw new Error(`Gemini API ${res.status}`);
+  if (!res.ok) {
+    const detail = (await res.json().catch(() => null))?.error?.message;
+    throw new Error(`Gemini API ${res.status}${detail ? `: ${detail}` : ''}`);
+  }
   const data = await res.json();
   return data.candidates?.[0]?.content?.parts?.map((p) => p.text).filter(Boolean).join('\n');
 }
