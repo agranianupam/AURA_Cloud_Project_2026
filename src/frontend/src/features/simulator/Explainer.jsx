@@ -20,6 +20,7 @@ export default function Explainer({ result }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [source, setSource] = useState(null);
+  const [note, setNote] = useState(null);
   const endRef = useRef(null);
 
   // A new run means a new conversation.
@@ -27,6 +28,7 @@ export default function Explainer({ result }) {
     setMessages([]);
     setError(null);
     setSource(null);
+    setNote(null);
   }, [result]);
 
   useEffect(() => {
@@ -42,6 +44,7 @@ export default function Explainer({ result }) {
     try {
       const res = await explainResult(result, text || undefined, history);
       setSource(res.source);
+      setNote(res.note || null);
       setMessages((m) => [...m, { role: 'assistant', content: res.answer }]);
     } catch (e) {
       setError(toMessage(e).message);
@@ -58,7 +61,7 @@ export default function Explainer({ result }) {
         <h2 className="text-lg font-semibold">AURA Explainer</h2>
         {source && (
           <span className="text-xs font-semibold uppercase bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded">
-            {source === 'claude' ? 'AI' : 'Built-in'}
+            {source === 'rules' ? 'Built-in' : 'AI'}
           </span>
         )}
       </div>
@@ -76,6 +79,8 @@ export default function Explainer({ result }) {
           <div ref={endRef} />
         </div>
       )}
+
+      {note && <p className="text-xs text-yellow-800 bg-yellow-50 border border-yellow-200 rounded-lg p-2">{note}</p>}
 
       {loading && (
         <div className="flex items-center gap-2 text-sm text-gray-500">
