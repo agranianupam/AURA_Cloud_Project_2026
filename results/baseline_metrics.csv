@@ -1,0 +1,4 @@
+model,RMSE,MAE,R2
+Naive Persistence,13.207133,8.816019,-0.088130
+Moving Average (w=12),9.773651,6.684686,0.404095
+Holt-Winters,40.809658,33.063748,-9.389375
