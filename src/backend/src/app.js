@@ -4,6 +4,7 @@ import multer from 'multer';
 import { EngineError } from './engine.js';
 import { explain } from './explain.js';
 import { optimize } from './optimize.js';
+import { parseRequest } from './agent.js';
 
 // Positive integer query parameter, clamped to [1, max]; falls back to `def` when absent or invalid.
 function intParam(value, def, max) {
@@ -125,6 +126,19 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
       const { result, question, history } = req.body ?? {};
       if (!result || typeof result !== 'object') return apiError(res, 400, 'VALIDATION_ERROR', 'result (a simulation result) is required', 'result');
       res.json(await explain({ result, question: typeof question === 'string' ? question : undefined, history: Array.isArray(history) ? history : [] }));
+    } catch (err) { next(err); }
+  });
+
+  // Talk to AURA: plain-English request -> validated simulate inputs (AI if a key is set, else rules)
+  api.post('/agent/parse', express.json({ limit: '20kb' }), async (req, res, next) => {
+    try {
+      const text = req.body?.text;
+      if (typeof text !== 'string' || !text.trim()) return apiError(res, 400, 'VALIDATION_ERROR', 'Type a request first, for example "Simulate exam week with 30 servers on a dirty grid".', 'text');
+      const parsed = await parseRequest(text.slice(0, 1000));
+      if (!Object.keys(parsed.params).length) {
+        return apiError(res, 422, 'VALIDATION_ERROR', "I couldn't find anything I can simulate in that. Try mentioning the number of servers, dates (e.g. 5-12 Aug 2019), an event (exam week, break, holiday) or the grid (clean, dirty, India).", 'text');
+      }
+      res.json(parsed);
     } catch (err) { next(err); }
   });
 

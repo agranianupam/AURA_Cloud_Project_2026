@@ -103,11 +103,11 @@ export function ruleBased(c, question) {
   return "I can't answer that one in built-in mode. I only understand questions about this page: whether the result is good, SLA, carbon, the baseline, the model, servers, cost, peak and cleanest hours, best and worst days, alerts, warnings, and what each input means (deferrable share, idle/peak watts, headroom, PUE, events). For open-ended questions, add an ANTHROPIC_API_KEY to the backend and I will answer anything about your results.";
 }
 
-async function askClaude(key, messages) {
+export async function askClaude(key, messages, { system = SYSTEM, maxTokens = 700 } = {}) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-    body: JSON.stringify({ model: MODEL, max_tokens: 700, system: SYSTEM, messages }),
+    body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, system, messages }),
     signal: AbortSignal.timeout(30000),
   });
   if (!res.ok) throw new Error(`Claude API ${res.status}`);
@@ -116,13 +116,13 @@ async function askClaude(key, messages) {
 }
 
 // Google Gemini (has a free tier). Key from https://aistudio.google.com/apikey
-async function askGemini(key, messages) {
+export async function askGemini(key, messages, { system = SYSTEM } = {}) {
   const model = process.env.AURA_GEMINI_MODEL || 'gemini-2.5-flash';
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
     method: 'POST',
     headers: { 'x-goog-api-key': key, 'content-type': 'application/json' },
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: SYSTEM }] },
+      systemInstruction: { parts: [{ text: system }] },
       contents: messages.map((m) => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] })),
       generationConfig: { maxOutputTokens: 2048, temperature: 0.3, thinkingConfig: { thinkingBudget: 0 } },
     }),

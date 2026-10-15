@@ -14,7 +14,7 @@ function Rich({ text }) {
   });
 }
 
-export default function Explainer({ result }) {
+export default function Explainer({ result, autoStart = false }) {
   const [messages, setMessages] = useState([]);
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
@@ -53,6 +53,12 @@ export default function Explainer({ result }) {
       setQuestion('');
     }
   };
+
+  // Runs started from "Talk to AURA" show the first explanation without a click.
+  useEffect(() => {
+    if (autoStart) ask('');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result, autoStart]);
 
   return (
     <div className="bg-white p-5 rounded-xl shadow-sm border border-indigo-100 space-y-3">
