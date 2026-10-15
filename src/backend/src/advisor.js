@@ -117,7 +117,7 @@ export function profileSlots(t0) {
   });
 }
 
-export function createAdvisor({ fetchFn = globalThis.fetch, now = () => Date.now(), baseUrl = DEFAULT_BASE_URL, ttlMs = CACHE_TTL_MS, timeoutMs = TIMEOUT_MS } = {}) {
+export function createAdvisor({ fetchFn = globalThis.fetch, now = () => Date.now(), baseUrl = process.env.CARBON_API_BASE || DEFAULT_BASE_URL, ttlMs = CACHE_TTL_MS, timeoutMs = TIMEOUT_MS } = {}) {
   const cache = new Map(); // from-slot -> { at, slots }
 
   async function load(t0) {
