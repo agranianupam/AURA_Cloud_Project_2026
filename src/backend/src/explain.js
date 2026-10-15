@@ -48,6 +48,33 @@ function overview(c) {
   return out.join('\n\n');
 }
 
+
+// Page-help topics: what each input, chart and feature on the Simulator page means.
+const HELP = [
+  [/deferrable|batch|flexible/i, () => 'Deferrable share is the part of the workload that can wait (batch jobs, research runs, backups). AURA moves it to hours when the grid is cleaner, which lowers carbon without hurting interactive users. A higher share means more carbon savings.'],
+  [/idle watt|idle power|peak watt|peak power|watts/i, (c) => `Idle watts (${c.params?.idleWatts}) is what one server draws when on but doing nothing; peak watts (${c.params?.peakWatts}) is its draw at full load. Turning servers off saves the idle part, which is why savings are large when many servers sit idle.`],
+  [/headroom|safety|margin/i, (c) => `Headroom (${n((c.params?.headroom ?? 0.25) * 100)}%) is the extra capacity AURA keeps above the forecast so a forecast error does not cause a service miss. More headroom means fewer misses but less energy saved.`],
+  [/pue|overhead|cooling/i, (c) => `PUE (${c.params?.pue ?? 1.5}) is the data center's overhead multiplier for cooling and power delivery. A PUE of 1.5 means every 1 kWh of server power costs 1.5 kWh at the meter.`],
+  [/event|exam|holiday|break|surge/i, () => 'Events change demand: exam raises weekday daytime load, break and holiday lower it (all planned, so the forecast accounts for them). "Unplanned surge" is a spike the forecast does NOT see, so it can cause SLA misses, which is a useful stress test.'],
+  [/peak|busiest|highest|max/i, (c) => (c.peakHour ? `The busiest hour was ${c.peakHour.ts?.slice(0, 16).replace('T', ' ')} with demand of ${n(c.peakHour.demandKw)} kW, needing ${c.peakHour.serversOn} servers.` : 'No hourly data to find a peak.')],
+  [/clean|dirt|best hour|when.*(run|shift)/i, (c) => (c.cleanestHour ? `The cleanest hour was around ${c.cleanestHour.ts?.slice(11, 16)} (${n(c.cleanestHour.carbonIntensity)} gCO₂/kWh). That is when AURA prefers to run deferrable jobs. ${c.recommendations?.[0] ?? ''}` : 'No carbon data for this run.')],
+  [/day|daily|which date|best day|worst day|weekend|weekday/i, (c) => {
+    const d = c.daily ?? [];
+    if (!d.length) return 'No daily breakdown for this run.';
+    const pct = (x) => (x.baselineKwh ? ((1 - x.energyKwh / x.baselineKwh) * 100) : 0);
+    const best = d.reduce((a, b) => (pct(b) > pct(a) ? b : a));
+    const worst = d.reduce((a, b) => (pct(b) < pct(a) ? b : a));
+    return `Across ${d.length} day(s): the best saving was on ${best.date} (${n(pct(best), 1)}% less energy than always-on) and the smallest on ${worst.date} (${n(pct(worst), 1)}%). Quiet days such as weekends save more because more servers can be switched off.`;
+  }],
+  [/alert|scaling|scaled|notification|sns/i, (c) => (c.alerts?.length ? `AURA raised ${c.alerts.length} recent alert(s), for example: "${c.alerts[0].message}". Alerts record scaling decisions and risks; in the full AWS design they go to facility managers via SNS.` : 'No alerts were raised for this run.')],
+  [/warning|caveat|reliab|trust|limitation|accurate.*upload|upload/i, (c) => (c.warnings?.length ? `Caveats for this run: ${c.warnings.join(' ')} The model was trained on one Thai university building, so other data is indicative only.` : 'There were no warnings for this run. Still, the model was trained on one Thai university building and results are simulated estimates.')],
+  [/scenario|compare|save.*run/i, () => 'Scenario compare lets you save up to 3 runs and view them side by side, for example 48 servers vs 32 servers, so you can see how a change affects energy, carbon and SLA.'],
+  [/preview|actual|real data|cu-?bems|dataset|trained/i, () => 'The model was trained on CU-BEMS, a public dataset of electricity use in a Chulalongkorn University building (2018-2019). The Forecast preview compares the model\'s prediction with the real measured load for a date you pick, so you can judge its accuracy yourself.'],
+  [/what is aura|what does aura|purpose|why aura|about/i, () => 'AURA (Autonomous University Resource Allocator) forecasts a university data center\'s demand and switches servers on and off ahead of it, and shifts flexible jobs to low-carbon hours. The goal is lower energy, cost and carbon without hurting service.'],
+  [/aws|cloud|lambda|sagemaker|dynamo|s3|cognito/i, () => 'AURA is designed for AWS: SageMaker trains and serves the forecaster, Lambda runs the scaling logic, S3 stores data and models, DynamoDB stores usage records, CloudWatch monitors, SNS sends alerts, and Cognito handles logins. See the Architecture page for the diagram. This simulator runs the same logic locally.'],
+  [/hour|hourly|chart|graph|line|axis/i, () => 'The charts show each hour of the simulated period. Energy and CO₂ charts compare AURA with the always-on baseline (the gap is the saving); the servers-on chart shows how many servers AURA kept running each hour, rising with demand and falling overnight.'],
+];
+
 const TOPICS = [
   [/good|bad|worth|success|result ok|well|verdict|summar|overall|conclusion/i, (c) => {
     const s = c.summary;
@@ -71,9 +98,9 @@ const TOPICS = [
 export function ruleBased(c, question) {
   if (!c.summary) return 'Run a simulation first, then I can explain the results.';
   if (!question) return overview(c);
-  const hit = TOPICS.find(([re]) => re.test(question));
+  const hit = [...TOPICS, ...HELP].find(([re]) => re.test(question));
   if (hit) return hit[1](c);
-  return `${overview(c)}\n\n_(Built-in mode answers questions about: whether it is good, SLA, carbon, the baseline, the model, servers, cost and improvements. Add an ANTHROPIC_API_KEY to the backend for free-form questions.)_`;
+  return "I can't answer that one in built-in mode. I only understand questions about this page: whether the result is good, SLA, carbon, the baseline, the model, servers, cost, peak and cleanest hours, best and worst days, alerts, warnings, and what each input means (deferrable share, idle/peak watts, headroom, PUE, events). For open-ended questions, add an ANTHROPIC_API_KEY to the backend and I will answer anything about your results.";
 }
 
 export async function explain({ result, question, history = [] }) {
