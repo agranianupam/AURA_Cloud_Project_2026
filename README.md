@@ -156,6 +156,17 @@ AWS deployment (CloudFormation; not yet tested on a real account): [src/aws/READ
 
 ---
 
+## Interactive simulator
+
+The **Simulator** page (`/simulator`) lets a teacher try their own numbers: server count, idle/peak watts, share of flexible workload, grid carbon profile, date range and calendar events (exams, breaks). The trained LSTM forecasts demand for that period and the allocation simulation returns KPI cards (energy, CO₂, cost, SLA), hourly charts against an always-on baseline, and plain-language recommendations. It also offers:
+- a **forecast preview** for any single day (forecast vs actual where known),
+- **scenario compare**: save up to 3 runs (kept in the browser) and view them side by side,
+- an **experimental CSV upload** (`timestamp,kw`) to run the simulation on your own load data.
+
+Endpoints: `POST /api/simulate`, `GET /api/forecast/preview`, `POST /api/upload`; see [docs/api-contract-interactive.md](docs/api-contract-interactive.md). Without the backend, run the contract mock: `cd src/frontend && npm run mock`. Integration tests: `API_URL=http://localhost:3000 npm run test:integration` (starts the mock if `API_URL` is unset).
+
+---
+
 ## Repository Structure
 
 ```
