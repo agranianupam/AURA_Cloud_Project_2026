@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { LayoutDashboard, TrendingUp, Server, Leaf, Bell, Network, FlaskConical, Menu, X } from 'lucide-react';
 
-export const NAV = [
+const NAV = [
   { to: '/overview', label: 'Overview', icon: LayoutDashboard },
   { to: '/forecast', label: 'Forecast', icon: TrendingUp },
   { to: '/allocation', label: 'Allocation', icon: Server },

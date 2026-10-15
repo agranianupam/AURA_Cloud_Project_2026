@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import useApi from '../hooks/useApi';
+import { Skeleton, ErrorBox, Empty } from './State';
 import { getAlerts } from '../services/api';
 import { ServerCrash, CloudLightning } from 'lucide-react';
 
 export default function AlertFeed() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data, loading, error, reload } = useApi(getAlerts);
 
-  useEffect(() => { fetchData(); }, []);
-  const fetchData = async () => {
-    setLoading(true);
-    const res = await getAlerts();
-    if (res.error) setError(res.error); else setData(res.data);
-    setLoading(false);
-  };
-
-  if (loading) return <div className="h-64 animate-pulse bg-gray-200 rounded-lg"></div>;
-  if (error) return <div className="text-red-500">Error: {error}</div>;
+  if (loading) return <Skeleton className="h-64" />;
+  if (error) return <ErrorBox error={error} onRetry={reload} />;
+  if (!data?.length) return <Empty message="No alerts yet." />;
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 h-full">
