@@ -53,7 +53,7 @@ export function parseRequest(body) {
   const maxRuns = body.maxRuns ?? MAX_RUNS;
   if (!Number.isInteger(maxRuns) || maxRuns < 10 || maxRuns > MAX_RUNS) throw bad(`maxRuns must be a whole number between 10 and ${MAX_RUNS}`, 'maxRuns');
   const { servers: _s, headroom: _h, deferrableShare: _d, workloadServers: _w, ...fixed } = base;
-  return { objective, slaFloor, baseServers, ranges: out, fixed, maxRuns, baseShare: base.deferrableShare };
+  return { objective, slaFloor, baseServers, ranges: out, fixed, maxRuns, baseTuning: { headroom: base.headroom, deferrableShare: base.deferrableShare } };
 }
 
 const round = (v, d) => Math.round(v * 10 ** d) / 10 ** d;
@@ -100,7 +100,7 @@ export async function optimize(engine, body) {
   const priceOf = (sim) => sim.params.pricePerKwh;
 
   // Reference: the user's current fleet, always on. Savings are reported against it so all candidates share one baseline.
-  const baseParams = { ...req.fixed, servers: req.baseServers, workloadServers: req.baseServers };
+  const baseParams = { ...req.fixed, ...Object.fromEntries(Object.entries(req.baseTuning).filter(([, v]) => v !== undefined)), servers: req.baseServers, workloadServers: req.baseServers };
   const baseRun = await engine.simulate(baseParams);
   const ref = { energyKwh: baseRun.summary.baselineKwh, co2Kg: baseRun.summary.baselineCo2Kg, cost: baseRun.summary.baselineKwh * priceOf(baseRun) };
   const fixedOut = { ...baseRun.params };

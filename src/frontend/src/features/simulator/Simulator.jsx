@@ -5,6 +5,7 @@ import ForecastPreview from './ForecastPreview';
 import ScenarioCompare, { loadScenarios, storeScenarios, MAX_SCENARIOS } from './ScenarioCompare';
 import CsvUpload from './CsvUpload';
 import Explainer from './Explainer';
+import Optimizer from '../optimizer/Optimizer';
 import { DEFAULTS, simulate, toMessage } from './simulatorApi';
 
 export default function Simulator() {
@@ -71,6 +72,7 @@ export default function Simulator() {
         </>
       )}
       <ScenarioCompare scenarios={scenarios} onRemove={(id) => update(scenarios.filter((s) => s.id !== id))} onClear={() => update([])} />
+      <Optimizer values={values} onApply={(p) => setValues((v) => ({ ...v, ...p }))} />
       <ForecastPreview initialDate={values.startDate || DEFAULTS.startDate} />
       <CsvUpload
         values={values}
