@@ -88,3 +88,11 @@ The bucket must be empty before the stack can delete it.
   - EC2 `t3.micro`: about $8/month, or free tier
   - DynamoDB on-demand, Lambda and SNS: cents at this volume
   - Point-in-time recovery on the table: a small extra charge
+
+## Interactive simulator endpoints
+The Simulator page calls three extra routes on the same API: `POST /api/simulate`, `GET /api/forecast/preview` and `POST /api/upload` (contract: `docs/api-contract-interactive.md`). Deployment notes:
+- They sit behind the same Cognito authorizer as the other `/api/*` routes; no extra IAM or stack parameters are needed.
+- `/api/upload` accepts CSVs up to 5 MB. API Gateway's 10 MB payload limit and Lambda's 6 MB request limit both cover this; larger files are rejected with `413 TOO_LARGE`.
+- Simulation runs read the committed forecast results, not a live SageMaker endpoint, so cost stays at Lambda request pricing.
+- Add the dashboard origin to the API CORS allow-list so the browser can call `POST` with `multipart/form-data`.
+- The frontend needs only `VITE_API_BASE_URL` set to the `ApiUrl` stack output at build time.
