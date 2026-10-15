@@ -163,6 +163,8 @@ The **Simulator** page (`/simulator`) lets a teacher try their own numbers: serv
 - **scenario compare**: save up to 3 runs (kept in the browser) and view them side by side,
 - an **experimental CSV upload** (`timestamp,kw`, 16-31 days) to run the simulation on your own load data.
 
+- **Export**: the Export menu on the results offers a CSV (inputs, summary, hourly rows) and a printable A4 report (open it, then Print / Save as PDF) with KPIs, charts, a plain-language summary, rough everyday equivalents (km driven, tree-years, home-days; assumptions listed), the model's accuracy and an uncertainty hint. Everything is built in the browser from the run result.
+
 Dates are limited to the CU-BEMS data (15 Jul 2018 to 21 Oct 2019). Start the backend with the Python venv (`PYTHON=<venv python> AUTH_DISABLED=true npm start` in `src/backend`) so `/api/simulate` can load the LSTM; the first request waits ~5 s for the model.
 
 Endpoints: `POST /api/simulate`, `GET /api/forecast/preview`, `POST /api/upload`; see [docs/api-contract-interactive.md](docs/api-contract-interactive.md). Without the backend, run the contract mock: `cd src/frontend && npm run mock`. Integration tests: `API_URL=http://localhost:3000 npm run test:integration` (starts the mock if `API_URL` is unset).
