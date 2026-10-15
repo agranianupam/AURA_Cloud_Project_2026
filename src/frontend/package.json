@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
+    "mock": "node mock-server/server.js",
+    "test:integration": "node --test tests/simulate.integration.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
