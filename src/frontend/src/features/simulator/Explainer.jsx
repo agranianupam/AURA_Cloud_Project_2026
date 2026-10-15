@@ -4,17 +4,14 @@ import { explainResult, toMessage } from './simulatorApi';
 
 const SUGGESTIONS = ['Is this result good?', 'What does SLA mean?', 'Why did carbon drop?', 'How accurate is the forecast?', 'How can I improve this?'];
 
-// Render **bold** and _italic_ from the explainer's text without pulling in a markdown library.
+// Render **bold**, and lines wrapped in _underscores_ as italic, without a markdown library.
 function Rich({ text }) {
-  return text.split('\n').map((line, i) => (
-    <p key={i} className="mb-2 last:mb-0">
-      {line.split(/(\*\*[^*]+\*\*|_[^_]+_)/g).map((part, j) => {
-        if (part.startsWith('**')) return <strong key={j}>{part.slice(2, -2)}</strong>;
-        if (part.length > 2 && part.startsWith('_') && part.endsWith('_')) return <em key={j}>{part.slice(1, -1)}</em>;
-        return part;
-      })}
-    </p>
-  ));
+  return text.split('\n').map((line, i) => {
+    const italic = line.length > 2 && line.startsWith('_') && line.endsWith('_');
+    const body = italic ? line.slice(1, -1) : line;
+    const parts = body.split(/(\*\*[^*]+\*\*)/g).map((part, j) => (part.startsWith('**') ? <strong key={j}>{part.slice(2, -2)}</strong> : part));
+    return <p key={i} className={`mb-2 last:mb-0 ${italic ? 'italic text-gray-500' : ''}`}>{parts}</p>;
+  });
 }
 
 export default function Explainer({ result }) {
