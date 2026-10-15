@@ -18,7 +18,7 @@ before(async () => {
   base = `http://localhost:${port}`;
   for (let i = 0; i < 40; i++) {
     try {
-      await fetch(base + '/api/forecast/preview?date=2025-03-10');
+      await fetch(base + '/api/forecast/preview?date=2019-08-12');
       return;
     } catch {
       await new Promise((r) => setTimeout(r, 100));
@@ -31,7 +31,7 @@ after(() => child?.kill());
 const post = (body) =>
   fetch(base + '/api/simulate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
 
-const A = { startDate: '2025-03-10', endDate: '2025-03-12', servers: 50, idleWatts: 100, peakWatts: 250, deferrableShare: 0.3, carbonGrid: 'medium', events: [] };
+const A = { startDate: '2019-08-12', endDate: '2019-08-14', servers: 50, idleWatts: 100, peakWatts: 250, deferrableShare: 0.3, carbonGrid: 'medium', events: [] };
 
 test('simulate returns the contract shape', async () => {
   const res = await post(A);
@@ -63,13 +63,13 @@ test('invalid input returns the contract error format', async () => {
 });
 
 test('forecast preview returns 24 hourly rows', async () => {
-  const j = await (await fetch(base + '/api/forecast/preview?date=2025-03-10')).json();
+  const j = await (await fetch(base + '/api/forecast/preview?date=2019-08-12')).json();
   assert.equal(j.hourly.length, 24);
   assert.equal(typeof j.hourly[0].forecastKw, 'number');
 });
 
 test('upload accepts a CSV and rejects a bad one', async () => {
-  const csv = 'timestamp,kw\n' + Array.from({ length: 24 }, (_, h) => `2025-03-10T${String(h).padStart(2, '0')}:00:00Z,${5 + h}`).join('\n');
+  const csv = 'timestamp,kw\n' + Array.from({ length: 24 }, (_, h) => `2019-08-12T${String(h).padStart(2, '0')}:00:00Z,${5 + h}`).join('\n');
   const form = new FormData();
   form.append('file', new Blob([csv], { type: 'text/csv' }), 'load.csv');
   const ok = await fetch(base + '/api/upload', { method: 'POST', body: form });

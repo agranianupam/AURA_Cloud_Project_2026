@@ -1,6 +1,6 @@
 # AURA interactive API contract (v1) — owner: T3, implementer: T1
 
-Base URL: `VITE_API_BASE_URL` (default `http://localhost:3000`). JSON in/out, UTF-8. Timestamps ISO-8601 UTC (`2025-03-10T14:00:00Z`). Hourly resolution.
+Base URL: `VITE_API_BASE_URL` (default `http://localhost:3000`). JSON in/out, UTF-8. Timestamps ISO-8601 UTC (`2019-08-12T14:00:00Z`). Hourly resolution.
 
 ## POST /api/simulate
 Runs the trained forecast model for the requested period and the carbon-aware allocation simulation, returns results vs. an always-on baseline.
@@ -8,7 +8,7 @@ Runs the trained forecast model for the requested period and the carbon-aware al
 ### Request body
 | field | type | range | default | meaning |
 |---|---|---|---|---|
-| startDate | `YYYY-MM-DD` | within dataset-supported range | first day of model test window | first day (inclusive) |
+| startDate | `YYYY-MM-DD` | within dataset-supported range | 2019-08-12 (start of the model test window) | first day (inclusive) |
 | endDate | `YYYY-MM-DD` | >= startDate, span <= 31 days | startDate + 6 days | last day (inclusive) |
 | servers | int | 1–1000 | 50 | servers in the pool |
 | idleWatts | number | 10–500 | 100 | power of an idle, powered-on server |
@@ -23,7 +23,7 @@ All fields optional; missing fields take defaults.
 ```json
 {
   "hourly": [
-    { "ts": "2025-03-10T00:00:00Z", "demandKw": 12.4, "serversOn": 18,
+    { "ts": "2019-08-12T00:00:00Z", "demandKw": 12.4, "serversOn": 18,
       "energyKwh": 3.1, "baselineKwh": 5.0, "co2G": 1200, "baselineCo2G": 1900,
       "carbonIntensity": 390 }
   ],
@@ -38,7 +38,7 @@ All fields optional; missing fields take defaults.
 
 ## GET /api/forecast/preview?date=YYYY-MM-DD
 ```json
-{ "date": "2025-03-10",
+{ "date": "2019-08-12",
   "hourly": [ { "ts": "...", "forecastKw": 12.4, "actualKw": 11.9 } ] }
 ```
 24 rows. `actualKw` present only where known (omit or `null` otherwise).
