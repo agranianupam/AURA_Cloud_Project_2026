@@ -123,7 +123,7 @@ export function SourceBadge({ r }) {
   );
 }
 
-function AdvisorResult({ r }) {
+export function AdvisorResult({ r }) {
   const now = new Date();
   const data = r.series.map((p) => ({ t: Date.parse(p.start), intensity: p.intensity }));
   const t0 = data[0].t;
@@ -165,7 +165,7 @@ function AdvisorResult({ r }) {
               <Tooltip labelFormatter={(t) => fmtLocal(t, now)} formatter={(val) => [`${val} gCO₂/kWh`, 'Intensity']} />
               <ReferenceArea x1={bStart} x2={bEnd} fill="#16a34a" fillOpacity={0.2} stroke="#16a34a" label={{ value: 'best', fontSize: 11, fill: '#166534' }} />
               <ReferenceLine x={t0} stroke="#374151" strokeDasharray="4 3" label={{ value: 'now', fontSize: 11, position: 'insideTopLeft' }} />
-              <Area type="stepAfter" dataKey="intensity" stroke="#2563eb" fill="#dbeafe" />
+              <Area type="stepAfter" dataKey="intensity" stroke="#2563eb" fill="#dbeafe" isAnimationActive={false} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
