@@ -2,6 +2,7 @@ import React from 'react';
 import { Zap, Leaf, DollarSign, Activity } from 'lucide-react';
 import { ResponsiveContainer, LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 import Recommendations from './Recommendations';
+import EquivalentsCard from '../report/EquivalentsCard';
 
 const fmt = (ts) => {
   const d = new Date(ts);
@@ -39,13 +40,15 @@ const Card = ({ title, children }) => (
   </div>
 );
 
-export default function Results({ result, onSave, canSave }) {
+export default function Results({ result, onSave, canSave, actions }) {
   const data = result.hourly.map((r) => ({ ...r, label: fmt(r.ts) }));
   const axis = { dataKey: 'label', minTickGap: 40, tick: { fontSize: 11 } };
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">Results</h2>
+        <div className="flex items-center gap-2">
+        {actions}
         {onSave && (
           <button
             onClick={onSave}
@@ -55,9 +58,11 @@ export default function Results({ result, onSave, canSave }) {
             Save to compare
           </button>
         )}
+        </div>
       </div>
       <Kpis summary={result.summary} />
       <Recommendations items={result.recommendations} />
+      <EquivalentsCard result={result} />
       {result.warnings?.length > 0 && (
         <ul className="bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg p-3 text-sm list-disc pl-6">
           {result.warnings.map((w, i) => (
