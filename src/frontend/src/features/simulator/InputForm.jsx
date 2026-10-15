@@ -2,9 +2,12 @@ import React from 'react';
 import { Play, Loader2, RotateCcw } from 'lucide-react';
 import { DEFAULTS } from './simulatorApi';
 
+export const DATA_MIN = '2018-07-15';
+export const DATA_MAX = '2019-10-21';
+
 const FIELDS = [
-  { key: 'startDate', label: 'Start date', type: 'date', help: 'First day to simulate.' },
-  { key: 'endDate', label: 'End date', type: 'date', help: 'Last day to simulate (up to 31 days).' },
+  { key: 'startDate', label: 'Start date', type: 'date', min: DATA_MIN, max: DATA_MAX, help: 'First day to simulate. Data covers 15 Jul 2018 to 21 Oct 2019.' },
+  { key: 'endDate', label: 'End date', type: 'date', min: DATA_MIN, max: DATA_MAX, help: 'Last day to simulate (up to 31 days).' },
   { key: 'servers', label: 'Servers', type: 'number', min: 1, max: 1000, step: 1, help: 'How many servers your lab or campus runs (1-1000).' },
   { key: 'idleWatts', label: 'Idle power (W)', type: 'number', min: 10, max: 500, step: 5, help: 'Watts one server draws when switched on but doing nothing.' },
   { key: 'peakWatts', label: 'Peak power (W)', type: 'number', min: 11, max: 1500, step: 5, help: 'Watts one server draws at full load. Must exceed idle power.' },
@@ -20,7 +23,7 @@ const EVENTS = [
   ['exam', 'Exams (demand up)'],
   ['break', 'Semester break (demand down)'],
   ['holiday', 'Holiday (demand down)'],
-  ['event', 'Campus event (demand up)'],
+  ['event', 'Unplanned surge (not forecast; may cause SLA misses)'],
 ];
 
 export function validate(v, { dates = true } = {}) {
@@ -34,7 +37,9 @@ export function validate(v, { dates = true } = {}) {
   num('peakWatts', Number(v.idleWatts) + 1 || 11, 1500);
   if (dates) {
     if (!v.startDate) e.startDate = 'Pick a start date.';
+    else if (v.startDate < DATA_MIN || v.startDate > DATA_MAX) e.startDate = 'Choose a date between 15 Jul 2018 and 21 Oct 2019 (the building data we have).';
     if (!v.endDate) e.endDate = 'Pick an end date.';
+    else if (v.endDate < DATA_MIN || v.endDate > DATA_MAX) e.endDate = 'Choose a date between 15 Jul 2018 and 21 Oct 2019 (the building data we have).';
     if (v.startDate && v.endDate) {
       const days = (new Date(v.endDate) - new Date(v.startDate)) / 86400000;
       if (days < 0) e.endDate = 'End date must be on or after the start date.';

@@ -45,7 +45,7 @@ export default function CsvUpload({ values, onResult }) {
         <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
         <span>
           The model was trained on one university building dataset. Results for your own data are indicative only. Upload a CSV with the
-          header <code>timestamp,kw</code> (e.g. <code>2019-08-12T00:00:00Z,12.5</code>), at most 31 days and 5 MB. Server inputs above are used.
+          header <code>timestamp,kw</code> (e.g. <code>2019-08-12T00:00:00Z,12.5</code>), covering 16 to 31 days (the model needs two weeks of history) and at most 5 MB. Server inputs above are used.
         </span>
       </div>
       <div className="flex flex-wrap items-center gap-3">

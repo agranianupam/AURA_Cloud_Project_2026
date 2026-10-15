@@ -69,13 +69,20 @@ test('forecast preview returns 24 hourly rows', async () => {
 });
 
 test('upload accepts a CSV and rejects a bad one', async () => {
-  const csv = 'timestamp,kw\n' + Array.from({ length: 24 }, (_, h) => `2019-08-12T${String(h).padStart(2, '0')}:00:00Z,${5 + h}`).join('\n');
+  // The real engine needs 16-31 days (two weeks of history + days to simulate); 20 days of hourly data
+  const start = Date.parse('2019-08-12T00:00:00Z');
+  const rows = Array.from({ length: 20 * 24 }, (_, i) => {
+    const h = i % 24;
+    return `${new Date(start + i * 3600000).toISOString().replace('.000', '')},${(8 + (h >= 8 && h <= 18 ? 12 : 0) + (i % 7)).toFixed(1)}`;
+  });
+  const csv = ['timestamp,kw', ...rows].join('\n');
   const form = new FormData();
   form.append('file', new Blob([csv], { type: 'text/csv' }), 'load.csv');
   const ok = await fetch(base + '/api/upload', { method: 'POST', body: form });
   assert.equal(ok.status, 200);
   const j = await ok.json();
-  assert.equal(j.hourly.length, 24);
+  assert.ok(j.hourly.length >= 24);
+  assert.equal(typeof j.summary.energySavedKwh, 'number');
   assert.ok(Array.isArray(j.warnings));
 
   const bad = new FormData();
