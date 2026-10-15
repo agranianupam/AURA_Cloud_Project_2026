@@ -202,6 +202,8 @@ class Engine:
             raise ValidationError(f"endDate must be on or before {ds.last_full_day:%Y-%m-%d}, the last complete day of {ds.label}",
                                   "endDate")
         servers = _num(params, "servers", 50, 1, 1000, integer=True)
+        # fixed workload expressed as "the fleet it would fill"; lets the optimizer vary capacity against the same demand
+        workload = _num(params, "workloadServers", servers, 1, 1000, integer=True)
         idle = _num(params, "idleWatts", 100, 10, 500)
         if isinstance(params.get("peakWatts"), (int, float)) and not isinstance(params.get("peakWatts"), bool)                 and params["peakWatts"] <= idle:
             raise ValidationError(f"peakWatts must be greater than idleWatts ({idle:g})", "peakWatts")
@@ -230,7 +232,7 @@ class Engine:
             raise ValidationError(f"unknown event '{bad[0]}'; use any of {', '.join(EVENTS)}", "events")
         events = list(dict.fromkeys(events))
 
-        return dict(ds=ds, start=start, end=end, servers=servers, idle=idle, peak=peak, share=share, headroom=headroom,
+        return dict(ds=ds, start=start, end=end, servers=servers, workload=workload, idle=idle, peak=peak, share=share, headroom=headroom,
                     pue=pue, price=price, shift=shift, grid=grid, events=events)
 
     # ---- operations --------------------------------------------------------------------------------------------------
@@ -261,7 +263,7 @@ class Engine:
                 return out
             return f if evs else None
 
-        res = replay(days, ds.hourly, lambda day: self._forecast(ds, day), carbon, a, n / self.ref_kw,
+        res = replay(days, ds.hourly, lambda day: self._forecast(ds, day), carbon, a, p["workload"] / self.ref_kw,
                      self.usual_mae, shift=p["shift"], actual_factor=factor(False), forecast_factor=factor(True))
         rows = res["rows"]
         if not rows:
@@ -296,7 +298,7 @@ class Engine:
                        "hours": len(rows), "days": len(rows) // 24},
         }
         peak_kw = a["node_peak_kw"]
-        k = n / self.ref_kw * peak_kw  # building kW -> server-pool demand at full utilisation
+        k = p["workload"] / self.ref_kw * peak_kw  # building kW -> server-pool demand at full utilisation
         hourly = [{
             "ts": r["timestamp"] + "Z", "demandKw": round(r["actualDemandKw"] * k, 2),
             "forecastKw": round(r["forecastDemandKw"] * k, 2),
@@ -321,7 +323,7 @@ class Engine:
             "alerts": alerts,
             "params": {"dataset": ds.id, "startDate": p["start"].strftime("%Y-%m-%d"),
                        "endDate": p["end"].strftime("%Y-%m-%d"),
-                       "servers": n, "idleWatts": p["idle"], "peakWatts": p["peak"], "deferrableShare": p["share"],
+                       "servers": n, "workloadServers": p["workload"], "idleWatts": p["idle"], "peakWatts": p["peak"], "deferrableShare": p["share"],
                        "carbonGrid": p["grid"], "events": p["events"], "headroom": p["headroom"], "pue": p["pue"],
                        "pricePerKwh": p["price"], "carbonShift": p["shift"]},
             "model": self._model_info(),
