@@ -9,6 +9,7 @@ import Optimizer from '../optimizer/Optimizer';
 import TalkToAura from '../agent/TalkToAura';
 import Anomalies from '../anomaly/Anomalies';
 import ExportMenu from '../report/ExportMenu';
+import Advisor from '../advisor/Advisor';
 import { DEFAULTS, simulate, toMessage } from './simulatorApi';
 
 export default function Simulator() {
@@ -82,6 +83,7 @@ export default function Simulator() {
       )}
       <ScenarioCompare scenarios={scenarios} onRemove={(id) => update(scenarios.filter((s) => s.id !== id))} onClear={() => update([])} />
       <Optimizer values={values} onApply={(p) => setValues((v) => ({ ...v, ...p }))} />
+      <Advisor />
       <ForecastPreview initialDate={values.startDate || DEFAULTS.startDate} />
       <Anomalies upload={run?.source === 'upload' ? run.result.upload : undefined} />
       <CsvUpload

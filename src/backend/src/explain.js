@@ -82,6 +82,7 @@ function overview(c) {
 
 // Page-help topics: what each input, chart and feature on the Simulator page means.
 const HELP = [
+  [/(when|what time|best time).*(run|start|schedule).*(job|batch|training|backup)|run now or later|cleanest (time|window)/i, () => 'Use the "Run now or later?" Advisor section further down this page: enter your job length and power, and it finds the cleanest start time in the next 24-48 hours from a live UK grid carbon forecast, and shows how much CO₂ you save versus starting now.'],
   [/deferrable|batch|flexible/i, () => 'Deferrable share is the part of the workload that can wait (batch jobs, research runs, backups). AURA moves it to hours when the grid is cleaner, which lowers carbon without hurting interactive users. A higher share means more carbon savings.'],
   [/idle watt|idle power|peak watt|peak power|watts/i, (c) => `Idle watts (${c.params?.idleWatts}) is what one server draws when on but doing nothing; peak watts (${c.params?.peakWatts}) is its draw at full load. Turning servers off saves the idle part, which is why savings are large when many servers sit idle.`],
   [/headroom|safety|margin/i, (c) => `Headroom (${n((c.params?.headroom ?? 0.25) * 100)}%) is the extra capacity AURA keeps above the forecast so a forecast error does not cause a service miss. More headroom means fewer misses but less energy saved.`],

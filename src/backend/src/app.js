@@ -6,6 +6,7 @@ import { explain } from './explain.js';
 import { optimize } from './optimize.js';
 import { parseRequest } from './agent.js';
 import { analyze } from './anomaly.js';
+import { createAdvisor, AdvisorError } from './advisor.js';
 
 // Positive integer query parameter, clamped to [1, max]; falls back to `def` when absent or invalid.
 function intParam(value, def, max) {
@@ -39,7 +40,7 @@ function coerceForm(body) {
   return out;
 }
 
-export function createApp({ store, engine, auth = (req, res, next) => next(), corsOrigin = '*' }) {
+export function createApp({ store, engine, auth = (req, res, next) => next(), corsOrigin = '*', advisor = createAdvisor() }) {
   const app = express();
   const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: UPLOAD_LIMIT, files: 1 } });
   app.disable('x-powered-by');
@@ -125,6 +126,16 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
   api.post('/optimize', express.json({ limit: '100kb' }), run((req) => optimize(engine, req.body)));
 
   // AURA Explainer: plain-language explanation of a simulation result (Claude if ANTHROPIC_API_KEY is set, else rules)
+  // "Run now or later?": cleanest window for a job from the live UK carbon-intensity forecast (backend-only fetch)
+  api.post('/advisor', express.json({ limit: '10kb' }), async (req, res, next) => {
+    try {
+      res.json(await advisor(req.body));
+    } catch (err) {
+      if (err instanceof AdvisorError) return apiError(res, err.status, err.status === 503 ? 'INTERNAL' : 'VALIDATION_ERROR', err.message, err.field);
+      next(err);
+    }
+  });
+
   api.post('/explain', express.json({ limit: '500kb' }), async (req, res, next) => {
     try {
       const { result, question, history } = req.body ?? {};
