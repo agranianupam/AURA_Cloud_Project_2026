@@ -36,7 +36,7 @@ function validate(p) {
   num('peakWatts', d.idleWatts + 1, 1500);
   num('deferrableShare', 0, 1);
   if (!GRID[d.carbonGrid]) throw { field: 'carbonGrid', message: 'carbonGrid must be low, medium, high or india' };
-  d.startDate ||= '2025-03-10';
+  d.startDate ||= '2019-08-12';
   const s = new Date(d.startDate + 'T00:00:00Z');
   if (isNaN(s)) throw { field: 'startDate', message: 'startDate must be YYYY-MM-DD' };
   const e = new Date((d.endDate || new Date(+s + 6 * DAY).toISOString().slice(0, 10)) + 'T00:00:00Z');
@@ -125,7 +125,7 @@ http
         const date = url.searchParams.get('date');
         const s = new Date(date + 'T00:00:00Z');
         if (!date || isNaN(s)) return err(res, 400, 'VALIDATION_ERROR', 'date must be YYYY-MM-DD', 'date');
-        const known = s < new Date('2025-03-14T00:00:00Z');
+        const known = s < new Date('2019-10-22T00:00:00Z');
         const hourly = demandFor(s, s, []).map((r, i) => ({
           ts: r.ts,
           forecastKw: +r.kw.toFixed(2),
@@ -142,7 +142,7 @@ http
         const rowRe = /^\d{4}-\d{2}-\d{2}[T ][^,]*,\s*-?[\d.]+\s*$/;
         const all = text.split(/\r?\n/).map((l) => l.trim());
         const lines = all.filter((l) => rowRe.test(l));
-        if (!lines.length) return err(res, 422, 'CSV_INVALID', 'No valid rows found (expected e.g. 2025-03-10T00:00:00Z,12.5)');
+        if (!lines.length) return err(res, 422, 'CSV_INVALID', 'No valid rows found (expected e.g. 2019-08-12T00:00:00Z,12.5)');
         const byHour = new Map();
         for (const l of lines) {
           const [t, v] = l.split(',');

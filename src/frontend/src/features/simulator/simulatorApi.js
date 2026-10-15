@@ -5,8 +5,8 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 const AUTH_DISABLED = import.meta.env.VITE_AUTH_DISABLED === 'true';
 
 export const DEFAULTS = {
-  startDate: '2025-03-10',
-  endDate: '2025-03-16',
+  startDate: '2019-08-12',
+  endDate: '2019-08-18',
   servers: 50,
   idleWatts: 100,
   peakWatts: 250,
