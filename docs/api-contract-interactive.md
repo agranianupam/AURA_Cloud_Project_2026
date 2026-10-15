@@ -56,3 +56,14 @@ HTTP 400 (validation), 413 (too large), 422 (unparseable CSV), 500 (server). Bod
 
 ## Notes
 - CORS must allow the frontend origin. Auth: same as existing routes (`AUTH_DISABLED=true` locally).
+
+## T1 implementation notes (additive; nothing above was changed)
+- `ts` is the building's local wall-clock time (Asia/Bangkok, the CU-BEMS site) written with a `Z` suffix, so charts can show the hour directly. Hours with no CU-BEMS data cannot be simulated.
+- Dates: CU-BEMS supports 2018-07-15 .. 2019-10-21 (simulate) and .. 2019-10-22 (preview; the last day is partial, `actualKw` is `null` where unknown). Defaults: startDate 2019-08-12 (first test day), endDate startDate+6.
+- `carbonGrid` curves are fixed 24 h profiles. Extras accepted: `"uk-2019"` (real UK data, only 2019-05-31..10-23), `"flat-low"`, `"flat-high"`, or an array of 24 gCO2/kWh numbers.
+- `events` apply to every day of the period: `exam` weekdays 08-20h x1.3 (planned, in the forecast), `break` x0.6 and `holiday` x0.45 (planned), `event` 10-16h x1.3 (unplanned: NOT in the forecast, so it can cause SLA misses). Duplicates are ignored.
+- `demandKw` = server-pool demand at full utilisation (building load scaled to the pool); `forecastKw` is the LSTM forecast in the same unit.
+- Extra response fields: hourly `forecastKw, plannedServers, utilizationPct, batchNodeHours, slaMet`; summary `percentReduction, co2PercentReduction, slaMissHours, energyKwh, baselineKwh, co2Kg, baselineCo2Kg, avgServersOn, peakServersOn, carbonSource, period`; top level `daily[]`, `alerts[]`, `params` (normalised echo), `model` (test MAE etc.), `warnings[]`, `elapsedMs`. Extra optional request fields: `headroom, pue, pricePerKwh, carbonShift, dataset`.
+- Preview also returns `summary` (peak, MAE vs actual) and `warnings`; optional `?dataset=<uploadId>`.
+- Upload: simulates every complete day after the first 14 (the model needs two weeks of history), 16-31 days of data required; response is the simulate shape plus `warnings[]` and `upload{uploadId, scale, similarity, simulateFrom, simulateTo}`. 413 when the file is > 5 MB or > 31 days, 422 when the CSV is unusable (bad header, <5% parseable, constant, < 16 days).
+- Other errors: 404 uses `{error:{code:"NOT_FOUND",...}}`, 503 `INTERNAL` when the Python engine is unavailable.

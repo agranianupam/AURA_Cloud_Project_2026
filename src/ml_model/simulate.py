@@ -93,56 +93,29 @@ def load_carbon(path, index, tz):
     return aligned, os.path.basename(path)
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--data", default="dataset/processed/cubems_building_15min.csv")
-    ap.add_argument("--model", default="results/model")
-    ap.add_argument("--out", default="results/simulation")
-    ap.add_argument("--carbon", help="hourly carbon CSV (ts UTC, gco2_per_kwh) from fetch_carbon.py")
-    ap.add_argument("--backtest", default="dataset/processed/forecast_hourly.csv")
-    ap.add_argument("--headroom", type=float, default=ASSUMPTIONS["headroom"])
-    ap.add_argument("--buffer-nodes", type=int, default=ASSUMPTIONS["buffer_nodes"])
-    ap.add_argument("--start", help="first day to simulate; default: first full day of the model's test period")
-    ap.add_argument("--end", help="last day (exclusive); default: last complete day of data")
-    ap.add_argument("--no-carbon-shift", action="store_true", help="run batch work on arrival (ablation)")
-    ap.add_argument("--quiet", action="store_true", help="only print the savings summary")
-    args = ap.parse_args()
-    a = dict(ASSUMPTIONS, headroom=args.headroom, buffer_nodes=args.buffer_nodes)
-
-    raw = pd.read_csv(args.data, parse_dates=["timestamp"], index_col="timestamp")
-    model = tf.keras.models.load_model(os.path.join(args.model, "aura_lstm.keras"))
-    bundle = joblib.load(os.path.join(args.model, "scaler.joblib"))
-    with open(os.path.join(args.model, "metrics.json")) as f:
-        model_metrics = json.load(f)
-    test_start = model_metrics["periods"]["test"][0]
-    train_end = model_metrics["periods"]["train"][1]
-    usual_mae = model_metrics["test"]["lstm"]["mae_kw"]
-
-    hourly = raw["total_kw"].resample("1h").mean()
-    # Demand in node units: the fleet is sized so that peak training-period load fills every node
-    # (training period only, so neither validation nor test data leaks into the sizing)
-    ref_kw = hourly[hourly.index <= pd.Timestamp(train_end)].max()
-    to_nodes = a["nodes_total"] / ref_kw
-
-    start = pd.Timestamp(args.start or test_start).ceil("D")
-    end = pd.Timestamp(args.end) if args.end else hourly.dropna().index[-1].floor("D")
-    days = pd.date_range(start, end - pd.Timedelta(days=1), freq="D")
-    carbon, carbon_source = load_carbon(
-        args.carbon, pd.date_range(start, end, freq="1h", inclusive="left"), a["building_timezone"]
-    )
-
-    rows, alerts, backtest = [], [], []
+def replay(days, hourly, forecast_fn, carbon, a, to_nodes, usual_mae, shift=True, actual_factor=None, forecast_factor=None):
+    """Replay the forecast-driven allocation day by day.
+    forecast_fn(day) -> predict.forecast() result for the 24 h starting at `day`.
+    actual_factor / forecast_factor: optional f(DatetimeIndex) -> array that scales the real demand (what-if events)
+    or the forecast (events the planner knows about); the LSTM output itself is untouched."""
+    rows, alerts, backtest, skipped = [], [], [], []
     prev_nodes, backlog = None, 0.0
     for day in days:
         actual_kw = hourly.reindex(pd.date_range(day, periods=24, freq="1h"))
         if actual_kw.isna().any():
             backlog = 0.0
+            skipped.append((day, "gap in the record"))
             continue  # skip days with gaps in the record
         try:
-            fc = forecast(raw, model, bundle, day)
-        except ValueError:
+            fc = forecast_fn(day)
+        except ValueError as exc:
+            skipped.append((day, str(exc)))
             continue
+        if actual_factor:
+            actual_kw = actual_kw * actual_factor(actual_kw.index)
         fc_kw = np.array([r["total_kw"] for r in fc["forecast"]])
+        if forecast_factor:
+            fc_kw = fc_kw * forecast_factor(actual_kw.index)
         holiday = fc["forecast"][0]["is_holiday"]
         ci_day = carbon.reindex(actual_kw.index).to_numpy()
         backtest += [(t, float(x), float(p)) for t, x, p in zip(actual_kw.index, actual_kw, fc_kw)]
@@ -151,7 +124,7 @@ def main():
         fc_demand = fc_kw * to_nodes
         fc_interactive = (1 - a["batch_share"]) * fc_demand
         nodes, planned_batch, unplaced = plan_day(
-            fc_interactive, ci_day, a["batch_share"] * fc_demand.sum(), a, shift=not args.no_carbon_shift
+            fc_interactive, ci_day, a["batch_share"] * fc_demand.sum(), a, shift=shift
         )
         act_interactive = (1 - a["batch_share"]) * demand
         # Batch jobs actually submitted today: the real batch share, released on the planned slots
@@ -228,6 +201,51 @@ def main():
                 "message": f"Forecast error {err:.0f} kW today, over twice the model's usual {usual_mae:.0f} kW; "
                            f"check for unscheduled campus events",
             })
+
+    return {"rows": rows, "alerts": alerts, "backtest": backtest, "backlog": backlog, "skipped": skipped}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--data", default="dataset/processed/cubems_building_15min.csv")
+    ap.add_argument("--model", default="results/model")
+    ap.add_argument("--out", default="results/simulation")
+    ap.add_argument("--carbon", help="hourly carbon CSV (ts UTC, gco2_per_kwh) from fetch_carbon.py")
+    ap.add_argument("--backtest", default="dataset/processed/forecast_hourly.csv")
+    ap.add_argument("--headroom", type=float, default=ASSUMPTIONS["headroom"])
+    ap.add_argument("--buffer-nodes", type=int, default=ASSUMPTIONS["buffer_nodes"])
+    ap.add_argument("--start", help="first day to simulate; default: first full day of the model's test period")
+    ap.add_argument("--end", help="last day (exclusive); default: last complete day of data")
+    ap.add_argument("--no-carbon-shift", action="store_true", help="run batch work on arrival (ablation)")
+    ap.add_argument("--quiet", action="store_true", help="only print the savings summary")
+    args = ap.parse_args()
+    a = dict(ASSUMPTIONS, headroom=args.headroom, buffer_nodes=args.buffer_nodes)
+
+    raw = pd.read_csv(args.data, parse_dates=["timestamp"], index_col="timestamp")
+    model = tf.keras.models.load_model(os.path.join(args.model, "aura_lstm.keras"))
+    bundle = joblib.load(os.path.join(args.model, "scaler.joblib"))
+    with open(os.path.join(args.model, "metrics.json")) as f:
+        model_metrics = json.load(f)
+    test_start = model_metrics["periods"]["test"][0]
+    train_end = model_metrics["periods"]["train"][1]
+    usual_mae = model_metrics["test"]["lstm"]["mae_kw"]
+
+    hourly = raw["total_kw"].resample("1h").mean()
+    # Demand in node units: the fleet is sized so that peak training-period load fills every node
+    # (training period only, so neither validation nor test data leaks into the sizing)
+    ref_kw = hourly[hourly.index <= pd.Timestamp(train_end)].max()
+    to_nodes = a["nodes_total"] / ref_kw
+
+    start = pd.Timestamp(args.start or test_start).ceil("D")
+    end = pd.Timestamp(args.end) if args.end else hourly.dropna().index[-1].floor("D")
+    days = pd.date_range(start, end - pd.Timedelta(days=1), freq="D")
+    carbon, carbon_source = load_carbon(
+        args.carbon, pd.date_range(start, end, freq="1h", inclusive="left"), a["building_timezone"]
+    )
+
+    res = replay(days, hourly, lambda day: forecast(raw, model, bundle, day), carbon, a, to_nodes, usual_mae,
+                 shift=not args.no_carbon_shift)
+    rows, alerts, backtest, backlog = res["rows"], res["alerts"], res["backtest"], res["backlog"]
 
     if not rows:
         raise SystemExit("no complete days to simulate")

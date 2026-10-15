@@ -8,6 +8,9 @@ Demand-forecasting model: given the last 7 days of building load, it predicts th
 | `features.py` | Shared features: cyclic hour and weekday, weekend and Thai holiday flags, load one week earlier |
 | `train_lstm.py` | Trains the model, evaluates it against a same-hour-last-week baseline, and saves it to `results/model/` |
 | `predict.py` | Loads the trained model and writes the next-24h forecast as JSON |
+| `simulate.py` | Replays forecast-driven, carbon-aware allocation over the test period (`replay()` is reused by the engine) |
+| `engine.py`, `engine_server.py` | On-demand simulate / forecast preview / CSV upload for the API; the server is a JSON-lines worker the Node backend spawns |
+| `predict_azure.py`, `scheduler/`, `deploy/` | Earlier Azure-trace predictor and AWS deploy handlers (teammates' branch) |
 
 ## Model
 - **Encoder:** 2-layer LSTM over the past 168 hourly steps (load, temperature, time features, weekend and holiday flags).
