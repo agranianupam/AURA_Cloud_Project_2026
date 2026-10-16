@@ -1,0 +1,34 @@
+{
+ "energySavedKwh": 8280.9,
+ "carbonSavedKg": 1588.7,
+ "costSaved": 993.71,
+ "percentReduction": 39.5,
+ "carbonPercentReduction": 41.3,
+ "slaCompliancePct": 99.53,
+ "energyKwh": 12674.0,
+ "baselineEnergyKwh": 20954.9,
+ "carbonKg": 2256.0,
+ "baselineCarbonKg": 3844.7,
+ "avgActiveNodes": 21.0,
+ "batchBacklogEndNodeHours": 0.0,
+ "period": {
+  "start": "2019-08-12T00:00:00",
+  "end": "2019-10-21T23:00:00",
+  "hours": 1704
+ },
+ "carbonSource": "carbon_hourly.csv",
+ "assumptions": {
+  "nodes_total": 48,
+  "nodes_min": 4,
+  "node_idle_kw": 0.12,
+  "node_peak_kw": 0.3,
+  "pue": 1.5,
+  "headroom": 0.25,
+  "buffer_nodes": 4,
+  "batch_share": 0.2,
+  "price_usd_per_kwh": 0.12,
+  "instance_type": "c5.xlarge",
+  "building_timezone": "Asia/Bangkok",
+  "idle_share_of_peak": 0.4
+ }
+}

@@ -4,3 +4,10 @@ node_modules/
 .env
 .DS_Store
 *.log
+.venv/
+dataset/raw/_azure_download/
+# CU-BEMS data: raw files are re-downloadable (src/ml_model/download_data.py);
+# the per-floor file is regenerable with preprocess.py. The 3 MB building file is kept.
+dataset/raw/*.csv
+dataset/processed/cubems_floors_*.csv
+dataset/processed/*.chunks/

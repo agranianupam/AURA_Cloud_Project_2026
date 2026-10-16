@@ -1,4 +1,4 @@
-// Simulated EC2 scaling action, wrapped around the carbon-aware scheduler
+﻿// Simulated EC2 scaling action, wrapped around the carbon-aware scheduler
 // (PRD section 6.2: "a thin wrapper that invokes Agrani's carbon-aware
 // scheduler logic"). This Lambda does not implement scheduling policy
 // itself - it calls out to the scheduler service for a defer/proceed

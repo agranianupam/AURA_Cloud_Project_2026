@@ -4,8 +4,7 @@ Three tables, all on-demand billing (stays inside Always Free tier at this scale
 
 ## `ResourceUsage`
 
-Historical + predicted energy/utilization/carbon readings. Feeds
-`GET /api/metrics/energy` and `GET /api/metrics/savings`.
+Historical + predicted energy/utilization readings. Feeds `GET /api/metrics/energy`.
 
 | Attribute | Type | Key |
 |---|---|---|
@@ -13,16 +12,9 @@ Historical + predicted energy/utilization/carbon readings. Feeds
 | `utilization` | Number | |
 | `cost` | Number | |
 | `predicted` | Number | Written by backend after merging ML service output; `null` if unavailable |
-| `energyKwh` | Number | Modelled estimate. **Owned by the ML/scheduler track** (power model, PRD FR-SC-2) — the backend never computes this, only reads/passes it through. Absent or `null` until that track writes it. |
-| `carbonIntensity` | Number | gCO₂/kWh grid signal (PRD FR-SC-1). Same ownership as `energyKwh`. |
-| `carbonGco2` | Number | `energyKwh x carbonIntensity`. Same ownership as `energyKwh`. |
-| `baselineEnergyKwh` | Number | Static-provisioning baseline for the same interval. Same ownership as `energyKwh`. |
-| `baselineCarbonGco2` | Number | Static-provisioning baseline carbon. Same ownership as `energyKwh`. |
 
 No sort key — one reading per timestamp is sufficient at 5-minute/hourly granularity
-for this project's scale. The five energy/carbon attributes are additive to the
-existing item shape — DynamoDB is schemaless beyond the key, so no table migration
-is needed; older rows simply won't have them until re-seeded.
+for this project's scale.
 
 ## `Allocations`
 
@@ -57,7 +49,6 @@ alerts are read far more often than filtered by a specific `alertId`.
 | Query | Table | Operation |
 |---|---|---|
 | List recent usage/predictions | `ResourceUsage` | `Scan` (small table; swap to a GSI on a constant partition + `timestamp` range if this grows) |
-| Aggregate savings (`/api/metrics/savings`) | `ResourceUsage` | `Scan` + in-application sum/reduce over `energyKwh`/`carbonGco2`/baseline fields — same table, no extra index needed at this scale |
 | List all allocations | `Allocations` | `Scan` (only ~5 items) |
 | Get/update one allocation | `Allocations` | `GetItem` / `UpdateItem` on `resourceId` |
 | List alerts, newest first | `Alerts` | `Query` would need a constant partition key to sort by `timestamp` across items; at this scale we `Scan` + sort in application code instead |

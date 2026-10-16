@@ -1,0 +1,79 @@
+{
+  "validation": {
+    "lstm": {
+      "mae_kw": 38.04645919799805,
+      "rmse_kw": 50.21995162963867,
+      "mape_pct": 20.46866798400879
+    },
+    "seasonal_naive_week": {
+      "mae_kw": 51.49091252602627,
+      "rmse_kw": 98.02303499326956,
+      "mape_pct": 26.56075245715657
+    }
+  },
+  "test": {
+    "lstm": {
+      "mae_kw": 35.93380355834961,
+      "rmse_kw": 47.998836517333984,
+      "mape_pct": 20.542573928833008
+    },
+    "seasonal_naive_week": {
+      "mae_kw": 44.89265872046378,
+      "rmse_kw": 83.31848663508002,
+      "mape_pct": 24.00815963432417
+    }
+  },
+  "config": {
+    "data": "dataset/processed/cubems_building_15min.csv",
+    "out": "results/model",
+    "freq": "1h",
+    "lookback_days": 7,
+    "horizon_hours": 24,
+    "units": 128,
+    "dropout": 0.2,
+    "epochs": 60,
+    "batch": 64,
+    "lookback_steps": 168,
+    "horizon_steps": 24,
+    "past_features": [
+      "total_kw",
+      "temp_c",
+      "hour_sin",
+      "hour_cos",
+      "dow_sin",
+      "dow_cos",
+      "is_weekend",
+      "is_holiday"
+    ],
+    "future_features": [
+      "hour_sin",
+      "hour_cos",
+      "dow_sin",
+      "dow_cos",
+      "is_weekend",
+      "is_holiday",
+      "kw_lag_week",
+      "lag_week_was_holiday"
+    ],
+    "epochs_run": 48
+  },
+  "periods": {
+    "train": [
+      "2018-07-01 00:00:00",
+      "2019-05-31 23:00:00"
+    ],
+    "validation": [
+      "2019-06-01 00:00:00",
+      "2019-08-11 18:00:00"
+    ],
+    "test": [
+      "2019-08-11 19:00:00",
+      "2019-10-22 13:00:00"
+    ]
+  },
+  "windows": {
+    "train": 5849,
+    "validation": 1361,
+    "test": 1700
+  }
+}

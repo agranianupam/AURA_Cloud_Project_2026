@@ -2,7 +2,7 @@
 
 > **Course:** BCSE355L — Cloud Architecture Design  
 > **Instructor:** Dr. Priya V  
-> **Academic Year:** 2025–2026  
+> **Academic Year:** 2026–2027
 
 ---
 
@@ -99,16 +99,77 @@ If forecasted demand shifts significantly, the scheduling engine re-evaluates th
 
 ## Dataset Details
 
-- **Dataset Name:** Azure Public Dataset V2 (VM CPU Utilization Traces, 2019)
-- **Source:** Microsoft Azure (official research release)
-- **URL:** https://github.com/Azure/AzurePublicDataset/blob/master/AzurePublicDatasetV2.md
-- **Size:** ~235GB (per source repository)
-- **Number of Records:** ~2.6 million VMs and ~1.9 billion utilization readings
-- **Number of Features:** 5-minute VM CPU utilization readings, plus VM information and subscription tables (~6-8 usable columns once inspected)
-- **Data Type:** Time-series, tabular (CSV)
-- **License:** Released by Microsoft for the benefit of the research and academic community
-- **Purpose of Use:** Trains AURA's demand-forecasting model to learn VM resource utilization patterns, enabling proactive, energy-aware scheduling
-- **Preprocessing Required:** Downsampling to a manageable subset, resampling to consistent time intervals, normalizing CPU utilization values, handling anonymized/encrypted metadata fields, filtering to relevant columns only
+- **Dataset Name:** CU-BEMS: Smart Building Electricity Consumption and Indoor Environmental Sensor Data
+- **Source:** Chulalongkorn University (Bangkok) Building Energy Management System; Pipattanasomporn et al., *Scientific Data* 7, 241 (2020)
+- **URL:** https://doi.org/10.6084/m9.figshare.11726517
+- **Size:** 788 MB (14 CSV files, one per floor per year)
+- **Number of Records:** ~5.4 million 1-minute readings, 7 floors, July 2018 – December 2019
+- **Number of Features:** 11–36 per floor: AC, lighting and plug-load power (kW) for each zone, plus indoor temperature, humidity and light level
+- **Data Type:** Multivariate time series, tabular (CSV)
+- **License:** CC BY 4.0
+- **Purpose of Use:** Trains AURA's demand-forecasting model on real university-building load, which shows the weekday, weekend, holiday and term-break cycles AURA uses to schedule resources proactively
+- **Preprocessing:** Aggregate meters into building load, resample to 15 min / 1 h, interpolate short gaps, drop periods where floors are missing, add calendar and Thai public-holiday features. See [dataset/dataset_description.md](dataset/dataset_description.md)
+
+---
+
+## Results
+
+Hyper-parameters and scheduling settings were **tuned on the validation period (Jun–Aug 2019) and reported once on the held-out test period (Aug–Oct 2019)**.
+
+| | Result (test period) |
+|---|---|
+| Demand forecast (LSTM, next 24h) | MAE **35.9 kW**, MAPE 20.5%: 20% lower error than a same-hour-last-week baseline (44.9 kW) |
+| Data-center energy vs always-on | **−39.5%** (8,281 kWh over 1,704 hours) |
+| CO₂ vs always-on | **−41.3%** (1,589 kg); carbon-aware batch placement adds 2.3 points of this |
+| SLA compliance | **99.53%** of hours with enough capacity for interactive demand |
+
+**These are simulated, not measured.**
+- The CU-BEMS **building load stands in for campus server demand**.
+- The **48-server fleet, 40% idle power, PUE 1.5 and 20% deferrable work are assumptions**.
+- Carbon intensity is real hourly **UK grid** data for the same dates. It is not Thailand's grid.
+
+Details: [results/README.md](results/README.md) and [results/simulation/README.md](results/simulation/README.md).
+
+---
+
+## Running locally
+
+```bash
+# 1. Data and model (Python 3.10–3.12 virtual environment; TensorFlow doesn't support Python 3.14 yet)
+python -m pip install -r src/ml_model/requirements.txt
+python src/ml_model/download_data.py          # 788 MB from figshare
+python src/ml_model/preprocess.py
+python src/ml_model/train_lstm.py --data dataset/processed/cubems_building_15min.csv --out results/model
+python src/ml_model/fetch_carbon.py --start 2019-05-31 --end 2019-10-23 --out dataset/processed/carbon_hourly.csv
+python src/ml_model/simulate.py --carbon dataset/processed/carbon_hourly.csv
+
+# 2. API on http://localhost:3000 (reads results/simulation/)
+cd src/backend && npm install && AUTH_DISABLED=true npm start
+
+# 3. Dashboard: create src/frontend/.env.local with
+#    VITE_USE_MOCK=false, VITE_AUTH_DISABLED=true, VITE_API_BASE_URL=http://localhost:3000
+cd src/frontend && npm install && npm run dev
+```
+The processed building file and the trained model are committed, so steps 2–3 work without re-running step 1.
+
+AWS deployment (CloudFormation; not yet tested on a real account): [src/aws/README.md](src/aws/README.md).
+
+---
+
+## Interactive simulator
+
+The **Simulator** page (`/simulator`) lets a teacher try their own numbers: server count, idle/peak watts, share of flexible workload, grid carbon profile, date range and calendar events (exams, breaks). The trained LSTM forecasts demand for that period and the allocation simulation returns KPI cards (energy, CO₂, cost, SLA), hourly charts against an always-on baseline, and plain-language recommendations. It also offers:
+- a **forecast preview** for any single day (forecast vs actual where known),
+- **scenario compare**: save up to 3 runs (kept in the browser) and view them side by side,
+- an **experimental CSV upload** (`timestamp,kw`, 16-31 days) to run the simulation on your own load data.
+
+- **Export**: the Export menu on the results offers a CSV (inputs, summary, hourly rows) and a printable A4 report (open it, then Print / Save as PDF) with KPIs, charts, a plain-language summary, rough everyday equivalents (km driven, tree-years, home-days; assumptions listed), the model's accuracy and an uncertainty hint. Everything is built in the browser from the run result.
+
+- **Run now or later?** (Advisor section): describe a job (hours, kW or servers × watts, look-ahead up to 48 h, optional deadline) and AURA finds the cleanest start time from the live UK carbon-intensity forecast (`POST /api/advisor`; backend-only fetch, cached 10 min, 8 s timeout, falls back to a typical profile with an OFFLINE badge). The data is for the UK grid.
+
+Dates are limited to the CU-BEMS data (15 Jul 2018 to 21 Oct 2019). Start the backend with the Python venv (`PYTHON=<venv python> AUTH_DISABLED=true npm start` in `src/backend`) so `/api/simulate` can load the LSTM; the first request waits ~5 s for the model.
+
+Endpoints: `POST /api/simulate`, `GET /api/forecast/preview`, `POST /api/upload`; see [docs/api-contract-interactive.md](docs/api-contract-interactive.md). Without the backend, run the contract mock: `cd src/frontend && npm run mock`. Integration tests: `API_URL=http://localhost:3000 npm run test:integration` (starts the mock if `API_URL` is unset).
 
 ---
 

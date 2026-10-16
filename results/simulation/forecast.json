@@ -1,0 +1,160 @@
+{
+ "generated_at": "2026-10-13T18:02:04+00:00",
+ "forecast_start": "2019-10-22T14:00:00",
+ "freq": "1h",
+ "unit": "kW",
+ "horizon_steps": 24,
+ "summary": {
+  "peak_kw": 560.5,
+  "peak_time": "2019-10-22T14:00:00",
+  "min_kw": 119.49,
+  "mean_kw": 248.96,
+  "energy_kwh": 5975.1
+ },
+ "forecast": [
+  {
+   "timestamp": "2019-10-22T14:00:00",
+   "total_kw": 560.5,
+   "same_hour_last_week_kw": 677.57,
+   "is_holiday": false
+  },
+  {
+   "timestamp": "2019-10-22T15:00:00",
+   "total_kw": 548.61,
+   "same_hour_last_week_kw": 653.75,
+   "is_holiday": false
+  },
+  {
+   "timestamp": "2019-10-22T16:00:00",
+   "total_kw": 406.71,
+   "same_hour_last_week_kw": 517.51,
+   "is_holiday": false
+  },
+  {
+   "timestamp": "2019-10-22T17:00:00",
+   "total_kw": 263.96,
+   "same_hour_last_week_kw": 248.98,
+   "is_holiday": false
+  },
+  {
+   "timestamp": "2019-10-22T18:00:00",
+   "total_kw": 277.78,
+   "same_hour_last_week_kw": 264.71,
+   "is_holiday": false
+  },
+  {
+   "timestamp": "2019-10-22T19:00:00",
+   "total_kw": 255.05,
+   "same_hour_last_week_kw": 250.83,
+   "is_holiday": false
+  },
+  {
+   "timestamp": "2019-10-22T20:00:00",
+   "total_kw": 233.02,
+   "same_hour_last_week_kw": 218.62,
+   "is_holiday": false
+  },
+  {
+   "timestamp": "2019-10-22T21:00:00",
+   "total_kw": 191.64,
+   "same_hour_last_week_kw": 178.78,
+   "is_holiday": false
+  },
+  {
+   "timestamp": "2019-10-22T22:00:00",
+   "total_kw": 164.22,
+   "same_hour_last_week_kw": 175.83,
+   "is_holiday": false
+  },
+  {
+   "timestamp": "2019-10-22T23:00:00",
+   "total_kw": 166.08,
+   "same_hour_last_week_kw": 150.49,
+   "is_holiday": false
+  },
+  {
+   "timestamp": "2019-10-23T00:00:00",
+   "total_kw": 161.14,
+   "same_hour_last_week_kw": 142.28,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T01:00:00",
+   "total_kw": 134.12,
+   "same_hour_last_week_kw": 141.9,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T02:00:00",
+   "total_kw": 119.49,
+   "same_hour_last_week_kw": 141.77,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T03:00:00",
+   "total_kw": 130.1,
+   "same_hour_last_week_kw": 141.16,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T04:00:00",
+   "total_kw": 140.47,
+   "same_hour_last_week_kw": 150.73,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T05:00:00",
+   "total_kw": 150.38,
+   "same_hour_last_week_kw": 135.87,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T06:00:00",
+   "total_kw": 160.51,
+   "same_hour_last_week_kw": 107.84,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T07:00:00",
+   "total_kw": 173.48,
+   "same_hour_last_week_kw": 217.04,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T08:00:00",
+   "total_kw": 287.01,
+   "same_hour_last_week_kw": 703.27,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T09:00:00",
+   "total_kw": 296.09,
+   "same_hour_last_week_kw": 636.99,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T10:00:00",
+   "total_kw": 323.56,
+   "same_hour_last_week_kw": 611.14,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T11:00:00",
+   "total_kw": 274.4,
+   "same_hour_last_week_kw": 512.44,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T12:00:00",
+   "total_kw": 233.63,
+   "same_hour_last_week_kw": 223.99,
+   "is_holiday": true
+  },
+  {
+   "timestamp": "2019-10-23T13:00:00",
+   "total_kw": 323.18,
+   "same_hour_last_week_kw": 664.66,
+   "is_holiday": true
+  }
+ ]
+}
