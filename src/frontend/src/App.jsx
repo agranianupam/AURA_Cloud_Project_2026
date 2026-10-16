@@ -9,6 +9,8 @@ import Alerts from './pages/Alerts';
 import Architecture from './pages/Architecture';
 import Simulator from './pages/Simulator';
 import Login from './pages/Login';
+import { PrefsProvider } from './hooks/usePrefs';
+import { ToastProvider } from './components/Toast';
 import { Amplify } from 'aws-amplify';
 import { signOut } from 'aws-amplify/auth';
 
@@ -34,6 +36,8 @@ function App() {
   const allowed = user || import.meta.env.VITE_USE_MOCK === "true" || import.meta.env.VITE_AUTH_DISABLED === "true";
 
   return (
+    <PrefsProvider>
+    <ToastProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/overview" replace />} />
@@ -51,6 +55,8 @@ function App() {
         <Route path="*" element={<Navigate to="/overview" replace />} />
       </Routes>
     </BrowserRouter>
+    </ToastProvider>
+    </PrefsProvider>
   );
 }
 export default App;
