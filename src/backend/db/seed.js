@@ -1,8 +1,3 @@
-// Seeds DynamoDB tables from Agrani's mock JSON (src/ml_model/mock_data/),
-// which matches docs/api-contract.md exactly. Requires real AWS credentials
-// and the tables to already exist (see src/aws/scripts/setup.sh).
-//
-// Usage: npm run seed
 
 const fs = require('fs');
 const path = require('path');
@@ -56,3 +51,4 @@ if (require.main === module) {
 }
 
 module.exports = { seed };
+

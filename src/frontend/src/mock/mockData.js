@@ -2,20 +2,19 @@ export const generateMockData = () => {
   const energyMetrics = [];
   let baseEnergy = 200;
   const now = new Date();
-  
+
   for(let i=0; i < 24*7; i++) {
     const timestamp = new Date(now.getTime() - (24*7 - i) * 60 * 60 * 1000).toISOString();
     const hour = new Date(timestamp).getHours();
-    
-    // Day/Night cycle
+
     const isDay = hour >= 8 && hour <= 18;
     const load = isDay ? 1.5 + Math.random() * 0.5 : 0.8 + Math.random() * 0.3;
-    
+
     const baselineEnergyKwh = baseEnergy * load;
     const energyKwh = baselineEnergyKwh * (0.8 - Math.random() * 0.1);
-    
+
     const carbonIntensity = isDay ? 300 : 150;
-    
+
     energyMetrics.push({
       timestamp,
       utilization: load * 40,
@@ -78,3 +77,4 @@ export const generateMockData = () => {
 
   return { energyMetrics, savings, allocations, alerts, forecast };
 }
+

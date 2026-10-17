@@ -21,9 +21,10 @@ async function putMetric(metricName, value, unit = 'None', dimensions = []) {
       })
     );
   } catch (err) {
-    // Metrics are best-effort — never fail the request because CloudWatch is unreachable.
+
     console.warn('[cloudwatch] putMetric failed:', err.message);
   }
 }
 
 module.exports = { putMetric };
+

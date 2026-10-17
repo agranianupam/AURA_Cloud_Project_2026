@@ -27,7 +27,7 @@ export default function ComparisonChart() {
           <button onClick={() => setViewMode('carbon')} className={`px-3 py-1 text-sm rounded-full ${!isEnergy ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600'}`}>Carbon (gCO2)</button>
         </div>
       </div>
-      
+
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={formattedData}>
@@ -46,3 +46,4 @@ export default function ComparisonChart() {
     </div>
   );
 }
+

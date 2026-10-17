@@ -80,3 +80,4 @@ test('auth middleware guards /api routes but not health', async () => {
     guarded.close();
   }
 });
+

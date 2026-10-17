@@ -25,7 +25,6 @@ export async function headers() {
   }
 }
 
-// Turn any failure into a message a teacher can read (contract error format: {error:{code,message,field}})
 export function toMessage(e) {
   const apiErr = e?.response?.data?.error;
   if (apiErr?.message) return { message: apiErr.message, field: apiErr.field };
@@ -55,3 +54,4 @@ export async function explainResult(result, question, history = []) {
   const res = await axios.post(`${API_BASE}/api/explain`, { result, question, history }, { headers: await headers() });
   return res.data;
 }
+

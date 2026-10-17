@@ -59,3 +59,4 @@ async function updateItem(tableName, key, updates) {
 }
 
 module.exports = { doc, scanAll, getItem, putItem, updateItem };
+

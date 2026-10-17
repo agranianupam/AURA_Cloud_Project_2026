@@ -10,7 +10,6 @@ export async function askAdvisor(body) {
 
 const dayDiff = (d, now) => Math.round((new Date(d).setHours(0, 0, 0, 0) - new Date(now).setHours(0, 0, 0, 0)) / 86400000);
 
-// "02:30", "02:30 tomorrow" in the viewer's local time
 export function fmtLocal(iso, now = new Date()) {
   const d = new Date(iso);
   const t = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
@@ -24,3 +23,4 @@ export function adviceSentence(r, now = new Date()) {
   if (!(kg > 0.0005)) return `Run it now. Nothing in this window is cleaner than starting now (${nf(r.now.avgIntensity)} gCO₂/kWh), so waiting would not save carbon.`;
   return `Start at ${fmtLocal(r.best.start, now)} to emit ${nf(r.savingPct)}% less CO₂, saving ${nf(kg)} kg compared with starting now.`;
 }
+

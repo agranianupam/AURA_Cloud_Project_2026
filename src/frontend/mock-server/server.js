@@ -1,4 +1,4 @@
-// Contract-shaped mock of the AURA interactive API. Run: node mock-server/server.js (port 3000, or PORT)
+
 import http from 'node:http';
 
 const PORT = process.env.PORT || 3000;
@@ -170,3 +170,4 @@ http
     }
   })
   .listen(PORT, () => console.log(`AURA mock API on http://localhost:${PORT}`));
+

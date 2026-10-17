@@ -35,10 +35,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 class PredictionRequest(BaseModel):
     n_steps: int = Field(default=12, ge=1, le=288)
-
 
 class PredictionEntry(BaseModel):
     timestamp: str
@@ -51,18 +49,15 @@ class PredictionEntry(BaseModel):
     baseline_energy_kwh: float
     baseline_carbon_gco2: float
 
-
 class PredictionResponse(BaseModel):
     status: str
     n_steps: int
     predictions: list[PredictionEntry]
 
-
 class HealthResponse(BaseModel):
     status: str
     model_loaded: bool
     message: str
-
 
 @app.get("/", tags=["Meta"])
 def root():
@@ -71,7 +66,6 @@ def root():
         "version": "1.0.0",
         "docs": "/docs",
     }
-
 
 @app.get("/health", response_model=HealthResponse, tags=["Meta"])
 def health():
@@ -82,7 +76,6 @@ def health():
         model_loaded=loaded,
         message="Model ready." if loaded else "Model weights not found. Train the model first.",
     )
-
 
 @app.get("/predict", response_model=PredictionResponse, tags=["Prediction"])
 def get_predictions(
@@ -100,11 +93,9 @@ def get_predictions(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
-
 @app.post("/predict", response_model=PredictionResponse, tags=["Prediction"])
 def post_predictions(body: PredictionRequest):
     return get_predictions(n_steps=body.n_steps)
-
 
 class ScheduleDecisionResponse(BaseModel):
     workload_id: str
@@ -112,7 +103,6 @@ class ScheduleDecisionResponse(BaseModel):
     scheduled_at: str
     reason: str
     deferredUntil: Optional[str] = None
-
 
 @app.get("/schedule", response_model=ScheduleDecisionResponse, tags=["Scheduler"])
 def get_schedule(
@@ -125,8 +115,6 @@ def get_schedule(
     """
     now = datetime.now(tz=timezone.utc)
     
-    # Simple mapping of action to workload type for demo purposes
-    # In a real system, the workload type would be passed explicitly
     workload_type = "batch" if "batch" in action.lower() or "defer" in action.lower() else "lms"
     
     try:
@@ -134,7 +122,6 @@ def get_schedule(
     except ValueError:
         util_pct = 50.0
 
-    # Create a workload (assumes 1 hour duration and a deadline 12 hours from now)
     wl = Workload(
         workload_id=resourceId,
         workload_type=workload_type,
@@ -152,7 +139,6 @@ def get_schedule(
         reason=decision.reason,
         deferredUntil=decision.scheduled_at.isoformat() if decision.decision == "defer" and decision.scheduled_at else None,
     )
-
 
 if __name__ == "__main__":
     import uvicorn

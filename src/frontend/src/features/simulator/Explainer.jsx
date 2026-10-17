@@ -4,7 +4,6 @@ import { explainResult, toMessage } from './simulatorApi';
 
 const SUGGESTIONS = ['Is this result good?', 'What does SLA mean?', 'Why did carbon drop?', 'How accurate is the forecast?', 'How can I improve this?'];
 
-// Render **bold**, and lines wrapped in _underscores_ as italic, without a markdown library.
 function Rich({ text }) {
   return text.split('\n').map((line, i) => {
     const italic = line.length > 2 && line.startsWith('_') && line.endsWith('_');
@@ -23,7 +22,6 @@ export default function Explainer({ result, autoStart = false }) {
   const [note, setNote] = useState(null);
   const endRef = useRef(null);
 
-  // A new run means a new conversation.
   useEffect(() => {
     setMessages([]);
     setError(null);
@@ -54,10 +52,9 @@ export default function Explainer({ result, autoStart = false }) {
     }
   };
 
-  // Runs started from "Talk to AURA" show the first explanation without a click.
   useEffect(() => {
     if (autoStart) ask('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [result, autoStart]);
 
   return (
@@ -131,3 +128,4 @@ export default function Explainer({ result, autoStart = false }) {
     </div>
   );
 }
+

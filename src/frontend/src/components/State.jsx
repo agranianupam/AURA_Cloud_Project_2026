@@ -22,3 +22,4 @@ export function Empty({ message = 'No data available yet.' }) {
     </div>
   );
 }
+

@@ -19,3 +19,4 @@ async function publishAlert({ message, subject }) {
 }
 
 module.exports = { publishAlert };
+
