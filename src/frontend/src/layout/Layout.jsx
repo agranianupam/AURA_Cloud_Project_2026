@@ -42,10 +42,8 @@ export default function Layout({ userEmail, onLogout }) {
             </NavLink>
           ))}
         </nav>
-        <div className="mt-6 md:mt-auto pt-4 border-t border-gray-100 text-xs text-gray-500 space-y-2">
-          <span className="inline-block px-2 py-0.5 bg-green-100 text-green-800 font-bold rounded-full border border-green-200">System Healthy</span>
+        <div className="mt-6 md:mt-auto pt-4 border-t border-gray-100 text-xs text-gray-500">
           <div className="truncate">{userEmail}</div>
-          {onLogout && <button onClick={onLogout} className="text-indigo-600 hover:underline">Logout</button>}
         </div>
       </aside>
 
