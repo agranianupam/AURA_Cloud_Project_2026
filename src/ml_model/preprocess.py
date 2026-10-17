@@ -15,9 +15,7 @@ import re
 import pandas as pd
 
 FILE_RE = re.compile(r"(\d{4})Floor(\d+)\.csv$")
-# Short gaps (sensor dropouts) are interpolated; anything longer stays NaN and is reported.
 MAX_INTERP_STEPS = 4
-
 
 def load_floor_year(path):
     df = pd.read_csv(path)
@@ -32,7 +30,6 @@ def load_floor_year(path):
         return [c for c in df.columns if re.search(pattern, c)]
 
     out = pd.DataFrame(index=df.index)
-    # min_count=1 keeps a row NaN when every meter is missing, instead of reporting 0 kW
     out["total_kw"] = df[kw].sum(axis=1, min_count=1)
     out["ac_kw"] = df[cols(r"_AC\d*\(kW\)")].sum(axis=1, min_count=1)
     out["light_kw"] = df[cols(r"_Light\(kW\)")].sum(axis=1, min_count=1)
@@ -42,7 +39,6 @@ def load_floor_year(path):
     out["lux"] = df[cols(r"\(lux\)")].mean(axis=1)
     return out
 
-
 def add_calendar(df):
     ts = df.index
     df["hour"] = ts.hour
@@ -50,7 +46,6 @@ def add_calendar(df):
     df["month"] = ts.month
     df["is_weekend"] = (ts.dayofweek >= 5).astype(int)
     return df
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -92,7 +87,6 @@ def main():
     floors_path = os.path.join(args.out, f"cubems_floors_{args.freq}.csv")
     floors.rename_axis("timestamp").to_csv(floors_path, float_format="%.3f")
 
-    # Building total only where every floor reported, so partial sums don't look like low demand
     n_floors = len(by_floor)
     power = floors.reset_index().pivot_table(
         index="Date", columns="floor", values=["total_kw", "ac_kw", "light_kw", "plug_kw"], dropna=False
@@ -114,7 +108,6 @@ def main():
         f.write("\n".join(report) + "\n")
     print("\n".join(report))
     print(f"wrote {floors_path}\nwrote {building_path}")
-
 
 if __name__ == "__main__":
     main()

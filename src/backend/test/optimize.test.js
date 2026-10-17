@@ -3,7 +3,6 @@ import { after, before, describe, test } from 'node:test';
 import { createApp } from '../src/app.js';
 import { paretoFront, parseRequest } from '../src/optimize.js';
 
-// Deterministic stand-in for the engine: demand needs ~30 servers; fewer servers or headroom miss SLA.
 let calls = 0;
 const engine = {
   async simulate(p) {
@@ -102,3 +101,4 @@ describe('POST /api/optimize', () => {
     assert.deepEqual(r.body, { error: { code: 'VALIDATION_ERROR', message: 'objective must be one of energy, carbon, cost', field: 'objective' } });
   });
 });
+

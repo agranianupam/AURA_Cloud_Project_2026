@@ -24,7 +24,6 @@ import tensorflow as tf
 
 from features import FUTURE_FEATURES, PAST_FEATURES, TARGET, build_features, scale_features, steps_per_week
 
-
 def forecast(raw, model, bundle, end=None):
     freq, lookback, horizon = bundle["freq"], bundle["lookback"], bundle["horizon"]
     step = pd.Timedelta(freq)
@@ -35,7 +34,6 @@ def forecast(raw, model, bundle, end=None):
     end = pd.Timestamp(end).floor(freq)
     history = raw[raw.index < end]
 
-    # Append empty rows for the horizon so calendar and weekly-lag features exist for them
     future_index = pd.date_range(end, periods=horizon, freq=freq)
     padded = pd.concat([history, pd.DataFrame(index=future_index, columns=history.columns, dtype=float)])
     df = build_features(padded, freq)
@@ -89,7 +87,6 @@ def forecast(raw, model, bundle, end=None):
         "forecast": rows,
     }
 
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", required=True)
@@ -109,7 +106,6 @@ def main():
             f.write(text + "\n")
     else:
         print(text)
-
 
 if __name__ == "__main__":
     main()

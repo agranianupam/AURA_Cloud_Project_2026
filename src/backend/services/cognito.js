@@ -17,8 +17,6 @@ function getVerifier() {
   return verifier;
 }
 
-// Throws if the token is missing, malformed, expired, or fails signature
-// verification against the Cognito User Pool's JWKS.
 async function verifyToken(token) {
   const v = getVerifier();
   if (!v) {
@@ -28,3 +26,4 @@ async function verifyToken(token) {
 }
 
 module.exports = { verifyToken };
+

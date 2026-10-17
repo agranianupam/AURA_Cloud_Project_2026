@@ -1,6 +1,4 @@
-// Integration test for the interactive API. Run against a live server:
-//   API_URL=http://localhost:3000 node --test tests/
-// Without API_URL it starts the contract mock server on a free port.
+
 import test, { before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -69,7 +67,7 @@ test('forecast preview returns 24 hourly rows', async () => {
 });
 
 test('upload accepts a CSV and rejects a bad one', async () => {
-  // The real engine needs 16-31 days (two weeks of history + days to simulate); 20 days of hourly data
+
   const start = Date.parse('2019-08-12T00:00:00Z');
   const rows = Array.from({ length: 20 * 24 }, (_, i) => {
     const h = i % 24;
@@ -91,3 +89,4 @@ test('upload accepts a CSV and rejects a bad one', async () => {
   assert.ok([400, 422].includes(r.status));
   assert.equal(typeof (await r.json()).error.message, 'string');
 });
+

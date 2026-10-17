@@ -29,7 +29,6 @@ from sklearn.preprocessing import MinMaxScaler
 
 from features import FUTURE_FEATURES, PAST_FEATURES, TARGET, build_features, scale_features, steps_per_week
 
-
 def make_windows(past, future, target, valid, lookback, horizon):
     """Sliding windows that never span a gap (valid=False anywhere inside the window)."""
     Xp, Xf, y, idx = [], [], [], []
@@ -44,7 +43,6 @@ def make_windows(past, future, target, valid, lookback, horizon):
     as32 = lambda a: np.array(a, dtype="float32")
     return as32(Xp), as32(Xf), as32(y), np.array(idx)
 
-
 def build_model(lookback, horizon, n_past, n_future, units, dropout):
     past_in = tf.keras.Input(shape=(lookback, n_past), name="past")
     future_in = tf.keras.Input(shape=(horizon, n_future), name="future")
@@ -58,7 +56,6 @@ def build_model(lookback, horizon, n_past, n_future, units, dropout):
     out = tf.keras.layers.Dense(horizon, name="total_kw")(z)
     return tf.keras.Model([past_in, future_in], out)
 
-
 def metrics(y_true, y_pred):
     err = y_pred - y_true
     return {
@@ -66,7 +63,6 @@ def metrics(y_true, y_pred):
         "rmse_kw": float(np.sqrt(np.mean(err ** 2))),
         "mape_pct": float(np.mean(np.abs(err) / np.maximum(np.abs(y_true), 1e-3)) * 100),
     }
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -92,8 +88,6 @@ def main():
     cols = sorted(set(PAST_FEATURES) | set(FUTURE_FEATURES))
     valid = df[cols].notna().all(axis=1).to_numpy()
 
-    # Chronological split 70/15/15; scalers are fitted on the training period only.
-    # Load columns (total_kw and its weekly lag) share one scale so the model sees them comparably.
     n = len(df)
     cut1, cut2 = int(n * 0.70), int(n * 0.85)
     train = df.iloc[:cut1]
@@ -130,7 +124,6 @@ def main():
     def evaluate(mask):
         y_true = unscale(y[mask])
         y_pred = unscale(model.predict([Xp[mask], Xf[mask]], verbose=0))
-        # Seasonal naive: same hours one week earlier (always available: kw_lag_week is in `valid`)
         naive = np.array([lag[i:i + horizon] for i in idx[mask]])
         assert np.allclose(y_true, np.array([kw[i:i + horizon] for i in idx[mask]]), atol=1e-2)
         return y_true, y_pred, {"lstm": metrics(y_true, y_pred), "seasonal_naive_week": metrics(y_true, naive)}
@@ -168,7 +161,6 @@ def main():
     axes[0].plot(history.history["val_loss"], label="validation")
     axes[0].set(title="Training loss (MSE, scaled)", xlabel="epoch")
     axes[0].legend()
-    # Non-overlapping forecasts across the test set; NaN breaks the line at data gaps
     t_list, a_list, p_list = [], [], []
     for k, i in enumerate(idx[te]):
         if k % horizon:
@@ -190,7 +182,6 @@ def main():
     fig.tight_layout()
     fig.savefig(os.path.join(args.out, "forecast.png"), dpi=120)
     print(f"saved model, scaler, metrics and plot to {args.out}")
-
 
 if __name__ == "__main__":
     main()

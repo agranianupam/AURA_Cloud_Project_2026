@@ -5,7 +5,6 @@ const config = require('../config');
 
 const router = express.Router();
 
-// GET /api/metrics/energy
 router.get('/energy', async (req, res) => {
   try {
     const actuals = await scanAll(config.tables.usage);
@@ -23,9 +22,7 @@ router.get('/energy', async (req, res) => {
       predicted: predictedByTimestamp.has(row.timestamp)
         ? predictedByTimestamp.get(row.timestamp)
         : row.predicted ?? null,
-      // Energy/carbon fields are owned by the ML/scheduler track (power model,
-      // PRD FR-SC-1/2) ΓÇö backend passes them through as stored, never computes
-      // them. null until that track writes them.
+
       energyKwh: row.energyKwh ?? null,
       carbonIntensity: row.carbonIntensity ?? null,
       carbonGco2: row.carbonGco2 ?? null,
@@ -40,12 +37,6 @@ router.get('/energy', async (req, res) => {
   }
 });
 
-// GET /api/metrics/savings
-// Aggregates ResourceUsage into a single AURA-vs-static-baseline summary
-// (PRD FR-BE-7 / FR-SC-5). Degrades to all-zero output rather than erroring
-// if energy/carbon fields haven't been populated yet by the ML/scheduler
-// track ΓÇö see docs/api-contract.md for the exact per-field formula and the
-// documented placeholder status of slaCompliancePct.
 router.get('/savings', async (req, res) => {
   try {
     const rows = await scanAll(config.tables.usage);
@@ -84,10 +75,7 @@ router.get('/savings', async (req, res) => {
       baselineEnergySum > 0 ? (energySavedKwh / baselineEnergySum) * 100 : 0;
     const slaCompliancePct =
       rowsWithSlaSignal > 0 ? (slaMetCount / rowsWithSlaSignal) * 100 : 0;
-    // No baselineCost field exists in the schema, so costSaved is a naive
-    // proportional estimate (actual cost incurred x the energy reduction
-    // ratio) - not an independently measured baseline-cost comparison.
-    // See docs/api-contract.md.
+
     const costSaved = costSum * (percentReduction / 100);
 
     res.json({
@@ -106,3 +94,4 @@ router.get('/savings', async (req, res) => {
 });
 
 module.exports = router;
+

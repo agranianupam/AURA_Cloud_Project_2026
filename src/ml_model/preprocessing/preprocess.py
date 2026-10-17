@@ -56,12 +56,10 @@ RAW_PANEL_CSV = RAW_DIR / "azure_real_vm_panel.csv"
 
 TRAIN_RATIO = 0.70
 VAL_RATIO = 0.15
-# TEST_RATIO = 0.15 (remainder)
 
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
 np.random.seed(RANDOM_SEED)
-
 
 def load_real_panel() -> pd.DataFrame:
     if not RAW_PANEL_CSV.exists():
@@ -73,7 +71,6 @@ def load_real_panel() -> pd.DataFrame:
     df = pd.read_csv(RAW_PANEL_CSV)
     df = df.sort_values(["vm_id", "timestamp"]).reset_index(drop=True)
     return df
-
 
 def chronological_split_per_vm(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Split each VM's own real tick sequence 70/15/15, chronologically.
@@ -100,7 +97,6 @@ def chronological_split_per_vm(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataF
     test = pd.concat(test_parts, ignore_index=True)
     return train, val, test
 
-
 def normalise(train: pd.DataFrame, val: pd.DataFrame, test: pd.DataFrame):
     """Fit MinMaxScaler on train utilization only, apply to all splits."""
     scaler = MinMaxScaler(feature_range=(0, 1))
@@ -110,7 +106,6 @@ def normalise(train: pd.DataFrame, val: pd.DataFrame, test: pd.DataFrame):
         split["utilization_norm"] = scaler.transform(split[["utilization"]])
 
     return train, val, test, scaler
-
 
 def save_outputs(train, val, test, scaler) -> None:
     for split, name in [(train, "train"), (val, "val"), (test, "test")]:
@@ -123,7 +118,6 @@ def save_outputs(train, val, test, scaler) -> None:
     with open(scaler_path, "wb") as f:
         pickle.dump(scaler, f)
     print(f"  Saved scaler -> {scaler_path.relative_to(ROOT)}")
-
 
 def run_pipeline() -> None:
     print("\nAURA Preprocessing Pipeline (REAL Azure Public Dataset V2)")
@@ -152,7 +146,6 @@ def run_pipeline() -> None:
     print(f"   Utilisation stats (real, %): "
           f"mean={df['utilization'].mean():.2f}  std={df['utilization'].std():.2f}  "
           f"min={df['utilization'].min():.2f}  max={df['utilization'].max():.2f}\n")
-
 
 if __name__ == "__main__":
     run_pipeline()

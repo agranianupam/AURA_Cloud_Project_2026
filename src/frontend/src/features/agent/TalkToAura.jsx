@@ -11,7 +11,6 @@ const EXAMPLES = [
   'What if an unplanned surge hits 40 servers on a clean grid?',
 ];
 
-// Plain-English box: parses the request, shows what was understood/assumed, then hands the inputs to onRun.
 export default function TalkToAura({ values, onRun, busy }) {
   const [text, setText] = useState('');
   const [parsing, setParsing] = useState(false);
@@ -109,3 +108,4 @@ export default function TalkToAura({ values, onRun, busy }) {
     </div>
   );
 }
+

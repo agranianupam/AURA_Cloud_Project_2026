@@ -31,8 +31,6 @@ import pandas as pd
 warnings.filterwarnings("ignore")
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
 
-# Make sure the ml_model directory is on the path so relative imports work
-# regardless of where the script is invoked from.
 _ML_DIR = Path(__file__).resolve().parent
 if str(_ML_DIR) not in sys.path:
     sys.path.insert(0, str(_ML_DIR))
@@ -55,16 +53,9 @@ _scaler = None
 _OFF_PEAK_START = 22
 _OFF_PEAK_END = 6
 
-# Carbon-intensity threshold: above this value (gCO2/kWh) the grid is
-# considered "dirty" and deferrable jobs should be held back.
-# Based on the documented static hourly profile in carbon_model.py;
-# the midpoint between off-peak (~400) and peak (~600) intensity.
 CARBON_DEFER_THRESHOLD_GCO2_KWH = 500.0
 
-# Demand headroom: AURA always provisions slightly above the forecast
-# to protect SLA compliance (PRD NFR-SLA >= 95% of intervals).
-HEADROOM_PCT = 0.05  # 5% above predicted demand
-
+HEADROOM_PCT = 0.05
 
 def _load_model():
     global _model
@@ -82,7 +73,6 @@ def _load_model():
     _model = tf.keras.models.load_model(str(WEIGHTS_PATH))
     return _model
 
-
 def _load_scaler():
     global _scaler
     if _scaler is not None:
@@ -94,7 +84,6 @@ def _load_scaler():
     with open(SCALER_PATH, "rb") as f:
         _scaler = pickle.load(f)
     return _scaler
-
 
 def _get_seed_sequence() -> np.ndarray:
     """Seed the autoregressive forecast with one real VM's own last
@@ -115,16 +104,13 @@ def _get_seed_sequence() -> np.ndarray:
             return series[-N_STEPS:]
     return np.full(N_STEPS, 0.4, dtype=np.float32)
 
-
 def _is_off_peak(dt: datetime) -> bool:
     h = dt.hour
     return h >= _OFF_PEAK_START or h < _OFF_PEAK_END
 
-
 def _is_high_carbon(dt: datetime) -> bool:
     """True when the current carbon intensity exceeds the deferral threshold."""
     return get_carbon_intensity(dt) > CARBON_DEFER_THRESHOLD_GCO2_KWH
-
 
 def _scaling_recommendation(utilization_pct: float, ts: datetime) -> str:
     """Carbon-aware scaling recommendation (FR-SC-4).
@@ -138,24 +124,18 @@ def _scaling_recommendation(utilization_pct: float, ts: datetime) -> str:
     high_carbon = _is_high_carbon(ts)
 
     if utilization_pct > 80.0:
-        # Non-deferrable: capacity must meet demand regardless of carbon.
         return "scale_up"
 
     if utilization_pct < 30.0 and high_carbon:
-        # Low demand + dirty grid: ideal time to defer batch jobs.
         return "defer_batch_jobs_high_carbon"
 
     if utilization_pct < 30.0 and off_peak:
-        # Low demand + off-peak (typically low carbon): still defer batch,
-        # but note grid is clean so this is the preferred execution window
-        # for already-deferred jobs.
         return "defer_batch_jobs"
 
     if utilization_pct < 30.0:
         return "scale_down"
 
     return "maintain"
-
 
 def predict(n_steps: int = 12) -> list[dict]:
     """Generate an n_steps ahead forecast with carbon-aware scaling recommendations.
@@ -193,12 +173,10 @@ def predict(n_steps: int = 12) -> list[dict]:
 
         ts = now + timedelta(minutes=5 * (step + 1))
 
-        # Apply SLA headroom: provision slightly above forecast.
         provisioned_pct = min(100.0, pred_pct * (1.0 + HEADROOM_PCT))
 
         rec = _scaling_recommendation(pred_pct, ts)
 
-        # Energy/carbon model (all MODELLED ESTIMATES — FR-SC-2, FR-SC-5).
         aura_metrics = get_aura_metrics(provisioned_pct, ts)
         baseline_metrics = get_baseline_metrics(ts)
 
@@ -219,7 +197,6 @@ def predict(n_steps: int = 12) -> list[dict]:
         window.append(pred_norm)
 
     return predictions
-
 
 if __name__ == "__main__":
     import json

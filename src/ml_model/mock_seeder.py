@@ -15,7 +15,6 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 BASE_TS = datetime(2026, 8, 1, 0, 0, 0, tzinfo=timezone.utc)
 INTERVAL_MINUTES = 60
 
-
 def _academic_multiplier(dt: datetime) -> float:
     month = dt.month
     hour = dt.hour
@@ -32,7 +31,6 @@ def _academic_multiplier(dt: datetime) -> float:
     if 9 <= hour < 17:
         return 1.15
     return 1.0
-
 
 def generate_energy_metrics(n: int = 120) -> list[dict]:
     records = []
@@ -65,11 +63,9 @@ def generate_energy_metrics(n: int = 120) -> list[dict]:
         )
     return records
 
-
 SERVICES = ["EC2", "EC2", "Lambda", "RDS", "ElastiCache"]
 STATUSES = ["active", "active", "active", "idle", "stopped"]
 CAPACITIES = [80, 65, 90, 40, 0]
-
 
 def generate_allocations() -> list[dict]:
     records = []
@@ -83,7 +79,6 @@ def generate_allocations() -> list[dict]:
             }
         )
     return records
-
 
 ALERT_TEMPLATES = [
     ("scaling",   "Scaled down EC2 during low demand",                    "info"),
@@ -108,7 +103,6 @@ ALERT_TEMPLATES = [
     ("health",    "All systems nominal",                                   "info"),
 ]
 
-
 def generate_alerts(n: int = 20) -> list[dict]:
     records = []
     for i in range(n):
@@ -125,13 +119,11 @@ def generate_alerts(n: int = 20) -> list[dict]:
     records.sort(key=lambda r: r["timestamp"], reverse=True)
     return records
 
-
 def write_json(data: list | dict, filename: str) -> None:
     path = os.path.join(OUTPUT_DIR, filename)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
     print(f"  Written {len(data) if isinstance(data, list) else 1} record(s) -> {path}")
-
 
 def main() -> None:
     print("\nAURA Mock Data Seeder")
@@ -148,7 +140,6 @@ def main() -> None:
     print("\nDone! Share src/ml_model/mock_data/ with Pranav and Prakul.")
     print("Pranav: import JSON in api.js for Phase 1 mock rendering.")
     print("Prakul: use JSON to seed DynamoDB tables.\n")
-
 
 if __name__ == "__main__":
     main()

@@ -4,7 +4,7 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 
 const mocks = generateMockData();
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
-// Local development against a backend started with AUTH_DISABLED=true: no Cognito session needed
+
 const AUTH_DISABLED = import.meta.env.VITE_AUTH_DISABLED === "true";
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
@@ -32,3 +32,4 @@ export const getSavings = () => handleRequest(mocks.savings, '/api/metrics/savin
 export const getAllocations = () => handleRequest(mocks.allocations, '/api/allocations');
 export const getAlerts = () => handleRequest(mocks.alerts, '/api/alerts');
 export const getForecast = () => handleRequest(mocks.forecast, '/api/forecast');
+

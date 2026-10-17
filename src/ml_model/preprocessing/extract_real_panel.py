@@ -42,8 +42,7 @@ GZ_PATH = DOWNLOAD_DIR / "vm_cpu_readings-1.csv.gz"
 OUT_PANEL = RAW_DIR / "azure_real_vm_panel.csv"
 OUT_FLEET = RAW_DIR / "azure_real_fleet_aggregate.csv"
 
-MAX_VMS = 3000  # cap for a manageable, reproducible committed CSV
-
+MAX_VMS = 3000
 
 def ensure_downloaded() -> None:
     if GZ_PATH.exists():
@@ -53,7 +52,6 @@ def ensure_downloaded() -> None:
     print(f"Downloading real Azure VM CPU readings (~850MB) from:\n  {FILE_URL}")
     urllib.request.urlretrieve(FILE_URL, GZ_PATH)
     print(f"Downloaded -> {GZ_PATH}")
-
 
 def extract() -> None:
     print("\nPass 1: reading all rows, grouping by vm_id ...")
@@ -116,12 +114,10 @@ def extract() -> None:
             writer.writerow([1, ts, round(mean_util, 4), fleet_count[ts]])
     print(f"  {n_ts} real fleet-aggregate rows written")
 
-
 def cleanup() -> None:
     if GZ_PATH.exists():
         os.remove(GZ_PATH)
         print(f"\nDeleted {GZ_PATH} to free disk space (real subset already extracted).")
-
 
 if __name__ == "__main__":
     ensure_downloaded()

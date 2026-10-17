@@ -9,7 +9,6 @@ const router = express.Router();
 
 const VALID_ACTIONS = new Set(['scale_up', 'scale_down', 'maintain']);
 
-// GET /api/allocations
 router.get('/', async (req, res) => {
   try {
     const data = await scanAll(config.tables.allocations);
@@ -20,7 +19,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /api/allocations/scale
 router.post('/scale', async (req, res) => {
   const { resourceId, action, targetCapacity } = req.body || {};
 
@@ -77,3 +75,4 @@ router.post('/scale', async (req, res) => {
 });
 
 module.exports = router;
+

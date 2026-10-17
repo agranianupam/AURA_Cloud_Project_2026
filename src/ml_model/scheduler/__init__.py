@@ -33,7 +33,6 @@ from .scheduler import (
 )
 
 __all__ = [
-    # carbon_model
     "get_carbon_intensity",
     "get_aura_metrics",
     "get_baseline_metrics",
@@ -44,7 +43,6 @@ __all__ = [
     "P_MAX_W",
     "PUE",
     "INTERVAL_HOURS",
-    # scheduler
     "Workload",
     "SchedulingDecision",
     "BaselineComparisonResult",

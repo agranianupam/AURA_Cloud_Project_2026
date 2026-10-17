@@ -32,7 +32,6 @@ RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 SES_ALPHA = 0.3
 
-
 def _metrics(y_true: np.ndarray, y_pred: np.ndarray, name: str) -> dict:
     rmse = float(np.sqrt(mean_squared_error(y_true, y_pred)))
     mae = float(mean_absolute_error(y_true, y_pred))
@@ -40,16 +39,13 @@ def _metrics(y_true: np.ndarray, y_pred: np.ndarray, name: str) -> dict:
     print(f"  {name:<30}  RMSE={rmse:.4f}  MAE={mae:.4f}  R2={r2:.4f}")
     return {"model": name, "RMSE": rmse, "MAE": mae, "R2": r2}
 
-
 def naive_persistence(X: np.ndarray) -> np.ndarray:
     """Predict next value = last value in the window."""
     return X[:, -1, 0]
 
-
 def simple_moving_average(X: np.ndarray) -> np.ndarray:
     """Predict next value = mean of the window."""
     return X[:, :, 0].mean(axis=1)
-
 
 def simple_exponential_smoothing(X: np.ndarray, alpha: float = SES_ALPHA) -> np.ndarray:
     """Non-seasonal SES, applied within each window; prediction = final
@@ -61,10 +57,8 @@ def simple_exponential_smoothing(X: np.ndarray, alpha: float = SES_ALPHA) -> np.
         level = alpha * windows[:, t] + (1 - alpha) * level
     return level
 
-
 def _inverse(values: np.ndarray, scaler) -> np.ndarray:
     return scaler.inverse_transform(values.reshape(-1, 1)).flatten()
-
 
 def run_baselines() -> list[dict]:
     print("\nAURA Baseline Models (real Azure VM panel)")
@@ -102,7 +96,6 @@ def run_baselines() -> list[dict]:
     df.to_csv(out, index=False, float_format="%.6f")
     print(f"\n  Saved -> {out.relative_to(ROOT)}")
     return results
-
 
 if __name__ == "__main__":
     run_baselines()

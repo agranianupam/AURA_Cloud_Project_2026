@@ -5,7 +5,6 @@ import { validate } from './InputForm';
 
 const MAX_BYTES = 5 * 1024 * 1024;
 
-// Returns an error string or null. Cheap client-side checks before sending anything.
 export function checkCsvFile(file) {
   if (!file) return 'Choose a CSV file first.';
   if (!/\.csv$/i.test(file.name)) return 'That does not look like a CSV file. Please choose a .csv file.';
@@ -78,3 +77,4 @@ export default function CsvUpload({ values, onResult }) {
     </div>
   );
 }
+
