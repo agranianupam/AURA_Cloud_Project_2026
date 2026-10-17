@@ -16,7 +16,6 @@ export function ToastProvider({ children }) {
 
   const dismiss = useCallback((id) => setToasts((t) => t.filter((x) => x.id !== id)), []);
 
-  // toast({ title, message, severity, action: { label, onClick }, duration })
   const toast = useCallback((t) => {
     const id = nextId++;
     setToasts((list) => [...list.slice(-3), { id, severity: 'info', ...t }]);
@@ -55,3 +54,4 @@ export function ToastProvider({ children }) {
 }
 
 export const useToast = () => useContext(ToastContext);
+

@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
-// App-wide viewer preferences: colour theme and live auto-refresh.
 const PrefsContext = createContext(null);
 
 export const LIVE_INTERVAL_MS = 30000;
@@ -10,7 +9,7 @@ export const readPref = (key, fallback) => {
   try { return localStorage.getItem(key) ?? fallback; } catch { return fallback; }
 };
 export const writePref = (key, value) => {
-  try { localStorage.setItem(key, value); } catch { /* storage unavailable */ }
+  try { localStorage.setItem(key, value); } catch {  }
 };
 
 export function PrefsProvider({ children }) {
@@ -37,5 +36,5 @@ export function PrefsProvider({ children }) {
 
 export const usePrefs = () => useContext(PrefsContext);
 
-// Interval for components that should follow the live toggle.
 export const useLiveInterval = () => (usePrefs()?.live ? LIVE_INTERVAL_MS : 0);
+

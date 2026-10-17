@@ -4,7 +4,6 @@ const config = require('../config');
 
 const router = express.Router();
 
-// GET /api/alerts (sorted by timestamp desc)
 router.get('/', async (req, res) => {
   try {
     const items = await scanAll(config.tables.alerts);
@@ -23,3 +22,4 @@ router.get('/', async (req, res) => {
 });
 
 module.exports = router;
+

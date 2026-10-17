@@ -9,7 +9,7 @@ async function invokeScalingHandler(payload) {
     const res = await client.send(
       new InvokeCommand({
         FunctionName: functionName,
-        InvocationType: 'Event', // async — don't block the API response on Lambda cold start
+        InvocationType: 'Event',
         Payload: Buffer.from(JSON.stringify(payload)),
       })
     );
@@ -21,3 +21,4 @@ async function invokeScalingHandler(payload) {
 }
 
 module.exports = { invokeScalingHandler };
+

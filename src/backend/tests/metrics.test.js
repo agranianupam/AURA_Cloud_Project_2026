@@ -69,13 +69,12 @@ test('GET /api/metrics/savings aggregates energy/carbon/cost correctly', async (
   const { status, json } = await request('GET', '/api/metrics/savings');
   assert.strictEqual(status, 200);
 
-  // energySavedKwh = (2.3 + 1.6) - (1.84 + 1.2) = 3.9 - 3.04 = 0.86
   assert.strictEqual(json.data.energySavedKwh, 0.86);
-  // carbonSavedKg = ((1472+960) - (1178+720)) / 1000 = (2432-1898)/1000 = 0.534
+
   assert.strictEqual(json.data.carbonSavedKg, 0.53);
-  // percentReduction = 0.86 / 3.9 * 100 = 22.05...
+
   assert.strictEqual(json.data.percentReduction, 22.1);
-  // slaCompliancePct: both rows have utilization <= 100 -> 100%
+
   assert.strictEqual(json.data.slaCompliancePct, 100);
 });
 
@@ -114,3 +113,4 @@ test('GET /api/metrics/savings degrades to zeros with no data', async () => {
     Module2._load = savedLoad;
   }
 });
+

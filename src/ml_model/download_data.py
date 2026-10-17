@@ -10,7 +10,6 @@ import urllib.request
 
 ARTICLE = "https://api.figshare.com/v2/articles/11726517"
 
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="dataset/raw")
@@ -28,7 +27,6 @@ def main():
         urllib.request.urlretrieve(f["download_url"], path)
         if os.path.getsize(path) != f["size"]:
             raise SystemExit(f"size mismatch for {f['name']}; delete it and retry")
-
 
 if __name__ == "__main__":
     main()

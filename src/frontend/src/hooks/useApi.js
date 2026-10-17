@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { REFRESH_EVENT } from './usePrefs';
 
-// Runs an api.js call on mount and exposes loading/error/reload.
-// Also re-fetches silently every `refreshMs` (when > 0) and on the global refresh event.
 export default function useApi(fn, { refreshMs = 0 } = {}) {
   const [state, setState] = useState({ data: null, loading: true, error: null });
   const [tick, setTick] = useState(0);
@@ -11,7 +9,7 @@ export default function useApi(fn, { refreshMs = 0 } = {}) {
     let cancelled = false;
     fn().then((res) => {
       if (cancelled) return;
-      // A failed background refresh keeps the data already on screen.
+
       setState((s) => (res.error && s.data ? { ...s, loading: false } : { data: res.data, loading: false, error: res.error }));
     });
     return () => { cancelled = true; };
@@ -34,3 +32,4 @@ export default function useApi(fn, { refreshMs = 0 } = {}) {
 
   return { ...state, reload };
 }
+

@@ -3,7 +3,6 @@ import { describe, test } from 'node:test';
 import { createApp } from '../src/app.js';
 import { analyze, detect, injectFault, validateRequest } from '../src/anomaly.js';
 
-// Deterministic noisy daily-shaped series, 7 days hourly. Forecast = shape, actual = shape + noise within ~+-8%.
 function series(days = 7, noise = 0.08) {
   const pts = [];
   let seed = 7;
@@ -136,3 +135,4 @@ describe('analyze / POST /api/anomalies with a stub engine', () => {
     } finally { server.close(); }
   });
 });
+

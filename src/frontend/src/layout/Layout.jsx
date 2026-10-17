@@ -201,3 +201,4 @@ export default function Layout({ userEmail, onLogout }) {
 }
 
 const current = (pathname) => NAV.find((n) => pathname.startsWith(n.to))?.label || 'Dashboard';
+

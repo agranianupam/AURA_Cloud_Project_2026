@@ -1,11 +1,10 @@
-// Builds a self-contained, print-optimised (A4) HTML report string from a simulation result.
+
 import { equivalentsFor, uncertaintyHint, SOURCES, fmtNum } from './equivalents.js';
 import { inputsOf } from './exportCsv.js';
 
 export const esc = (v) =>
   String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
-// Inline SVG line chart: series = [{name, color, values[]}]
 export function lineChartSvg({ title, unit, series, labels, width = 720, height = 220 }) {
   const m = { l: 52, r: 12, t: 12, b: 28 };
   const n = Math.max(...series.map((s) => s.values.length), 1);
@@ -145,7 +144,6 @@ ${(result.warnings || []).map((w) => `<li>${esc(w)}</li>`).join('')}
 </div></body></html>`;
 }
 
-// Opens the report in a new tab and triggers the print dialog. Returns false if a popup blocker stopped it.
 export function openReport(result, inputs) {
   const w = window.open('', '_blank');
   if (!w) return false;
@@ -157,8 +155,8 @@ export function openReport(result, inputs) {
     try {
       w.print();
     } catch {
-      /* user can use the Print button in the page */
     }
   }, 400);
   return true;
 }
+

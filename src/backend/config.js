@@ -24,7 +24,6 @@ module.exports = {
 
   frontendOrigin: process.env.FRONTEND_ORIGIN || 'http://localhost:5173',
 
-  // When true, auth middleware and AWS service calls are stubbed so the API
-  // is runnable/testable with zero AWS credentials (Sprint 1/2 local dev).
   authDisabled: process.env.AUTH_DISABLED === 'true',
 };
+

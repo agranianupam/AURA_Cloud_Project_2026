@@ -1,7 +1,6 @@
 import React from 'react';
 import { Info } from 'lucide-react';
 
-// Wraps a chart/KPI block with a short plain-language "what is this?" line.
 export default function Section({ about, children, className = '' }) {
   return (
     <div className={className}>
@@ -24,3 +23,4 @@ export function PageHeader({ title, subtitle }) {
     </div>
   );
 }
+

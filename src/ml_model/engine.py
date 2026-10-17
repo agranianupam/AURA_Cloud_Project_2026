@@ -35,9 +35,8 @@ CUBEMS = "cubems"
 MAX_DAYS = 31
 MAX_EVENTS = 20
 MAX_UPLOAD_ROWS = 600_000
-MIN_UPLOAD_DAYS = 16  # one week of lookback + one week for the weekly-lag feature + at least a day to forecast
+MIN_UPLOAD_DAYS = 16
 
-# Contract grids are fixed 24 h curves in gCO2/kWh by local hour; the extras use real or flat data.
 GRID_CURVES = {
     "low": [95, 92, 90, 90, 92, 98, 110, 115, 95, 75, 60, 55, 52, 55, 62, 80, 110, 140, 150, 140, 125, 110, 102, 98],
     "medium": CARBON_PROFILE,
@@ -54,8 +53,6 @@ CARBON_GRIDS = {
     "flat-high": "extra: constant 700 gCO2/kWh",
 }
 FLAT = {"flat-low": 80.0, "flat-high": 700.0}
-# Calendar events apply to every day of the period. `known` events are planned, so the planner scales its LSTM
-# forecast by them too; unplanned ones only hit the real demand and are absorbed by headroom and reactive scaling.
 EVENTS = {
     "exam": dict(label="exam period", factor=1.30, hours=range(8, 20), weekdays_only=True, known=True),
     "break": dict(label="term break", factor=0.60, hours=range(0, 24), weekdays_only=False, known=True),
@@ -64,15 +61,11 @@ EVENTS = {
 }
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
-
 class ValidationError(ValueError):
     def __init__(self, message, field=None, kind="validation"):
         super().__init__(message)
         self.field = field
-        self.kind = kind  # "validation" -> 400, "csv" -> 422, "too_large" -> 413
-
-
-# ---- input helpers -------------------------------------------------------------------------------------------------
+        self.kind = kind
 
 def _num(params, key, default, lo, hi, integer=False, lo_open=False):
     v = params.get(key, default)
@@ -85,7 +78,6 @@ def _num(params, key, default, lo, hi, integer=False, lo_open=False):
                               if lo_open else f"{key} must be between {lo} and {hi}", key)
     return int(v) if integer else float(v)
 
-
 def _date(value, field):
     if not isinstance(value, str) or not DATE_RE.match(value):
         raise ValidationError(f"{field} must be a date formatted YYYY-MM-DD", field)
@@ -94,25 +86,20 @@ def _date(value, field):
     except ValueError:
         raise ValidationError(f"{field} is not a real calendar date", field) from None
 
-
 class Dataset:
     def __init__(self, ident, hourly, raw, label):
         self.id, self.hourly, self.raw, self.label = ident, hourly, raw, label
         valid = hourly.dropna()
         self.first = valid.index[0]
         self.last = valid.index[-1]
-        # earliest day with a full lookback week and a full lag week behind it
         self.first_day = (self.first + pd.Timedelta(days=14)).ceil("D")
-        # last day whose 24 h are all present
         d = self.last.normalize() if self.last.hour == 23 else self.last.normalize() - pd.Timedelta(days=1)
         self.last_full_day = d
-        # last day a forecast can start on (history before 00:00 is complete)
         self.last_forecast_day = (self.last + pd.Timedelta(hours=1)).normalize()
-
 
 class Engine:
     def __init__(self, data_path=DATA_PATH, model_dir=MODEL_DIR, carbon_path=CARBON_PATH, upload_dir=UPLOAD_DIR):
-        import tensorflow as tf  # imported late so validation-only callers stay fast
+        import tensorflow as tf
         self.model = tf.keras.models.load_model(os.path.join(model_dir, "aura_lstm.keras"))
         self.bundle = joblib.load(os.path.join(model_dir, "scaler.joblib"))
         with open(os.path.join(model_dir, "metrics.json")) as f:
@@ -124,7 +111,7 @@ class Engine:
         self.cubems = Dataset(CUBEMS, hourly, raw, "CU-BEMS Chulalongkorn University building")
         train_end = pd.Timestamp(self.metrics["periods"]["train"][1])
         train = hourly[hourly.index <= train_end].dropna()
-        self.ref_kw = float(train.max())                  # sizes the fleet: peak training load fills every node
+        self.ref_kw = float(train.max())
         self.ref_lo, self.ref_hi = float(train.quantile(0.01)), float(train.quantile(0.99))
         self.hour_temp = raw["temp_c"].groupby(raw.index.hour).mean()
         profile = train.groupby([train.index.dayofweek >= 5, train.index.hour]).mean()
@@ -135,7 +122,6 @@ class Engine:
         self._fc_cache = {}
         self._datasets = {CUBEMS: self.cubems}
 
-    # ---- datasets ----------------------------------------------------------------------------------------------------
     def dataset(self, ident, field="dataset"):
         ident = CUBEMS if ident in (None, "") else ident
         if not isinstance(ident, str):
@@ -178,7 +164,6 @@ class Engine:
         curve = GRID_CURVES[grid]
         return pd.Series([curve[t.hour] for t in index], index=index, dtype=float), f"{grid} grid profile"
 
-    # ---- validation --------------------------------------------------------------------------------------------------
     def validate_simulate(self, params):
         if not isinstance(params, dict):
             raise ValidationError("request body must be a JSON object")
@@ -202,7 +187,6 @@ class Engine:
             raise ValidationError(f"endDate must be on or before {ds.last_full_day:%Y-%m-%d}, the last complete day of {ds.label}",
                                   "endDate")
         servers = _num(params, "servers", 50, 1, 1000, integer=True)
-        # fixed workload expressed as "the fleet it would fill"; lets the optimizer vary capacity against the same demand
         workload = _num(params, "workloadServers", servers, 1, 1000, integer=True)
         idle = _num(params, "idleWatts", 100, 10, 500)
         if isinstance(params.get("peakWatts"), (int, float)) and not isinstance(params.get("peakWatts"), bool)                 and params["peakWatts"] <= idle:
@@ -235,12 +219,10 @@ class Engine:
         return dict(ds=ds, start=start, end=end, servers=servers, workload=workload, idle=idle, peak=peak, share=share, headroom=headroom,
                     pue=pue, price=price, shift=shift, grid=grid, events=events)
 
-    # ---- operations --------------------------------------------------------------------------------------------------
     def simulate(self, params):
         t0 = time.time()
         p = self.validate_simulate(params)
         ds, warnings = p["ds"], []
-        # scale the small-fleet knobs with the fleet so 48 servers reproduces the published setup
         n = p["servers"]
         scale = max(1, round(n * ASSUMPTIONS["nodes_min"] / ASSUMPTIONS["nodes_total"]))
         a = dict(ASSUMPTIONS, nodes_total=n, nodes_min=min(scale, n), buffer_nodes=scale,
@@ -298,7 +280,7 @@ class Engine:
                        "hours": len(rows), "days": len(rows) // 24},
         }
         peak_kw = a["node_peak_kw"]
-        k = p["workload"] / self.ref_kw * peak_kw  # building kW -> server-pool demand at full utilisation
+        k = p["workload"] / self.ref_kw * peak_kw
         hourly = [{
             "ts": r["timestamp"] + "Z", "demandKw": round(r["actualDemandKw"] * k, 2),
             "forecastKw": round(r["forecastDemandKw"] * k, 2),
@@ -403,7 +385,7 @@ class Engine:
             raise ValidationError("the CSV is empty", "csv", "csv")
         try:
             df = pd.read_csv(io.StringIO(csv_text), skipinitialspace=True)
-        except Exception as exc:  # pandas raises several parser types
+        except Exception as exc:
             raise ValidationError(f"could not parse the CSV: {exc}", "csv", "csv") from None
         df.columns = [str(c).strip().lower() for c in df.columns]
         kw_col = next((c for c in ("kw", "total_kw", "power_kw") if c in df.columns), None)
@@ -459,7 +441,6 @@ class Engine:
         warnings.append(f"Rescaled to the model's range: 1st-99th percentile {lo:.3g}-{hi:.3g} kW mapped to "
                         f"{self.ref_lo:.0f}-{self.ref_hi:.0f} kW (x{gain:.3g}).")
 
-        # does it look like an academic building load?
         prof = valid.groupby([valid.index.dayofweek >= 5, valid.index.hour]).mean()
         corr = None
         if False in prof.index.get_level_values(0) and len(prof.loc[False]) == 24:

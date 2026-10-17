@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Search, CornerDownLeft } from 'lucide-react';
 
-// Ctrl/Cmd+K quick switcher. `commands`: [{ id, label, group, icon, hint, keywords, run }]
 export default function CommandPalette({ open, onClose, commands }) {
   const [query, setQuery] = useState('');
   const [active, setActive] = useState(0);
@@ -94,3 +93,4 @@ export default function CommandPalette({ open, onClose, commands }) {
     </div>
   );
 }
+

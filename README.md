@@ -1,14 +1,14 @@
-# AURA — Autonomous University Resource Allocator
+# AURA - Autonomous University Resource Allocator
 
-> **Course:** BCSE355L — Cloud Architecture Design  
+> **Course:** BCSE355L - Cloud Architecture Design  
 > **Instructor:** Dr. Priya V  
-> **Academic Year:** 2026–2027
+> **Academic Year:** 2026-2027
 
 ---
 
 ## Project Title
 
-**AURA — Autonomous University Resource Allocator: Green Cloud Resource Optimization for Smart University Data Centers**
+**AURA - Autonomous University Resource Allocator: Green Cloud Resource Optimization for Smart University Data Centers**
 
 ---
 
@@ -103,8 +103,8 @@ If forecasted demand shifts significantly, the scheduling engine re-evaluates th
 - **Source:** Chulalongkorn University (Bangkok) Building Energy Management System; Pipattanasomporn et al., *Scientific Data* 7, 241 (2020)
 - **URL:** https://doi.org/10.6084/m9.figshare.11726517
 - **Size:** 788 MB (14 CSV files, one per floor per year)
-- **Number of Records:** ~5.4 million 1-minute readings, 7 floors, July 2018 – December 2019
-- **Number of Features:** 11–36 per floor: AC, lighting and plug-load power (kW) for each zone, plus indoor temperature, humidity and light level
+- **Number of Records:** ~5.4 million 1-minute readings, 7 floors, July 2018 to December 2019
+- **Number of Features:** 11 to 36 per floor: AC, lighting and plug-load power (kW) for each zone, plus indoor temperature, humidity and light level
 - **Data Type:** Multivariate time series, tabular (CSV)
 - **License:** CC BY 4.0
 - **Purpose of Use:** Trains AURA's demand-forecasting model on real university-building load, which shows the weekday, weekend, holiday and term-break cycles AURA uses to schedule resources proactively
@@ -114,7 +114,7 @@ If forecasted demand shifts significantly, the scheduling engine re-evaluates th
 
 ## Results
 
-Hyper-parameters and scheduling settings were **tuned on the validation period (Jun–Aug 2019) and reported once on the held-out test period (Aug–Oct 2019)**.
+Hyper-parameters and scheduling settings were **tuned on the validation period (Jun-Aug 2019) and reported once on the held-out test period (Aug-Oct 2019)**.
 
 | | Result (test period) |
 |---|---|
@@ -135,7 +135,7 @@ Details: [results/README.md](results/README.md) and [results/simulation/README.m
 ## Running locally
 
 ```bash
-# 1. Data and model (Python 3.10–3.12 virtual environment; TensorFlow doesn't support Python 3.14 yet)
+# 1. Data and model (Python 3.10 to 3.12 virtual environment; TensorFlow doesn't support Python 3.14 yet)
 python -m pip install -r src/ml_model/requirements.txt
 python src/ml_model/download_data.py          # 788 MB from figshare
 python src/ml_model/preprocess.py
@@ -150,7 +150,7 @@ cd src/backend && npm install && AUTH_DISABLED=true npm start
 #    VITE_USE_MOCK=false, VITE_AUTH_DISABLED=true, VITE_API_BASE_URL=http://localhost:3000
 cd src/frontend && npm install && npm run dev
 ```
-The processed building file and the trained model are committed, so steps 2–3 work without re-running step 1.
+The processed building file and the trained model are committed, so steps 2 and 3 work without re-running step 1.
 
 AWS deployment (CloudFormation; not yet tested on a real account): [src/aws/README.md](src/aws/README.md).
 
@@ -211,4 +211,4 @@ AURA_Cloud_Project_2026/
 
 ## License
 
-This project is developed for academic purposes as part of the **BCSE355L — Cloud Architecture Design** course at VIT Vellore.
+This project is developed for academic purposes as part of the **BCSE355L - Cloud Architecture Design** course at VIT Vellore.

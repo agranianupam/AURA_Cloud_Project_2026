@@ -37,21 +37,12 @@ import os
 from datetime import datetime
 from typing import Optional
 
-# ---------------------------------------------------------------------------
-# Power model parameters (FR-SC-2)
-# All are illustrative documented defaults; see dataset_description.md.
-# ---------------------------------------------------------------------------
-P_IDLE_W = 100.0       # Watts at idle
-P_MAX_W = 250.0        # Watts at peak utilization
-PUE = 1.5              # Power Usage Effectiveness (fixed assumption)
-INTERVAL_HOURS = 5 / 60.0  # 5-minute reading interval in hours
+P_IDLE_W = 100.0
+P_MAX_W = 250.0
+PUE = 1.5
+INTERVAL_HOURS = 5 / 60.0
 
-# Static baseline: always-on, 100% provisioned (no optimization)
 BASELINE_UTILIZATION = 100.0
-
-# ---------------------------------------------------------------------------
-# Carbon-intensity signal (FR-SC-1)
-# ---------------------------------------------------------------------------
 
 def get_carbon_intensity(dt: datetime) -> float:
     """
@@ -72,12 +63,9 @@ def get_carbon_intensity(dt: datetime) -> float:
     """
     hour = dt.hour
     if 8 <= hour <= 18:
-        # Peak window: rises from 550 at 08:00, peaks ~600 at 13:00, returns to 550 at 18:00
         return 550.0 + 50.0 * math.sin(math.pi * (hour - 8) / 10)
     else:
-        # Off-peak: oscillates between ~380 and ~450
         return 400.0 - 50.0 * math.cos(math.pi * ((hour + 6) % 24) / 14)
-
 
 def get_carbon_intensity_live(dt: datetime, zone: str = "US-MIDA-PJM") -> Optional[float]:
     """
@@ -112,32 +100,20 @@ def get_carbon_intensity_live(dt: datetime, zone: str = "US-MIDA-PJM") -> Option
         pass
     return None
 
-
-# ---------------------------------------------------------------------------
-# Power and energy model (FR-SC-2)
-# ---------------------------------------------------------------------------
-
 def calculate_power_w(utilization_pct: float) -> float:
     """Power (W) = P_idle + (P_max - P_idle) × (utilization / 100).
     Clamps utilization to [0, 100]. MODELLED ESTIMATE."""
     utilization_frac = max(0.0, min(1.0, utilization_pct / 100.0))
     return P_IDLE_W + (P_MAX_W - P_IDLE_W) * utilization_frac
 
-
 def calculate_energy_kwh(utilization_pct: float, interval_hours: float = INTERVAL_HOURS) -> float:
     """Energy (kWh) = Power × PUE × interval_hours / 1000. MODELLED ESTIMATE."""
     power_w = calculate_power_w(utilization_pct)
     return (power_w * PUE * interval_hours) / 1000.0
 
-
 def calculate_carbon_gco2(energy_kwh: float, carbon_intensity: float) -> float:
     """Carbon (gCO2) = Energy (kWh) × carbon_intensity (gCO2/kWh). MODELLED ESTIMATE."""
     return energy_kwh * carbon_intensity
-
-
-# ---------------------------------------------------------------------------
-# Convenience aggregators used by the scheduler and predict.py
-# ---------------------------------------------------------------------------
 
 def get_baseline_metrics(dt: datetime) -> dict:
     """Static-provisioning baseline metrics for one 5-min interval.
@@ -152,7 +128,6 @@ def get_baseline_metrics(dt: datetime) -> dict:
         "is_modelled_estimate": True,
     }
 
-
 def get_aura_metrics(utilization_pct: float, dt: datetime) -> dict:
     """AURA metrics for one 5-min interval at the given utilization.
     All values are MODELLED ESTIMATES."""
@@ -165,11 +140,6 @@ def get_aura_metrics(utilization_pct: float, dt: datetime) -> dict:
         "carbonGco2": round(carbon, 4),
         "is_modelled_estimate": True,
     }
-
-
-# ---------------------------------------------------------------------------
-# Smoke test
-# ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     from datetime import timezone

@@ -127,3 +127,4 @@ describe('POST /api/agent/parse (no API key)', () => {
     assert.equal((await parseRequest('20 servers')).source, 'rules');
   });
 });
+

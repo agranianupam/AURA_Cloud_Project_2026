@@ -8,7 +8,6 @@ import { parseRequest } from './agent.js';
 import { analyze } from './anomaly.js';
 import { createAdvisor, AdvisorError } from './advisor.js';
 
-// Positive integer query parameter, clamped to [1, max]; falls back to `def` when absent or invalid.
 function intParam(value, def, max) {
   const n = Number.parseInt(value, 10);
   return Number.isFinite(n) && n > 0 ? Math.min(n, max) : def;
@@ -24,7 +23,6 @@ function apiError(res, status, code, message, field) {
   return res.status(status).json({ error: { code, message, ...(field ? { field } : {}) } });
 }
 
-// Multipart text fields arrive as strings; coerce the numeric ones and the events list like the JSON API expects.
 function coerceForm(body) {
   const out = {};
   for (const k of SIM_FIELDS) {
@@ -51,7 +49,6 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
   const api = express.Router();
   api.use(auth);
 
-  // Hourly energy/carbon records, most recent `hours` (default one week), oldest first
   api.get('/metrics/energy', async (req, res, next) => {
     try {
       const rows = await store.get('energy');
@@ -66,7 +63,6 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
     } catch (err) { next(err); }
   });
 
-  // ?status=Running filters the fleet; default lists everything
   api.get('/allocations', async (req, res, next) => {
     try {
       const items = await store.get('allocations');
@@ -74,7 +70,6 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
     } catch (err) { next(err); }
   });
 
-  // Newest first; ?severity=critical|warning|info filters, ?limit caps the count (default 20)
   api.get('/alerts', async (req, res, next) => {
     try {
       let items = await store.get('alerts');
@@ -89,7 +84,6 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
     } catch (err) { next(err); }
   });
 
-  // ---- interactive endpoints: run the trained LSTM and the allocation logic on the user's inputs
   const run = (handler) => async (req, res, next) => {
     if (!engine) return apiError(res, 503, 'INTERNAL', 'the forecast engine is not configured');
     try { res.json(await handler(req)); } catch (err) {
@@ -98,7 +92,6 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
     }
   };
 
-  // Anomaly detection: actual vs forecast residuals over a date range (or an uploaded dataset)
   api.post('/anomalies', express.json({ limit: '20kb' }), run((req) => analyze(engine, req.body)));
 
   api.post('/simulate', express.json({ limit: '100kb' }), run((req) => {
@@ -122,11 +115,8 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
     return engine.upload(req.file.buffer.toString('utf8'), req.file.originalname, coerceForm(req.body ?? {}));
   }));
 
-  // Auto-Optimizer: sweep servers / headroom / deferrable share for a goal (up to ~150 engine runs)
   api.post('/optimize', express.json({ limit: '100kb' }), run((req) => optimize(engine, req.body)));
 
-  // AURA Explainer: plain-language explanation of a simulation result (Claude if ANTHROPIC_API_KEY is set, else rules)
-  // "Run now or later?": cleanest window for a job from the live UK carbon-intensity forecast (backend-only fetch)
   api.post('/advisor', express.json({ limit: '10kb' }), async (req, res, next) => {
     try {
       res.json(await advisor(req.body));
@@ -144,7 +134,6 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
     } catch (err) { next(err); }
   });
 
-  // Talk to AURA: plain-English request -> validated simulate inputs (AI if a key is set, else rules)
   api.post('/agent/parse', express.json({ limit: '20kb' }), async (req, res, next) => {
     try {
       const text = req.body?.text;
@@ -159,7 +148,7 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
 
   app.use('/api', api);
   app.use((req, res) => apiError(res, 404, 'NOT_FOUND', 'not found'));
-  // eslint-disable-next-line no-unused-vars
+
   app.use((err, req, res, next) => {
     if (err.type === 'entity.parse.failed') return apiError(res, 400, 'VALIDATION_ERROR', 'request body is not valid JSON');
     if (err.type === 'entity.too.large') return apiError(res, 413, 'TOO_LARGE', 'request body too large');
@@ -171,3 +160,4 @@ export function createApp({ store, engine, auth = (req, res, next) => next(), co
   });
   return app;
 }
+

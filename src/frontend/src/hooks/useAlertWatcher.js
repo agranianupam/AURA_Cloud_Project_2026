@@ -8,8 +8,6 @@ import { useToast } from '../components/Toast';
 const SEEN_KEY = 'aura-alerts-seen';
 const keyOf = (a) => `${a.timestamp}|${a.message}`;
 
-// Polls alerts while live mode is on, toasts ones that appear after the first load,
-// and counts those newer than the last visit to the Alerts page.
 export default function useAlertWatcher(onAlertsPage) {
   const { data, error } = useApi(getAlerts, { refreshMs: useLiveInterval() });
   const toast = useToast();
@@ -41,7 +39,7 @@ export default function useAlertWatcher(onAlertsPage) {
       }));
     }
     known.current = new Set(data.map(keyOf));
-  }, [data]); // only react to fresh data
+  }, [data]);
 
   useEffect(() => {
     if (!onAlertsPage || !data?.length) return;
@@ -52,3 +50,4 @@ export default function useAlertWatcher(onAlertsPage) {
   const unread = data ? data.filter((a) => a.timestamp > seenAt).length : 0;
   return { unread, lastSync, error };
 }
+

@@ -1,5 +1,3 @@
-// AURA Explainer: explains a simulation result in plain language and answers follow-up questions.
-// Uses the Claude API when ANTHROPIC_API_KEY is set; otherwise a built-in rule-based explainer, so it always works offline.
 
 const MODEL = process.env.AURA_EXPLAIN_MODEL || 'claude-sonnet-5-5';
 
@@ -10,7 +8,6 @@ Rules: use only the numbers in the JSON; never invent figures. Say these are sim
 
 const n = (x, d = 0) => Number(x).toLocaleString('en-US', { maximumFractionDigits: d });
 
-// Trim a result to what the explainer needs (not hundreds of hourly rows).
 export function compact(result = {}) {
   const hourly = result.hourly ?? [];
   const peak = hourly.reduce((m, h) => (h.demandKw > (m?.demandKw ?? -1) ? h : m), null);
@@ -37,7 +34,6 @@ export function compact(result = {}) {
   };
 }
 
-// Anomaly detection answers (built-in mode). `c.anomalies` is sent by the Anomalies panel.
 const ANOMALY_Q = /anomal|incident|fault|spike|dropout|drop out|unusual|outlier|deviat|abnormal|flagged/i;
 function anomalyAnswer(c) {
   const a = c.anomalies;
@@ -79,8 +75,6 @@ function overview(c) {
   return out.join('\n\n');
 }
 
-
-// Page-help topics: what each input, chart and feature on the Simulator page means.
 const HELP = [
   [/(when|what time|best time).*(run|start|schedule).*(job|batch|training|backup)|run now or later|cleanest (time|window)/i, () => 'Use the "Run now or later?" Advisor section further down this page: enter your job length and power, and it finds the cleanest start time in the next 24-48 hours from a live UK grid carbon forecast, and shows how much CO₂ you save versus starting now.'],
   [/deferrable|batch|flexible/i, () => 'Deferrable share is the part of the workload that can wait (batch jobs, research runs, backups). AURA moves it to hours when the grid is cleaner, which lowers carbon without hurting interactive users. A higher share means more carbon savings.'],
@@ -149,7 +143,6 @@ export async function askClaude(key, messages, { system = SYSTEM, maxTokens = 70
   return data.content?.filter((b) => b.type === 'text').map((b) => b.text).join('\n');
 }
 
-// Google Gemini (has a free tier). Key from https://aistudio.google.com/apikey
 export async function askGemini(key, messages, { system = SYSTEM } = {}) {
   const model = process.env.AURA_GEMINI_MODEL || 'gemini-2.5-flash';
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
@@ -194,3 +187,4 @@ ${ask}` }];
     return { answer: ruleBased(c, question), source: 'rules', note: `AI unavailable (${e.message}); showing the built-in answer.` };
   }
 }
+

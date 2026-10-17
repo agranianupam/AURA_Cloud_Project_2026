@@ -1,8 +1,8 @@
-// Rough real-world equivalents. All factors are order-of-magnitude, for intuition only.
+
 export const ASSUMPTIONS = {
-  carKgPerKm: 0.17, // average petrol/diesel passenger car tailpipe CO2
-  treeKgPerYear: 21, // CO2 absorbed by one mature tree per year
-  homeKwhPerDay: { india: 3.3, uk: 8.0 }, // average household electricity use per day
+  carKgPerKm: 0.17,
+  treeKgPerYear: 21,
+  homeKwhPerDay: { india: 3.3, uk: 8.0 },
 };
 
 export const SOURCES = [
@@ -13,7 +13,6 @@ export const SOURCES = [
 
 const nf = (n) => (n >= 100 ? Math.round(n) : n >= 10 ? Math.round(n * 10) / 10 : Math.round(n * 100) / 100).toLocaleString();
 
-// summary: { energySavedKwh, co2SavedKg }
 export function equivalentsFor(summary) {
   const kwh = Math.max(0, Number(summary?.energySavedKwh) || 0);
   const kg = Math.max(0, Number(summary?.co2SavedKg) || 0);
@@ -46,8 +45,6 @@ export function equivalentsFor(summary) {
   ];
 }
 
-// Uncertainty hint from the model's held-out forecast error (MAPE). This is an illustration of
-// how forecast error could scale the figures, NOT a statistical confidence interval.
 export function uncertaintyHint(result) {
   const mape = Number(result?.model?.testMapePct);
   if (!isFinite(mape) || mape <= 0) {
@@ -65,3 +62,4 @@ export function uncertaintyHint(result) {
 }
 
 export const fmtNum = nf;
+

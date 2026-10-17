@@ -108,7 +108,6 @@ describe('endpoints with a stub engine', () => {
   });
 });
 
-// Real trained model through the Python worker; skipped when no venv interpreter is available.
 const python = findPython();
 const hasPython = python.includes('.venv') && existsSync(python);
 describe('endpoints with the real LSTM', { skip: !hasPython && 'no .venv python (see src/ml_model/README.md)' }, () => {
@@ -178,3 +177,4 @@ describe('endpoints with the real LSTM', { skip: !hasPython && 'no .venv python 
     assert.equal(bad.status, 422);
   });
 });
+

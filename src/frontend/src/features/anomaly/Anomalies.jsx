@@ -12,7 +12,6 @@ const SEVERITY = {
 const DEFAULT_START = '2019-08-12';
 const DEFAULT_END = '2019-08-18';
 
-// ts is the building's local wall-clock time with a Z suffix: show it as written.
 const label = (ts) => `${ts.slice(5, 10)} ${ts.slice(11, 16)}`;
 
 function Rich({ text }) {
@@ -33,7 +32,7 @@ export default function Anomalies({ upload }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
-  const [answer, setAnswer] = useState(null); // { id, text, source, note } | { id, loading } | { id, error }
+  const [answer, setAnswer] = useState(null);
 
   const uploadActive = !!upload?.uploadId && useUpload;
 
@@ -249,3 +248,4 @@ export default function Anomalies({ upload }) {
     </div>
   );
 }
+

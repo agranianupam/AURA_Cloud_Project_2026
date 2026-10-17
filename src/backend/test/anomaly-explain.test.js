@@ -30,3 +30,4 @@ describe('Explainer anomaly topics (built-in mode)', () => {
     assert.match(ruleBased(c, 'What does SLA mean?'), /SLA is the share/);
   });
 });
+

@@ -1,5 +1,4 @@
-// Client for src/ml_model/engine_server.py: one long-lived Python process that keeps the LSTM loaded and answers
-// JSON-line requests. Started lazily (or eagerly via warm()) and restarted if it dies.
+
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
@@ -12,7 +11,7 @@ const repoRoot = path.resolve(here, '../../..');
 export class EngineError extends Error {
   constructor(type, message, field) {
     super(message);
-    this.type = type; // validation | csv | too_large | internal | unavailable | timeout
+    this.type = type;
     this.field = field;
   }
 }
@@ -88,3 +87,4 @@ export class PythonEngine {
   warm() { return this.start(); }
   close() { if (this.proc) this.proc.kill(); }
 }
+

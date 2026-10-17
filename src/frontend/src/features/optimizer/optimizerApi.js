@@ -10,7 +10,6 @@ export const GOALS = [
   { value: 'cost', label: 'Spend the least money', unit: '$', saved: 'costSaved' },
 ];
 
-// Slider/input defaults, derived from the simulator's current server count.
 export const defaultRanges = (servers) => {
   const n = Number(servers) || 50;
   return {
@@ -34,3 +33,4 @@ export async function runOptimizer(body) {
   const res = await axios.post(`${API_BASE}/api/optimize`, body, { headers: await headers() });
   return res.data;
 }
+
