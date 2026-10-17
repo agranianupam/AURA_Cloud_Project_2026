@@ -32,59 +32,39 @@ from .carbon_model import (
     get_baseline_metrics,
 )
 
-# ---------------------------------------------------------------------------
-# Workload classification (FR-SC-3)
-# ---------------------------------------------------------------------------
-
-# Deferrable workload types — batch/research jobs that carry a deadline and
-# can be shifted to lower-carbon windows without missing it.
 DEFERRABLE_TYPES = {"batch", "backup", "analytics", "research"}
 
-# Non-deferrable workload types — must run immediately; only capacity is
-# right-sized using the demand forecast.
 NON_DEFERRABLE_TYPES = {"lms", "exam", "campus_iot", "web", "interactive"}
 
-# Carbon-intensity threshold (gCO2/kWh). Deferrable jobs scheduled when the
-# grid is BELOW this value — the "low-carbon window" criterion.
-CLEAN_GRID_THRESHOLD = 500.0  # midpoint of the documented static profile
+CLEAN_GRID_THRESHOLD = 500.0
 
-# Cost model: illustrative $/kWh for university cloud billing estimate.
-# Labelled as a modelled assumption alongside energy/carbon figures.
-COST_PER_KWH = 0.12  # USD, documented default assumption
-
+COST_PER_KWH = 0.12
 
 @dataclass
 class Workload:
     """Represents a unit of work to be scheduled."""
     workload_id: str
-    workload_type: str          # e.g. "batch", "lms", "exam"
-    deadline: datetime          # latest acceptable start time
-    duration_hours: float       # estimated run duration
-    avg_utilization_pct: float  # estimated average CPU utilisation during run
+    workload_type: str
+    deadline: datetime
+    duration_hours: float
+    avg_utilization_pct: float
 
     @property
     def is_deferrable(self) -> bool:
         return self.workload_type.lower() in DEFERRABLE_TYPES
 
-
 @dataclass
 class SchedulingDecision:
     """Output of the scheduler for a single workload."""
     workload_id: str
-    decision: str               # "proceed" | "defer"
+    decision: str
     scheduled_at: Optional[datetime]
     reason: str
-    # Modelled energy/carbon for the chosen window (FR-SC-2)
     energy_kwh: float = 0.0
     carbon_gco2: float = 0.0
     baseline_energy_kwh: float = 0.0
     baseline_carbon_gco2: float = 0.0
-    is_modelled_estimate: bool = True  # always True; labelled per NFR-Reliability
-
-
-# ---------------------------------------------------------------------------
-# Core scheduling logic
-# ---------------------------------------------------------------------------
+    is_modelled_estimate: bool = True
 
 def _find_lowest_carbon_window(
     earliest: datetime,
@@ -106,7 +86,6 @@ def _find_lowest_carbon_window(
         current += timedelta(minutes=step_minutes)
 
     return best_dt
-
 
 def schedule_workload(
     workload: Workload,
@@ -130,7 +109,6 @@ def schedule_workload(
         reason = f"non-deferrable workload type '{workload.workload_type}' — runs immediately"
         decision = "proceed"
     else:
-        # Find the lowest-carbon window within deadline
         best_window = _find_lowest_carbon_window(now, workload.deadline)
         ci_now = get_carbon_intensity(now)
         ci_best = get_carbon_intensity(best_window)
@@ -153,7 +131,6 @@ def schedule_workload(
                 "or current window is already the cleanest — proceeding now"
             )
 
-    # Modelled energy/carbon for the chosen window (FR-SC-2)
     aura = get_aura_metrics(workload.avg_utilization_pct, scheduled_at)
     baseline = get_baseline_metrics(scheduled_at)
 
@@ -169,11 +146,6 @@ def schedule_workload(
         is_modelled_estimate=True,
     )
 
-
-# ---------------------------------------------------------------------------
-# Static-provisioning baseline comparison (FR-SC-5)
-# ---------------------------------------------------------------------------
-
 @dataclass
 class BaselineComparisonResult:
     """AURA vs static-provisioning baseline over a simulated period (FR-SC-5).
@@ -188,13 +160,11 @@ class BaselineComparisonResult:
     baseline_carbon_gco2: float
     aura_cost_usd: float
     baseline_cost_usd: float
-    # Savings
     energy_saved_kwh: float
     carbon_saved_kg: float
     cost_saved_usd: float
     percent_energy_reduction: float
     percent_carbon_reduction: float
-    # SLA compliance: % of intervals where provisioned capacity >= demand
     sla_compliance_pct: float
     n_intervals: int
     n_sla_met: int
@@ -225,7 +195,6 @@ class BaselineComparisonResult:
             "  PUE=1.5). See carbon_model.py and dataset_description.md.",
         ]
         return "\n".join(lines)
-
 
 def compute_baseline_comparison(
     utilization_series: list[float],
@@ -260,17 +229,14 @@ def compute_baseline_comparison(
     for i, util_pct in enumerate(utilization_series):
         ts = start_time + timedelta(minutes=i * interval_minutes)
 
-        # AURA provisions at forecast + headroom
         provisioned = min(100.0, util_pct * (1.0 + headroom_pct))
 
-        # SLA met if provisioned capacity >= actual demand
         if provisioned >= util_pct:
             n_sla_met += 1
 
         aura_m = get_aura_metrics(provisioned, ts)
         baseline_m = get_baseline_metrics(ts)
 
-        # Scale energy/carbon from per-interval to actual interval duration
         scale = interval_minutes / (INTERVAL_HOURS * 60)
         aura_energy_total += aura_m["energyKwh"] * scale
         aura_carbon_total += aura_m["carbonGco2"] * scale
@@ -307,11 +273,6 @@ def compute_baseline_comparison(
         is_modelled_estimate=True,
     )
 
-
-# ---------------------------------------------------------------------------
-# Smoke test / CLI entry point
-# ---------------------------------------------------------------------------
-
 if __name__ == "__main__":
     import json
 
@@ -320,7 +281,6 @@ if __name__ == "__main__":
 
     now = datetime.now(tz=timezone.utc)
 
-    # --- Workload scheduling test ---
     test_workloads = [
         Workload("batch-001", "batch", now + timedelta(hours=8), 2.0, 60.0),
         Workload("lms-001", "lms", now + timedelta(minutes=5), 0.5, 75.0),
@@ -336,11 +296,10 @@ if __name__ == "__main__":
         print(f"    Energy: {dec.energy_kwh:.4f} kWh (AURA) vs "
               f"{dec.baseline_energy_kwh:.4f} kWh (baseline) [modelled]")
 
-    # --- Baseline comparison test ---
     print("\n[2/2] Baseline comparison (24h simulated, 5-min intervals):")
     import random
     rng = random.Random(42)
-    sim_utils = [rng.uniform(20, 80) for _ in range(288)]  # 288 x 5min = 24h
+    sim_utils = [rng.uniform(20, 80) for _ in range(288)]
     result = compute_baseline_comparison(sim_utils, start_time=now)
     print(result.summary())
 

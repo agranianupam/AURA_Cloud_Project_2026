@@ -111,3 +111,4 @@ test('GET /api/metrics/energy without auth token is rejected when AUTH_DISABLED=
     process.env.AUTH_DISABLED = 'true';
   }
 });
+

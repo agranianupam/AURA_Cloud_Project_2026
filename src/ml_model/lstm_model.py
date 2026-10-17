@@ -53,7 +53,6 @@ BATCH_SIZE = 64
 MAX_EPOCHS = 100
 LEARNING_RATE = 0.001
 
-
 def build_model(n_steps: int) -> tf.keras.Model:
     model = Sequential(
         [
@@ -72,7 +71,6 @@ def build_model(n_steps: int) -> tf.keras.Model:
     )
     return model
 
-
 def train(model, X_tr, y_tr, X_val, y_val):
     callbacks = [
         EarlyStopping(monitor="val_loss", patience=10, restore_best_weights=True, verbose=1),
@@ -88,14 +86,12 @@ def train(model, X_tr, y_tr, X_val, y_val):
         verbose=1,
     )
 
-
 def _inverse_transform(values: np.ndarray) -> np.ndarray:
     if not SCALER_PATH.exists():
         return values
     with open(SCALER_PATH, "rb") as f:
         scaler = pickle.load(f)
     return scaler.inverse_transform(values.reshape(-1, 1)).flatten()
-
 
 def evaluate(model, X_test, y_test) -> dict:
     y_pred_norm = model.predict(X_test, verbose=0).flatten()
@@ -106,7 +102,6 @@ def evaluate(model, X_test, y_test) -> dict:
     mae = float(mean_absolute_error(y_true, y_pred))
     r2 = float(r2_score(y_true, y_pred))
     return {"model": "LSTM (2-layer)", "RMSE": rmse, "MAE": mae, "R2": r2}
-
 
 def plot_training_history(history) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(12, 4))
@@ -127,7 +122,6 @@ def plot_training_history(history) -> None:
     plt.savefig(out, dpi=150, bbox_inches="tight")
     plt.close()
     print(f"  Training history plot -> {out.relative_to(ROOT)}")
-
 
 def plot_metrics_comparison(all_results: list[dict]) -> None:
     df = pd.DataFrame(all_results)
@@ -156,7 +150,6 @@ def plot_metrics_comparison(all_results: list[dict]) -> None:
     plt.close()
     print(f"  Comparison plot -> {out.relative_to(ROOT)}")
 
-
 def diagnose_underperformance(lstm_metrics: dict, baseline_results: list[dict]) -> None:
     print("\n" + "=" * 60)
     print("  LSTM DID NOT BEAT ALL BASELINES. DIAGNOSTIC REPORT:")
@@ -169,7 +162,6 @@ def diagnose_underperformance(lstm_metrics: dict, baseline_results: list[dict]) 
     print("\n  Note: real per-VM windows are short (N_STEPS=6, one 3.75h Azure")
     print("  trace shard) - see dataset/dataset_description.md for why, and")
     print("  what downloading more shards would take to extend this.\n")
-
 
 def run_lstm() -> dict:
     print("\nAURA LSTM Model Training (real Azure Public Dataset V2)")
@@ -223,7 +215,6 @@ def run_lstm() -> dict:
     print(f"\n  Weights saved -> {WEIGHTS_PATH.relative_to(ROOT)}")
     print(f"  Results in results/\n")
     return lstm_metrics
-
 
 if __name__ == "__main__":
     run_lstm()

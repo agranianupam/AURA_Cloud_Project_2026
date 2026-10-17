@@ -19,14 +19,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[3]
 PROCESSED_DIR = ROOT / "dataset" / "processed"
 
-# Real per-VM sequences here are only 45 ticks long (one Azure trace
-# shard's 3.75h window - see dataset/dataset_description.md). N_STEPS=24
-# (2h) from the original synthetic-data spec would leave too few real
-# windows per VM after a 70/15/15 split; N_STEPS=6 (30 min context,
-# predicting the next 5-min reading) is sized to the real data actually
-# available while still leaving val/test with >=1 window per VM.
 N_STEPS = 6
-
 
 def load_split(name: str) -> pd.DataFrame:
     path = PROCESSED_DIR / f"{name}.csv"
@@ -36,7 +29,6 @@ def load_split(name: str) -> pd.DataFrame:
             "Run: python src/ml_model/preprocessing/preprocess.py"
         )
     return pd.read_csv(path)
-
 
 def build_vm_windows(
     df: pd.DataFrame, n_steps: int = N_STEPS, col: str = "utilization_norm"

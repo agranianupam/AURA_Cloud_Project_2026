@@ -3,10 +3,9 @@ import { after, before, describe, test } from 'node:test';
 import { createApp } from '../src/app.js';
 import { createAdvisor, findWindow, normalise, parseRequest, AdvisorError, PROFILE } from '../src/advisor.js';
 
-const T0 = Date.parse('2024-05-01T10:00:00Z'); // on a half-hour boundary
+const T0 = Date.parse('2024-05-01T10:00:00Z');
 const iso = (ms) => new Date(ms).toISOString().slice(0, 16) + 'Z';
 
-// 96 half-hour forecast rows from T0: dirty (400) except a clean dip (100) from +6 h to +9 h
 function payload(from = T0, n = 96) {
   return {
     data: Array.from({ length: n }, (_, i) => {
@@ -26,7 +25,7 @@ describe('parseRequest', () => {
   test('accepts powerKw or servers x watts, with defaults', () => {
     assert.deepEqual(parseRequest(job), { durationHours: 2, powerKw: 10, windowHours: 24, deadline: null });
     assert.equal(parseRequest({ durationHours: 1, servers: 20, serverWatts: 500 }).powerKw, 10);
-    assert.equal(parseRequest({ durationHours: 1, servers: 4 }).powerKw, 1); // default 250 W
+    assert.equal(parseRequest({ durationHours: 1, servers: 4 }).powerKw, 1);
   });
   test('names the offending field', () => {
     const f = (b) => { try { parseRequest(b); } catch (e) { assert.ok(e instanceof AdvisorError); return e.field; } };
@@ -48,21 +47,21 @@ describe('findWindow', () => {
     assert.equal(r.best.start, iso(T0 + 6 * 3600000));
     assert.equal(r.best.end, iso(T0 + 8 * 3600000));
     assert.equal(r.best.avgIntensity, 100);
-    assert.equal(r.best.co2Kg, 2); // 20 kWh x 100 / 1000
+    assert.equal(r.best.co2Kg, 2);
     assert.equal(r.now.start, iso(T0));
-    assert.equal(r.now.co2Kg, 8); // 20 kWh x 400 / 1000
+    assert.equal(r.now.co2Kg, 8);
     assert.equal(r.savingKg, 6);
     assert.equal(r.savingPct, 75);
   });
   test('a window shorter than the dip start excludes it', () => {
     const r = findWindow(slots, parseRequest({ ...job, windowHours: 3 }));
-    assert.equal(r.best.start, iso(T0)); // nothing cleaner inside 3 h: run now
+    assert.equal(r.best.start, iso(T0));
     assert.equal(r.savingKg, 0);
   });
   test('deadline caps the end of the job', () => {
     const r = findWindow(slots, parseRequest({ ...job, deadline: iso(T0 + 7 * 3600000) }));
     assert.ok(Date.parse(r.best.end) <= T0 + 7 * 3600000);
-    assert.equal(r.best.start, iso(T0 + 5 * 3600000)); // 5-7 h is half dip... best feasible: 5:00-7:00 averages 250
+    assert.equal(r.best.start, iso(T0 + 5 * 3600000));
     assert.equal(r.best.avgIntensity, 250);
   });
   test('impossible deadline is a deadline error', () => {
@@ -100,7 +99,7 @@ describe('createAdvisor (mocked fetch)', () => {
     const b = await advise({ ...job, durationHours: 3 });
     assert.equal(b.cached, true);
     assert.equal(calls.length, 1);
-    t += 6 * 60000; // >10 min since the first fetch (and a new half-hour slot)
+    t += 6 * 60000;
     await advise(job);
     assert.equal(calls.length, 2);
   });
@@ -158,3 +157,4 @@ describe('POST /api/advisor', () => {
     assert.equal((await res.json()).error.field, 'deadline');
   });
 });
+

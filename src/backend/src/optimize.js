@@ -1,6 +1,4 @@
-// Auto-Optimizer: sweeps server count, headroom and deferrable share with the real forecast engine and picks the best
-// feasible combination for a goal. Capacity is varied against a FIXED workload (the one the base fleet would carry),
-// so fewer servers genuinely risk SLA misses and more servers genuinely cost idle power.
+
 import { EngineError } from './engine.js';
 
 export const OBJECTIVES = {
@@ -68,7 +66,6 @@ function levels([lo, hi], n, integer) {
   return [...set].sort((a, b) => a - b);
 }
 
-// Choose per-dimension level counts whose product stays within the budget (servers get the most levels).
 function plan(ranges, budget) {
   const counts = { servers: 6, headroom: 4, deferrableShare: 4 };
   const size = () => Object.entries(counts).reduce((p, [k, c]) => p * levels(ranges[k], c, INT_FIELDS.has(k)).length, 1);
@@ -79,7 +76,6 @@ function plan(ranges, budget) {
   return Object.fromEntries(Object.keys(counts).map((k) => [k, levels(ranges[k], counts[k], INT_FIELDS.has(k))]));
 }
 
-// Non-dominated points when maximising energy saved and SLA together.
 export function paretoFront(points) {
   const sorted = [...points].sort((a, b) => b.slaPct - a.slaPct || b.energySavedKwh - a.energySavedKwh);
   const front = [];
@@ -99,7 +95,6 @@ export async function optimize(engine, body) {
   const key = (p) => `${p.servers}|${p.headroom}|${p.deferrableShare}`;
   const priceOf = (sim) => sim.params.pricePerKwh;
 
-  // Reference: the user's current fleet, always on. Savings are reported against it so all candidates share one baseline.
   const baseParams = { ...req.fixed, ...Object.fromEntries(Object.entries(req.baseTuning).filter(([, v]) => v !== undefined)), servers: req.baseServers, workloadServers: req.baseServers };
   const baseRun = await engine.simulate(baseParams);
   const ref = { energyKwh: baseRun.summary.baselineKwh, co2Kg: baseRun.summary.baselineCo2Kg, cost: baseRun.summary.baselineKwh * priceOf(baseRun) };
@@ -129,14 +124,13 @@ export async function optimize(engine, body) {
     return pool.reduce((best, e) => (best === null || e.cand[obj.key] < best.cand[obj.key] - 1e-9 ? e : best), null);
   };
 
-  // 1) coarse grid
   const grid = plan(req.ranges, Math.min(COARSE_BUDGET, req.maxRuns - 40));
   for (const servers of grid.servers) {
     for (const headroom of grid.headroom) {
       for (const deferrableShare of grid.deferrableShare) await evaluate({ servers, headroom, deferrableShare });
     }
   }
-  // 2) refine around the best feasible point (or the highest-SLA point when nothing is feasible)
+
   const nearest = (arr, v) => arr.reduce((i, x, j) => (Math.abs(x - v) < Math.abs(arr[i] - v) ? j : i), 0);
   let center = pick([...cache.values()]);
   if (!center) center = [...cache.values()].reduce((b, e) => (e.cand.slaPct > b.cand.slaPct ? e : b));
@@ -212,3 +206,4 @@ function explain(out, req) {
     + `(floor ${req.slaFloor}%). ${infeasible} of ${out.candidates.length} tried combinations were too risky for that floor: trimming servers or headroom `
     + `further saves more energy but starts missing demand.`;
 }
+

@@ -1,8 +1,8 @@
-// CSV export: one file with sections (inputs, summary, hourly). Pure builder + download helper.
+
 const cell = (v) => {
   if (v === null || v === undefined) return '';
   const s = Array.isArray(v) ? v.join(';') : String(v);
-  // Quote when needed; neutralise spreadsheet formula injection from user-controlled text
+
   const safe = /^[=+\-@]/.test(s) && isNaN(Number(s)) ? `'${s}` : s;
   return /[",\r\n]/.test(safe) ? `"${safe.replace(/"/g, '""')}"` : safe;
 };
@@ -61,3 +61,4 @@ export function exportCsv(result, inputs) {
   const start = (result?.summary?.period?.start || inputs?.startDate || 'run').toString();
   downloadText(`aura-simulation-${start}.csv`, buildCsv(result, inputs));
 }
+

@@ -1,8 +1,5 @@
 const config = require('../config');
 
-// Calls Agrani's FastAPI prediction service. Never throws — callers should
-// treat a null return as "no predictions available" and fall back gracefully,
-// per docs/api-contract.md.
 async function getPredictions(nSteps = 12) {
   const url = `${config.mlServiceUrl}/predict?n_steps=${nSteps}`;
   try {
@@ -23,3 +20,4 @@ async function getPredictions(nSteps = 12) {
 }
 
 module.exports = { getPredictions };
+

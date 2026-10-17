@@ -36,3 +36,4 @@ export default function EquivalentsCard({ result }) {
     </div>
   );
 }
+

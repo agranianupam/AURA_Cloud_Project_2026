@@ -12,7 +12,6 @@ const SPEEDS = [
 const fmtHour = (ts) => (ts ? ts.slice(0, 16).replace('T', ' ') : '');
 const n = (x, d = 0) => Number(x).toLocaleString('en-US', { maximumFractionDigits: d });
 
-// Replays a simulation hour by hour: which servers are on, what AURA decided, and the savings so far.
 export default function FleetReplay({ result, servers: serversProp }) {
   const hourly = useMemo(() => result?.hourly ?? [], [result]);
   const servers = serversProp ?? result?.params?.servers ?? Math.max(1, ...hourly.map((h) => h.serversOn));
@@ -21,7 +20,6 @@ export default function FleetReplay({ result, servers: serversProp }) {
   const [speed, setSpeed] = useState(1);
   const last = hourly.length - 1;
 
-  // A new run starts a fresh replay.
   const [seen, setSeen] = useState(result);
   if (seen !== result) {
     setSeen(result);
@@ -43,7 +41,6 @@ export default function FleetReplay({ result, servers: serversProp }) {
     return () => clearInterval(t);
   }, [playing, speed, last]);
 
-  // Scaling decisions, derived from changes in servers on between consecutive hours.
   const events = useMemo(
     () =>
       hourly.flatMap((h, i) => {
@@ -54,7 +51,6 @@ export default function FleetReplay({ result, servers: serversProp }) {
     [hourly],
   );
 
-  // Running totals up to and including the current hour.
   const totals = useMemo(() => {
     const out = [];
     hourly.forEach((h, i) => {
@@ -201,3 +197,4 @@ function Stat({ label, value, sub }) {
     </div>
   );
 }
+

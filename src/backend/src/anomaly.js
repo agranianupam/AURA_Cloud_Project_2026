@@ -1,10 +1,9 @@
-// Anomaly detection: flag hours where the measured load differs strongly from the LSTM forecast
-// (cooling fault, unplanned event, meter dropout) and merge them into incidents.
+
 import { EngineError } from './engine.js';
 
 const MAX_DAYS = 14;
-const K = { low: 4, medium: 3, high: 2.5 }; // sensitivity -> multiples of the robust sigma
-const MIN_REL = 0.2; // never flag deviations smaller than 20% of the forecast, whatever the noise level
+const K = { low: 4, medium: 3, high: 2.5 };
+const MIN_REL = 0.2;
 const INJECT_TYPES = ['spike', 'dropout'];
 
 const median = (xs) => {
@@ -16,13 +15,12 @@ const r2 = (x) => Math.round(x * 100) / 100;
 const isDate = (s) => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(s));
 const dayMs = 86400000;
 
-// Add a synthetic fault to the actual series (never to the forecast), and mark the affected points.
 export function injectFault(points, { type, start, hours = 3 }) {
   const withActual = points.map((p, i) => [p, i]).filter(([p]) => p.actualKw != null);
   if (!withActual.length) return points;
   let first = start ? points.findIndex((p) => p.ts.slice(0, 13) === start.slice(0, 13)) : -1;
   if (first < 0) {
-    // default: 13:00 on the middle day, when load is normally high enough for a fault to matter
+
     const day = points[Math.floor(points.length / 48) * 24]?.ts.slice(0, 10) ?? points[0].ts.slice(0, 10);
     first = points.findIndex((p) => p.ts.startsWith(`${day}T13`));
     if (first < 0) first = withActual[Math.floor(withActual.length / 2)][1];
@@ -34,7 +32,6 @@ export function injectFault(points, { type, start, hours = 3 }) {
   });
 }
 
-// points: [{ts, forecastKw, actualKw|null}] hourly, sorted. Pure function: no I/O.
 export function detect(points, { sensitivity = 'medium' } = {}) {
   const k = K[sensitivity] ?? K.medium;
   const known = points.filter((p) => p.actualKw != null && p.forecastKw != null);
@@ -143,3 +140,4 @@ export async function analyze(engine, body) {
   result.summary.injected = req.inject ? { ...req.inject, synthetic: true, hoursAffected: series.filter((p) => p.synthetic).length } : null;
   return { ...result, params: { startDate: req.startDate, endDate: req.endDate, uploadId: req.uploadId ?? null, sensitivity: req.sensitivity }, warnings };
 }
+

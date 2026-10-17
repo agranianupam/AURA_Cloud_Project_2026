@@ -51,3 +51,4 @@ test('report html is A4, escapes text, contains required sections', () => {
   for (const t of ['Scenario inputs', 'Simulated estimates', 'Accuracy and uncertainty', 'Caveats', 'Everyday equivalents']) assert.match(html, new RegExp(t));
   assert.match(html, /MAPE 20\.5%/);
 });
+

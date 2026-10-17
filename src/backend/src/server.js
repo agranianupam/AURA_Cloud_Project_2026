@@ -32,3 +32,4 @@ createApp({ store, engine, auth, corsOrigin: CORS_ORIGIN }).listen(Number(PORT),
   const source = DYNAMODB_TABLE ? `DynamoDB table ${DYNAMODB_TABLE}` : DATA_DIR;
   console.log(`AURA API on http://localhost:${PORT} (data: ${source})`);
 });
+

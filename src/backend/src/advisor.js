@@ -1,6 +1,3 @@
-// "Run now or later?" carbon advisor. Finds the cleanest window for a job in the next 24-48 h using the
-// UK National Grid Carbon Intensity forecast (free, no key). Called from the backend only, cached, with a
-// timeout, and falls back to a bundled typical 24 h profile when the API is unreachable.
 
 export const DEFAULT_BASE_URL = 'https://api.carbonintensity.org.uk';
 const SLOT_MS = 30 * 60 * 1000;
@@ -9,7 +6,6 @@ const CACHE_TTL_MS = 10 * 60 * 1000;
 const TIMEOUT_MS = 8000;
 const MAX_WINDOW_H = 48;
 
-// Typical weekday shape (gCO2/kWh by UTC hour), the "medium" profile used by the simulator. Offline fallback only.
 export const PROFILE = [
   505, 500, 495, 490, 490, 495, 505, 495, 475, 455, 440, 430,
   425, 430, 440, 460, 490, 530, 560, 555, 545, 530, 520, 510,
@@ -24,7 +20,7 @@ export class AdvisorError extends Error {
 }
 
 const round = (v, d) => Math.round(v * 10 ** d) / 10 ** d;
-const isoMinute = (ms) => new Date(ms).toISOString().slice(0, 16) + 'Z'; // 2024-01-01T12:30Z, the API's format
+const isoMinute = (ms) => new Date(ms).toISOString().slice(0, 16) + 'Z';
 
 export function parseRequest(body) {
   if (body === null || typeof body !== 'object' || Array.isArray(body)) throw new AdvisorError('request body must be a JSON object');
@@ -49,7 +45,6 @@ export function parseRequest(body) {
   return { durationHours, powerKw, windowHours, deadline };
 }
 
-// Normalise the API payload to [{start (ms), intensity}] on a 30-minute grid, sorted, de-duplicated.
 export function normalise(payload) {
   const rows = Array.isArray(payload?.data) ? payload.data : [];
   const bySlot = new Map();
@@ -61,7 +56,6 @@ export function normalise(payload) {
   return [...bySlot].sort((a, b) => a[0] - b[0]).map(([start, intensity]) => ({ start, intensity }));
 }
 
-// Average intensity over [s, s+dur) for a piecewise-constant half-hourly series (time-weighted).
 function avgIntensity(slots, i0, s, durMs) {
   let acc = 0;
   const end = s + durMs;
@@ -73,7 +67,6 @@ function avgIntensity(slots, i0, s, durMs) {
   return acc / durMs;
 }
 
-// Pure search. slots: normalised series starting at "now"'s slot. Returns the response body minus source metadata.
 export function findWindow(slots, { durationHours, powerKw, windowHours, deadline }) {
   if (slots.length < 2) throw new AdvisorError('no carbon forecast data available', undefined, 503);
   const durMs = durationHours * HOUR_MS;
@@ -92,7 +85,7 @@ export function findWindow(slots, { durationHours, powerKw, windowHours, deadlin
     const avg = avgIntensity(slots, i, slots[i].start, durMs);
     const c = { start: slots[i].start, avg };
     if (i === 0) now = c;
-    if (!best || avg < best.avg - 1e-9) best = c; // earliest start wins ties
+    if (!best || avg < best.avg - 1e-9) best = c;
   }
   const co2 = (c) => (kwh * c.avg) / 1000;
   const bestKg = co2(best);
@@ -109,7 +102,6 @@ export function findWindow(slots, { durationHours, powerKw, windowHours, deadlin
   };
 }
 
-// Offline series: the typical hourly profile tiled over 48 h from the current half-hour.
 export function profileSlots(t0) {
   return Array.from({ length: 96 }, (_, i) => {
     const start = t0 + i * SLOT_MS;
@@ -118,7 +110,7 @@ export function profileSlots(t0) {
 }
 
 export function createAdvisor({ fetchFn = globalThis.fetch, now = () => Date.now(), baseUrl = process.env.CARBON_API_BASE || DEFAULT_BASE_URL, ttlMs = CACHE_TTL_MS, timeoutMs = TIMEOUT_MS } = {}) {
-  const cache = new Map(); // from-slot -> { at, slots }
+  const cache = new Map();
 
   async function load(t0) {
     const key = `${baseUrl}|${isoMinute(t0)}`;
@@ -132,7 +124,7 @@ export function createAdvisor({ fetchFn = globalThis.fetch, now = () => Date.now
       if (slots.length < 4) throw new Error('carbon API returned too little data');
       const at = now();
       cache.set(key, { at, slots });
-      for (const [k, v] of cache) if (at - v.at > ttlMs) cache.delete(k); // keep the cache small
+      for (const [k, v] of cache) if (at - v.at > ttlMs) cache.delete(k);
       return { slots, fetchedAt: at, source: 'live', cached: false };
     } catch (err) {
       return { slots: profileSlots(t0), fetchedAt: now(), source: 'profile', cached: false, reason: err?.name === 'TimeoutError' ? 'timed out' : String(err?.message || err) };
@@ -143,7 +135,7 @@ export function createAdvisor({ fetchFn = globalThis.fetch, now = () => Date.now
     const req = parseRequest(body);
     const t0 = Math.floor(now() / SLOT_MS) * SLOT_MS;
     const { slots, fetchedAt, source, cached, reason } = await load(t0);
-    // The API may start a slot earlier than requested; the first slot at or after t0's slot is "now"
+
     const usable = slots.filter((s) => s.start >= t0);
     const result = findWindow(usable, req);
     return {
@@ -156,3 +148,4 @@ export function createAdvisor({ fetchFn = globalThis.fetch, now = () => Date.now
     };
   };
 }
+

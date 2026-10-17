@@ -16,7 +16,6 @@ for _p in [str(_task_dir), str(_task_dir.parent)]:
 
 predict_fn = None
 
-
 def _get_predict():
     global predict_fn
     if predict_fn is None:
@@ -26,14 +25,12 @@ def _get_predict():
         logger.info("Model loaded successfully.")
     return predict_fn
 
-
 _CORS_HEADERS = {
     "Access-Control-Allow-Origin":  os.getenv("ALLOWED_ORIGIN", "*"),
     "Access-Control-Allow-Headers": "Content-Type,Authorization",
     "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
     "Content-Type": "application/json",
 }
-
 
 def _ok(body: dict, status: int = 200) -> dict:
     return {
@@ -42,14 +39,12 @@ def _ok(body: dict, status: int = 200) -> dict:
         "body": json.dumps(body),
     }
 
-
 def _err(message: str, status: int = 500) -> dict:
     return {
         "statusCode": status,
         "headers": _CORS_HEADERS,
         "body": json.dumps({"error": message}),
     }
-
 
 def handler(event: dict, context) -> dict:
     http_method = event.get("httpMethod", "GET").upper()

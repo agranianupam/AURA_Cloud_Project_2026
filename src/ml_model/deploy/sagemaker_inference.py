@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 
 _MODEL_DIR = Path(os.getenv("SM_MODEL_DIR", "/opt/ml/model"))
 
-
 def model_fn(model_dir: str) -> dict:
     import tensorflow as tf
 
@@ -38,7 +37,6 @@ def model_fn(model_dir: str) -> dict:
 
     return {"model": model, "scaler": scaler}
 
-
 def input_fn(request_body: str, content_type: str = "application/json") -> dict:
     if content_type != "application/json":
         raise ValueError(f"Unsupported content type: {content_type}")
@@ -46,7 +44,6 @@ def input_fn(request_body: str, content_type: str = "application/json") -> dict:
     n_steps = int(data.get("n_steps", 12))
     n_steps = max(1, min(n_steps, 288))
     return {"n_steps": n_steps}
-
 
 def predict_fn(input_data: dict, model_artifacts: dict) -> list[dict]:
     from datetime import datetime, timedelta, timezone
@@ -95,10 +92,8 @@ def predict_fn(input_data: dict, model_artifacts: dict) -> list[dict]:
 
     return predictions
 
-
 def output_fn(predictions: list[dict], accept: str = "application/json") -> str:
     return json.dumps({"status": "ok", "predictions": predictions})
-
 
 def deploy_endpoint(
     s3_model_uri: str,
@@ -140,7 +135,6 @@ def deploy_endpoint(
     logger.info(f"Endpoint creation initiated: {endpoint_name}")
     return endpoint_name
 
-
 def delete_endpoint(endpoint_name: str = "aura-ml-endpoint") -> None:
     import boto3
 
@@ -158,7 +152,6 @@ def delete_endpoint(endpoint_name: str = "aura-ml-endpoint") -> None:
 
     logger.info(f"Endpoint {endpoint_name} deleted.")
 
-
 def test_endpoint(endpoint_name: str = "aura-ml-endpoint", n_steps: int = 12) -> None:
     import boto3
 
@@ -173,14 +166,12 @@ def test_endpoint(endpoint_name: str = "aura-ml-endpoint", n_steps: int = 12) ->
     result = json.loads(response["Body"].read())
     print(json.dumps(result, indent=2))
 
-
 def _get_tf_inference_image() -> str:
     region = os.getenv("AWS_REGION", "ap-south-1")
     return (
         f"763104351884.dkr.ecr.{region}.amazonaws.com/"
         "tensorflow-inference:2.15-cpu-py311-ubuntu20.04-sagemaker"
     )
-
 
 if __name__ == "__main__":
     import argparse

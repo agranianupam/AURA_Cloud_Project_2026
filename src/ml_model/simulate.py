@@ -33,27 +33,23 @@ import tensorflow as tf
 
 from predict import forecast
 
-# Data-center assumptions (documented in results/simulation/README.md)
 ASSUMPTIONS = {
-    "nodes_total": 48,              # static fleet size, sized so peak training-period demand fills it
-    "nodes_min": 4,                 # never scale below this (control plane, redundancy)
-    "node_idle_kw": 0.12,           # per-node power when on but idle (idle share 40% of peak)
-    "node_peak_kw": 0.30,           # per-node power at 100% utilisation
-    "pue": 1.5,                     # data-center power usage effectiveness (cooling overhead)
-    "headroom": 0.25,               # extra capacity above the forecast interactive demand (relative)
-    "buffer_nodes": 4,              # plus this many spare nodes, so quiet hours still absorb surprises
-    "batch_share": 0.20,            # deferrable share of each day's work
+    "nodes_total": 48,
+    "nodes_min": 4,
+    "node_idle_kw": 0.12,
+    "node_peak_kw": 0.30,
+    "pue": 1.5,
+    "headroom": 0.25,
+    "buffer_nodes": 4,
+    "batch_share": 0.20,
     "price_usd_per_kwh": 0.12,
     "instance_type": "c5.xlarge",
     "building_timezone": "Asia/Bangkok",
 }
-# Fallback hourly grid carbon intensity (gCO2/kWh, by local hour) when no --carbon file is given:
-# illustrative shape for a gas-heavy grid with daytime solar, averaging ~0.49 kgCO2/kWh.
 CARBON_PROFILE = [
     505, 500, 495, 490, 490, 495, 505, 495, 475, 455, 440, 430,
     425, 430, 440, 460, 490, 530, 560, 555, 545, 530, 520, 510,
 ]
-
 
 def plan_day(fc_interactive, ci, batch_nodehours, a, shift=True):
     """Choose nodes per hour from the forecast and place batch work in the cleanest hours with room.
@@ -75,11 +71,9 @@ def plan_day(fc_interactive, ci, batch_nodehours, a, shift=True):
     nodes = np.clip(np.ceil(need + batch), a["nodes_min"], n_total)
     return nodes, batch, remaining
 
-
 def power_kw(nodes_on, work_nodes, a):
     dyn = a["node_peak_kw"] - a["node_idle_kw"]
     return (nodes_on * a["node_idle_kw"] + work_nodes * dyn) * a["pue"]
-
 
 def load_carbon(path, index, tz):
     """Hourly carbon intensity aligned to the building's local timestamps (file is UTC)."""
@@ -91,7 +85,6 @@ def load_carbon(path, index, tz):
     if aligned.isna().any():
         raise SystemExit(f"{path} does not cover {aligned.isna().sum()} simulated hours")
     return aligned, os.path.basename(path)
-
 
 def replay(days, hourly, forecast_fn, carbon, a, to_nodes, usual_mae, shift=True, actual_factor=None, forecast_factor=None):
     """Replay the forecast-driven allocation day by day.
@@ -105,7 +98,7 @@ def replay(days, hourly, forecast_fn, carbon, a, to_nodes, usual_mae, shift=True
         if actual_kw.isna().any():
             backlog = 0.0
             skipped.append((day, "gap in the record"))
-            continue  # skip days with gaps in the record
+            continue
         try:
             fc = forecast_fn(day)
         except ValueError as exc:
@@ -120,14 +113,13 @@ def replay(days, hourly, forecast_fn, carbon, a, to_nodes, usual_mae, shift=True
         ci_day = carbon.reindex(actual_kw.index).to_numpy()
         backtest += [(t, float(x), float(p)) for t, x, p in zip(actual_kw.index, actual_kw, fc_kw)]
 
-        demand = actual_kw.to_numpy() * to_nodes                  # actual work, node units
+        demand = actual_kw.to_numpy() * to_nodes
         fc_demand = fc_kw * to_nodes
         fc_interactive = (1 - a["batch_share"]) * fc_demand
         nodes, planned_batch, unplaced = plan_day(
             fc_interactive, ci_day, a["batch_share"] * fc_demand.sum(), a, shift=shift
         )
         act_interactive = (1 - a["batch_share"]) * demand
-        # Batch jobs actually submitted today: the real batch share, released on the planned slots
         released = planned_batch * (a["batch_share"] * demand.sum()) / max(planned_batch.sum(), 1e-9)
 
         for h, t in enumerate(actual_kw.index):
@@ -204,7 +196,6 @@ def replay(days, hourly, forecast_fn, carbon, a, to_nodes, usual_mae, shift=True
 
     return {"rows": rows, "alerts": alerts, "backtest": backtest, "backlog": backlog, "skipped": skipped}
 
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default="dataset/processed/cubems_building_15min.csv")
@@ -231,8 +222,6 @@ def main():
     usual_mae = model_metrics["test"]["lstm"]["mae_kw"]
 
     hourly = raw["total_kw"].resample("1h").mean()
-    # Demand in node units: the fleet is sized so that peak training-period load fills every node
-    # (training period only, so neither validation nor test data leaks into the sizing)
     ref_kw = hourly[hourly.index <= pd.Timestamp(train_end)].max()
     to_nodes = a["nodes_total"] / ref_kw
 
@@ -285,7 +274,7 @@ def main():
         {"resourceId": "aura-lstm-endpoint", "service": "Amazon SageMaker", "status": "Running", "capacity": "ml.t2.medium"},
     ]
     alerts.sort(key=lambda x: x["timestamp"], reverse=True)
-    next_fc = forecast(raw, model, bundle)  # next day from the end of the record, for the forecast panel
+    next_fc = forecast(raw, model, bundle)
 
     def dump(name, obj):
         with open(os.path.join(args.out, name), "w") as f:
@@ -328,7 +317,6 @@ def main():
     fig.savefig(os.path.join(args.out, "simulation.png"), dpi=120)
     print(json.dumps(summary, indent=2))
     print(f"{len(alerts)} alerts; wrote {args.out}" + (f" and {args.backtest}" if args.backtest else ""))
-
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,4 @@
-// Talk to AURA: turns a plain-English request into simulate inputs.
-// With ANTHROPIC_API_KEY / GEMINI_API_KEY the model extracts the parameters; without a key (or on any AI error)
-// the rule-based parser below does it, so the feature always works offline.
+
 import { askClaude, askGemini } from './explain.js';
 
 export const DATA_MIN = '2018-07-15';
@@ -19,10 +17,9 @@ const daysBetween = (a, b) => Math.round((new Date(`${b}T00:00:00Z`) - new Date(
 const isDate = (s) => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(s));
 const num = (x) => (x === '' || x === null || x === undefined ? NaN : Number(x));
 const monthIdx = (name) => MONTHS.indexOf(name.slice(0, 3));
-// Data covers Jul 2018 - Oct 2019: a month with no year means 2019 when 2019 has data for it, else 2018.
+
 const guessYear = (mon, y) => y ?? (mon <= 9 ? 2019 : 2018);
 
-// Clamp whatever a parser/model produced to the ranges the engine enforces. Corrections go to `notes`.
 export function sanitize(raw = {}) {
   const params = {};
   const notes = [];
@@ -92,7 +89,7 @@ function parseDates(t, understood, assumptions) {
     return { startDate: a, endDate: b };
   }
   const sep = '\\s*(?:-|–|to|until|through|till)\\s*';
-  // "5 aug to 12 aug 2019", "5-12 aug"
+
   let m = t.match(new RegExp(`\\b${DAY_RE}\\s*(?:${MONTH_RE})?${sep}${DAY_RE}\\s+${MONTH_RE}(?:\\s*,?\\s*(\\d{4}))?`));
   if (m) {
     const mon2 = monthIdx(m[4]);
@@ -104,7 +101,7 @@ function parseDates(t, understood, assumptions) {
     yearNote(y, m[5]);
     return { startDate: a, endDate: b };
   }
-  // "aug 5 - aug 12", "march 3 to 9 2019"
+
   m = t.match(new RegExp(`\\b${MONTH_RE}\\s+${DAY_RE}${sep}(?:${MONTH_RE}\\s+)?${DAY_RE}(?:\\s*,?\\s*(\\d{4}))?`));
   if (m) {
     const mon1 = monthIdx(m[1]);
@@ -116,7 +113,7 @@ function parseDates(t, understood, assumptions) {
     yearNote(y, m[5]);
     return { startDate: a, endDate: b };
   }
-  // single start date, optional duration: "5 aug for 10 days"
+
   m = t.match(new RegExp(`\\b${DAY_RE}\\s+${MONTH_RE}(?:\\s*,?\\s*(\\d{4}))?|\\b${MONTH_RE}\\s+${DAY_RE}(?:\\s*,?\\s*(\\d{4}))?`));
   if (m) {
     const [dd, mm, yy] = m[1] ? [m[1], m[2], m[3]] : [m[5], m[4], m[6]];
@@ -130,7 +127,7 @@ function parseDates(t, understood, assumptions) {
     if (!dur) assumptions.push('No length given, so I used 7 days.');
     return { startDate: a, endDate: addDays(a, n - 1) };
   }
-  // whole month: "in september", "march 2019"
+
   m = t.match(new RegExp(`\\b${MONTH_RE}(?:\\s*,?\\s*(\\d{4}))?\\b`));
   if (m && !(m[1] === 'may' && !/\bin may\b|\bmay \d{4}\b|\bof may\b|\bduring may\b/.test(t))) {
     const mon = monthIdx(m[1]);
@@ -250,3 +247,4 @@ export async function parseRequest(text) {
     return { ...rules, note: `AI unavailable (${e.message}); used the built-in parser.` };
   }
 }
+

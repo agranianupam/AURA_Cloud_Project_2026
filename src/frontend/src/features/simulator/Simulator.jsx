@@ -19,10 +19,9 @@ export default function Simulator() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
-  const [run, setRun] = useState(null); // { result, inputs, source }
+  const [run, setRun] = useState(null);
   const [scenarios, setScenarios] = useState(loadScenarios);
 
-  // Share the latest run with the Allocation page's fleet replay.
   useEffect(() => {
     if (run) saveLatestRun(run);
   }, [run]);
@@ -32,7 +31,6 @@ export default function Simulator() {
     storeScenarios(list);
   };
 
-  // `fromAgent` = a values object from Talk to AURA: fill the form, run it, and auto-open the explanation.
   const runSim = async (fromAgent) => {
     const vals = fromAgent?.servers !== undefined ? fromAgent : values;
     const auto = vals === fromAgent;
@@ -109,3 +107,4 @@ export default function Simulator() {
     </div>
   );
 }
+

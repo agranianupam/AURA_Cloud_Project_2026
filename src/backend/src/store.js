@@ -1,7 +1,4 @@
-// Data access for the dashboard datasets produced by src/ml_model/simulate.py.
-// FileStore reads the JSON files directly (local dev).
-// DynamoStore reads the single-table layout used on AWS: table AURA, partition key `type`, sort key `id`,
-// one item per record (see itemsFor below and scripts/seed-dynamodb.js).
+
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -19,7 +16,6 @@ function dataset(name) {
   return ds;
 }
 
-// Sort keys: ISO timestamps keep energy and alerts in time order; the suffix keeps same-time alerts distinct.
 export function itemsFor(name, data) {
   const { type, single } = dataset(name);
   if (single) return [{ type, id: 'latest', ...data }];
@@ -75,3 +71,4 @@ export class DynamoStore {
     return single ? records[0] : records;
   }
 }
+

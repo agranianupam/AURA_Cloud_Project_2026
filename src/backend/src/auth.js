@@ -1,5 +1,4 @@
-// Verifies Cognito ID tokens sent by the dashboard as "Authorization: Bearer <token>".
-// With no user pool configured, auth is disabled so the API can be run locally against the mock-free dashboard.
+
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
 
 export function cognitoAuth({ userPoolId, clientId } = {}) {
@@ -20,3 +19,4 @@ export function cognitoAuth({ userPoolId, clientId } = {}) {
     }
   };
 }
+

@@ -16,7 +16,7 @@ export function storeScenarios(list) {
   try {
     localStorage.setItem(KEY, JSON.stringify(list));
   } catch {
-    /* storage unavailable: scenarios stay in memory only */
+
   }
 }
 
@@ -82,3 +82,4 @@ export default function ScenarioCompare({ scenarios, onRemove, onClear }) {
     </div>
   );
 }
+
