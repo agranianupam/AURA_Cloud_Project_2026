@@ -12,7 +12,10 @@ export default function ComparisonChart() {
   if (error) return <ErrorBox error={error} onRetry={reload} />;
   if (!data?.length) return <Empty message="No energy metrics available yet." />;
 
-  const formattedData = data.map(d => ({ ...d, time: new Date(d.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }));
+  // Key the x-axis on the full timestamp: time-of-day labels repeat across days,
+  // which makes Recharts snap the hover dots to the first matching day.
+  const formatTime = (ts) => new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const formatDateTime = (ts) => new Date(ts).toLocaleString([], { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
   const isEnergy = viewMode === 'energy';
 
   return (
@@ -30,12 +33,12 @@ export default function ComparisonChart() {
 
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={formattedData}>
+          <ComposedChart data={data}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-            <XAxis dataKey="time" tick={{ fontSize: 12, fill: '#6B7280' }} minTickGap={30} />
+            <XAxis dataKey="timestamp" tickFormatter={formatTime} tick={{ fontSize: 12, fill: '#6B7280' }} minTickGap={30} />
             <YAxis yAxisId="left" tick={{ fontSize: 12, fill: '#6B7280' }} width={48} />
             <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 12, fill: '#10B981' }} width={40} />
-            <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
+            <Tooltip labelFormatter={formatDateTime} contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
             <Legend verticalAlign="top" height={36}/>
             <Area yAxisId="right" type="step" dataKey="carbonIntensity" fill="#D1FAE5" stroke="#10B981" fillOpacity={0.2} name="Grid CI (gCO2/kWh)" />
             <Line yAxisId="left" type="monotone" dataKey={isEnergy ? 'baselineEnergyKwh' : 'baselineCarbonGco2'} name={isEnergy ? "Baseline (kWh)" : "Baseline (gCO2)"} stroke="#9CA3AF" strokeWidth={2} strokeDasharray="5 5" dot={false} />

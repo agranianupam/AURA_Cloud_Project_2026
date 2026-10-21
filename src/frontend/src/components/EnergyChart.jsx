@@ -11,18 +11,21 @@ export default function EnergyChart() {
   if (error) return <ErrorBox error={error} onRetry={reload} />;
   if (!data?.length) return <Empty message="No energy metrics available yet." />;
 
-  const formattedData = data.map(d => ({ ...d, time: new Date(d.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }));
+  // Key the x-axis on the full timestamp: time-of-day labels repeat across days,
+  // which makes Recharts snap the hover dot to the first matching day.
+  const formatTime = (ts) => new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const formatDateTime = (ts) => new Date(ts).toLocaleString([], { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 
   return (
     <div className="bg-white p-4 items-stretch rounded-xl shadow-sm h-full w-full">
       <h3 className="text-lg font-semibold mb-4 text-gray-800">Energy Consumption Over Time</h3>
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={formattedData}>
+          <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-            <XAxis dataKey="time" tick={{ fontSize: 12, fill: '#6B7280' }} minTickGap={30} />
+            <XAxis dataKey="timestamp" tickFormatter={formatTime} tick={{ fontSize: 12, fill: '#6B7280' }} minTickGap={30} />
             <YAxis tick={{ fontSize: 12, fill: '#6B7280' }} width={48} />
-            <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
+            <Tooltip labelFormatter={formatDateTime} contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
             <Line type="monotone" dataKey="energyKwh" name="AURA Energy" stroke="#10B981" strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
           </LineChart>
         </ResponsiveContainer>
