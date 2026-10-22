@@ -18,6 +18,7 @@ export default function CsvUpload({ values, onResult }) {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [done, setDone] = useState(null);
 
   const send = async () => {
     const fileErr = checkCsvFile(file);
@@ -26,8 +27,12 @@ export default function CsvUpload({ values, onResult }) {
     if (Object.keys(formErr).length) return setError('Fix the server inputs above first: ' + Object.values(formErr)[0]);
     setLoading(true);
     setError(null);
+    setDone(null);
     try {
-      onResult(await uploadCsv(file, values));
+      const result = await uploadCsv(file, values);
+      onResult(result);
+      setDone(`Done: simulated ${result.hourly?.length ?? 0} hours from ${file.name}. Results are shown above.`);
+      setTimeout(() => document.getElementById('upload-results')?.scrollIntoView({ behavior: 'smooth' }), 100);
     } catch (e) {
       setError(toMessage(e).message);
     } finally {
@@ -69,6 +74,12 @@ export default function CsvUpload({ values, onResult }) {
           {loading ? 'Analysing…' : '2. Upload and run'}
         </button>
       </div>
+      {done && (
+        <div className="text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg p-3">
+          {done}{' '}
+          <button className="underline font-medium" onClick={() => document.getElementById('upload-results')?.scrollIntoView({ behavior: 'smooth' })}>View results</button>
+        </div>
+      )}
       {error && (
         <div role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-3">
           {error}

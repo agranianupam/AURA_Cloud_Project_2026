@@ -25,6 +25,11 @@ export default function Login({ onLogin }) {
         navigate('/overview');
       }
     } catch (err) {
+      if (err.name === 'UserAlreadyAuthenticatedException') {
+        onLogin(email);
+        navigate('/overview');
+        return;
+      }
       setError(err.message || 'Error signing in');
       setLoading(false);
     }

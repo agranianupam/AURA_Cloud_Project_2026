@@ -10,7 +10,7 @@ const FIELDS = [
   { key: 'endDate', label: 'End date', type: 'date', min: DATA_MIN, max: DATA_MAX, help: 'Last day to simulate (up to 31 days).' },
   { key: 'servers', label: 'Servers', type: 'number', min: 1, max: 1000, step: 1, help: 'How many servers your lab or campus runs (1-1000).' },
   { key: 'idleWatts', label: 'Idle power (W)', type: 'number', min: 10, max: 500, step: 5, help: 'Watts one server draws when switched on but doing nothing.' },
-  { key: 'peakWatts', label: 'Peak power (W)', type: 'number', min: 11, max: 1500, step: 5, help: 'Watts one server draws at full load. Must exceed idle power.' },
+  { key: 'peakWatts', label: 'Peak power (W)', type: 'number', min: 15, max: 1500, step: 5, help: 'Watts one server draws at full load. Must exceed idle power.' },
   { key: 'deferrableShare', label: 'Flexible workload', type: 'number', min: 0, max: 1, step: 0.05, help: 'Share of work that can wait (0-1), e.g. 0.3 = 30% can run later at greener hours.' },
 ];
 export const GRIDS = [

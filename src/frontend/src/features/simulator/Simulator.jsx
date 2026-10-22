@@ -75,7 +75,7 @@ export default function Simulator() {
       )}
       {run && (
         <>
-          {run.source === 'upload' && <p className="text-sm text-yellow-800">Showing results for your uploaded CSV (experimental).</p>}
+          {run.source === 'upload' && <p id="upload-results" className="text-sm text-yellow-800 scroll-mt-20">Showing results for your uploaded CSV (experimental).</p>}
           <Results
             result={run.result}
             onSave={save}

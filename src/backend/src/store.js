@@ -21,7 +21,7 @@ export function itemsFor(name, data) {
   if (single) return [{ type, id: 'latest', ...data }];
   if (name === 'energy') return data.map((r) => ({ type, id: r.timestamp, ...r }));
   if (name === 'allocations') return data.map((r) => ({ type, id: r.resourceId, ...r }));
-  return data.map((r, i) => ({ type, id: `${r.timestamp}#${String(i).padStart(5, '0')}`, ...r }));
+  return data.map(({ type: alertType, ...r }, i) => ({ ...r, alertType, type, id: `${r.timestamp}#${String(i).padStart(5, '0')}` }));
 }
 
 export class FileStore {
@@ -67,7 +67,7 @@ export class DynamoStore {
     if (!items.length) {
       throw Object.assign(new Error(`no ${type} items in ${this.tableName}`), { code: 'ENOENT' });
     }
-    const records = items.map(({ type: _t, id: _id, ...rest }) => rest);
+    const records = items.map(({ type: _t, id: _id, alertType, ...rest }) => (alertType ? { ...rest, type: alertType } : rest));
     return single ? records[0] : records;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './layout/Layout';
 import Overview from './pages/Overview';
@@ -12,7 +12,7 @@ import Login from './pages/Login';
 import { PrefsProvider } from './hooks/usePrefs';
 import { ToastProvider } from './components/Toast';
 import { Amplify } from 'aws-amplify';
-import { signOut } from 'aws-amplify/auth';
+import { signOut, getCurrentUser } from 'aws-amplify/auth';
 
 Amplify.configure({
   Auth: {
@@ -25,6 +25,15 @@ Amplify.configure({
 
 function App() {
   const [user, setUser] = useState(null);
+  const [checking, setChecking] = useState(import.meta.env.VITE_USE_MOCK !== "true" && import.meta.env.VITE_AUTH_DISABLED !== "true");
+
+  useEffect(() => {
+    if (!checking) return;
+    getCurrentUser()
+      .then((u) => setUser(u.signInDetails?.loginId || u.username))
+      .catch(() => {})
+      .finally(() => setChecking(false));
+  }, []);
 
   const handleLogout = async () => {
     if (import.meta.env.VITE_USE_MOCK !== "true") {
@@ -34,6 +43,8 @@ function App() {
   };
 
   const allowed = user || import.meta.env.VITE_USE_MOCK === "true" || import.meta.env.VITE_AUTH_DISABLED === "true";
+
+  if (checking) return null;
 
   return (
     <PrefsProvider>
